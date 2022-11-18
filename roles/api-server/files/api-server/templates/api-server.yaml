@@ -185,6 +185,10 @@ metadata:
     cert-manager.io/cluster-issuer: "{{ .Values.api.certManagerClusterIssuer }}"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.api.ingressDNS }}
+    secretName: api-server-tls
   rules:
   - host: {{ .Values.api.ingressDNS }}
     http:

@@ -61,6 +61,10 @@ metadata:
     cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer }}"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ console_ingress_dns }}
+    secretName: console-tls
   rules:
   - host: {{ console_ingress_dns }}
     http:
