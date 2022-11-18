@@ -24,7 +24,7 @@
   include_role:
     name: ansible-common/roles/helm-chart
   vars:
-    helm_chart_custom_folder: "{{ playbook_dir }}/roles/api-server/files/api-server"
+    helm_chart_custom_folder: "{{ ansible_parent_role_paths[0] }}/files/api-server"
     helm_chart: "./api-server"
     helm_release_name: api-server
     helm_target_namespace: "{{ api_server_namespace }}"
