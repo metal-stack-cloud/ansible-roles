@@ -184,7 +184,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: api.{{ .Values.api.ingressDNS }}
+  - host: {{ .Values.api.ingressDNS }}
     http:
       paths:
       - backend:
