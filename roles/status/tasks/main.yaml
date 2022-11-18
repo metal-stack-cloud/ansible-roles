@@ -10,9 +10,6 @@
       - metal_stack_cloud_status_image_name is defined
       - metal_stack_cloud_status_image_tag is defined
 
-status_image_name: ghcr.io/metal-stack-cloud/status
-status_image_tag: latest
-
 - name: Create namespace
   k8s:
     definition:
