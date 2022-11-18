@@ -38,7 +38,7 @@
       metadata:
         name: api-server-admin-token
       stringData:
-        token: "{{ api_server_jwt_token_secret | generate_jwt(roles=jwt_roles) }}"
+        token: "{{ api_server_jwt_token_secret | string | generate_jwt(roles=jwt_roles) }}"
     namespace: "{{ api_server_namespace }}"
     apply: yes
   vars:
