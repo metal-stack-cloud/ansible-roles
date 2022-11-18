@@ -14,7 +14,7 @@ api_server_azure_client_secret: "{{ lookup('env', 'AZ_CLIENT_SECRET') | default(
 api_server_stripe_secret_key: "{{ metal_stack_cloud_stripe_private_token }}"
 
 api_server_ingress_dns: "api.{{ metal_stack_cloud_ingress_dns }}"
-api_server_http_url: https://{{ metal_stack_cloud_ingress_dns }}
+api_server_http_url: https://api.{{ metal_stack_cloud_ingress_dns }}
 api_server_frontend_url: https://console.{{ metal_stack_cloud_ingress_dns }}
 
 api_server_masterdata_api_hostname: masterdata-api.metal-control-plane.svc.cluster.local
