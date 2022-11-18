@@ -3,7 +3,7 @@ status_namespace: "{{ metal_stack_cloud_namespace }}"
 status_replicas: 2
 
 status_api_url: https://api-server:9090
-status_server_url: http://status.{{ metal_stack_cloud_ingress_dns }}
+status_server_url: https://status.{{ metal_stack_cloud_ingress_dns }}
 
 status_log_level: info
 status_schedule:
