@@ -57,8 +57,10 @@ kind: Ingress
 metadata:
   name: console
   annotations:
-    kubernetes.io/ingress.class: nginx
+    # TODO: make individual variable for this role to configure ingress annotations
+    cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer }}"
 spec:
+  ingressClassName: nginx
   rules:
   - host: console.172.17.0.1.nip.io
     http:

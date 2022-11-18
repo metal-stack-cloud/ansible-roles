@@ -21,3 +21,7 @@ ingress:
   enabled: true
   hosts:
     - {{ auditing_ingress_domain }}
+
+# TODO: make individual variable for this role to configure ingress annotations
+  annotations:
+    cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer }}"

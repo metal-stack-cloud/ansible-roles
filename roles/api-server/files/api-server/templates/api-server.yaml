@@ -181,6 +181,8 @@ metadata:
   name: api-server-auth
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    # TODO: make individual variable for this role to configure ingress annotations
+    cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer }}"
 spec:
   ingressClassName: nginx
   rules:
