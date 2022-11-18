@@ -1,0 +1,60 @@
+---
+masterdata:
+  ca: |
+    A certificate
+    with multiple lines
+  cert: |
+    A certificate
+    with multiple lines
+  certKey: |
+    A certificate
+    with multiple lines
+  hostname: mastedata
+  port: 3000
+  hmac: secret-hmac
+
+gardener:
+  kubeconfig: ""
+
+auditing:
+  url: auditing
+  key: secret
+
+metal:
+  url: metal-api
+  hmac: secret-hmac
+
+frontend:
+  url: localhost
+
+api:
+  ingress_dns: ""
+  url: localhost
+  logLevel: info
+  replicas: 3
+  sessionSecret: secret
+  jwtTokenSecret: geheim
+  image:
+    name: ghcr.io/metal-stack-cloud/api-server
+    tag: latest
+  ca: |
+    A certificate
+    with multiple lines
+  cert: |
+    A certificate
+    with multiple lines
+  certKey: |
+    A certificate
+    with multiple lines
+
+  github:
+    clientID: client-id
+    clientSecret: client-secret
+  azure:
+    applicationID: app-id
+    clientSecret: client-secret
+
+  stripe:
+    secretKey: stripe-secret
+    configYaml: |
+      products: []

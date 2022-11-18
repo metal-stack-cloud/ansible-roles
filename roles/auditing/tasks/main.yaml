@@ -1,0 +1,43 @@
+---
+- name: Gather release versions
+  setup_yaml:
+
+- name: Check mandatory variables for this role are set
+  assert:
+    fail_msg: "not all mandatory variables given, check role documentation"
+    quiet: yes
+    that:
+      - metal_stack_cloud_meilisearch_helm_chart_version is defined
+      - metal_stack_cloud_meilisearch_helm_chart_repo is defined
+
+- name: Create namespace
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ auditing_namespace }}"
+        labels:
+          name: "{{ auditing_namespace }}"
+
+- name: Create meili secret
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: meili
+        namespace: "{{ auditing_namespace }}"
+      stringData:
+        MEILI_MASTER_KEY: "{{ auditing_secret }}"
+
+- name: Deploy meilisearch
+  include_role:
+    name: ansible-common/roles/helm-chart
+  vars:
+    helm_repo: "{{ metal_stack_cloud_meilisearch_helm_chart_repo }}"
+    helm_chart: meilisearch
+    helm_target_namespace: "{{ auditing_namespace }}"
+    helm_chart_version: "{{ metal_stack_cloud_meilisearch_helm_chart_version }}"
+    helm_release_name: meili
+    helm_value_file_template: "values.yaml"

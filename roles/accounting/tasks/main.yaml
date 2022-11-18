@@ -1,0 +1,36 @@
+---
+- name: Gather release versions
+  setup_yaml:
+
+- name: Check mandatory variables for this role are set
+  assert:
+    fail_msg: "not all mandatory variables given, check role documentation"
+    quiet: yes
+    that:
+      - metal_stack_cloud_accounting_sender_image_name is defined
+      - metal_stack_cloud_accounting_sender_image_tag is defined
+      - metal_stack_cloud_accounting_reporter_image_name is defined
+      - metal_stack_cloud_accounting_reporter_image_tag is defined
+      - metal_stack_cloud_nsq_image_name is defined
+      - metal_stack_cloud_nsq_image_tag is defined
+
+- name: Create namespace
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ accounting_namespace }}"
+        labels:
+          name: "{{ accounting_namespace }}"
+
+- name: Deploy nsq
+  k8s:
+    definition: "{{ lookup('template', 'nsq.yaml') }}"
+    namespace: "{{ accounting_namespace }}"
+
+- name: Deploy accounting
+  k8s:
+    definition: "{{ lookup('template', 'accounting.yaml') }}"
+    namespace: "{{ accounting_namespace }}"
+    apply: yes

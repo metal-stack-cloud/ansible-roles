@@ -1,0 +1,30 @@
+---
+- name: Gather release versions
+  setup_yaml:
+
+- name: Check mandatory variables for this role are set
+  assert:
+    fail_msg: "not all mandatory variables given, check role documentation"
+    quiet: yes
+    that:
+      - metal_stack_cloud_status_image_name is defined
+      - metal_stack_cloud_status_image_tag is defined
+
+status_image_name: ghcr.io/metal-stack-cloud/status
+status_image_tag: latest
+
+- name: Create namespace
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ status_namespace }}"
+        labels:
+          name: "{{ status_namespace }}"
+
+- name: Deploy status
+  k8s:
+    definition: "{{ lookup('template', 'status.yaml') }}"
+    namespace: "{{ status_namespace }}"
+    apply: yes

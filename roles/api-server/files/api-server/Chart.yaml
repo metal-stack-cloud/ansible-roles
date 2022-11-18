@@ -1,0 +1,6 @@
+---
+apiVersion: v1
+appVersion: "1.0"
+description: A Helm chart for deploying the metal stack cloud api-server in K8s
+name: api-server
+version: 0.1.0

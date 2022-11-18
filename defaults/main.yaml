@@ -1,0 +1,19 @@
+---
+metal_stack_cloud_release:
+  mapping:
+    metal_stack_cloud_api_server_image_tag: "docker-images.metal-stack-cloud.api-server.tag"
+    metal_stack_cloud_api_server_image_name: "docker-images.metal-stack.cloud.api-server.name"
+    metal_stack_cloud_console_image_tag: "docker-images.metal-stack-cloud.console.tag"
+    metal_stack_cloud_console_image_name: "docker-images.metal-stack.cloud.console.name"
+    metal_stack_cloud_status_image_tag: "docker-images.metal-stack-cloud.status.tag"
+    metal_stack_cloud_status_image_name: "docker-images.metal-stack.cloud.status.name"
+    metal_stack_cloud_accounting_sender_image_tag: "docker-images.metal-stack-cloud.accounting-sender.tag"
+    metal_stack_cloud_accounting_sender_image_name: "docker-images.metal-stack.cloud.accounting-sender.name"
+    metal_stack_cloud_accounting_reporter_image_tag: "docker-images.metal-stack-cloud.accounting-reporter.tag"
+    metal_stack_cloud_accounting_reporter_image_name: "docker-images.metal-stack.cloud.accounting-reporter.name"
+    # third party
+    metal_stack_cloud_nsq_image_tag: "docker-images.third-party.nsq.tag"
+    metal_stack_cloud_nsq_image_name: "docker-images.third-party.nsq.name"
+    # helm-charts
+    metal_stack_cloud_meilisearch_helm_chart_version: "helm-charts.third-party.meilisearch.version"
+    metal_stack_cloud_meilisearch_helm_chart_repo: "helm-charts.third-party.meilisearch.repository"

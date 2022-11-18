@@ -1,0 +1,47 @@
+---
+- name: Gather release versions
+  setup_yaml:
+
+- name: Check mandatory variables for this role are set
+  assert:
+    fail_msg: "not all mandatory variables given, check role documentation"
+    quiet: yes
+    that:
+      - metal_stack_cloud_api_server_image_name is defined
+      - metal_stack_cloud_api_server_image_tag is defined
+
+- name: Create namespace
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ api_server_namespace }}"
+        labels:
+          name: "{{ api_server_namespace }}"
+
+- name: Deploy api-server chart
+  include_role:
+    name: ansible-common/roles/helm-chart
+  vars:
+    helm_chart_custom_folder: "{{ playbook_dir }}/roles/api-server/files/api-server"
+    helm_chart: "./api-server"
+    helm_release_name: api-server
+    helm_target_namespace: "{{ api_server_namespace }}"
+    helm_value_file_template: values.yaml
+
+- name: Generate admin token
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: api-server-admin-token
+      stringData:
+        token: "{{ api_server_jwt_token_secret | generate_jwt(roles=jwt_roles) }}"
+    namespace: "{{ api_server_namespace }}"
+    apply: yes
+  vars:
+    jwt_roles:
+      "*": "admin"
+  when: not lookup('k8s', api_version='v1', kind='Secret', namespace=api_server_namespace, resource_name='api-server-admin-token')

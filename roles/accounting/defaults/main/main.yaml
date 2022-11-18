@@ -1,0 +1,33 @@
+---
+accounting_namespace: "{{ metal_stack_cloud_namespace }}"
+accounting_log_level: debug
+
+accounting_metal_api_url: http://metal-api.metal-control-plane.svc.cluster.local:8080/metal
+accounting_metal_api_hmac: metal-view
+
+accounting_masterdata_api_hostname: masterdata-api.metal-control-plane.svc.cluster.local
+accounting_masterdata_api_hmac: change-me
+accounting_masterdata_api_port: 8443
+
+accounting_nsqd_address: nsqd:4150
+
+accounting_nsq_set_resource_limits: true
+accounting_nsq_nsqd_resources:
+  requests:
+    memory: "32Mi"
+    cpu: "50m"
+  limits:
+    memory: "256Mi"
+    cpu: "1"
+accounting_nsq_nsq_lookupd_resources:
+  requests:
+    memory: "8Mi"
+    cpu: "20m"
+  limits:
+    memory: "100Mi"
+    cpu: "1"
+
+accounting_nsq_log_level: info
+accounting_nsq_nsqd_data_size: 100Mi
+
+accounting_nsq_image_pull_policy: IfNotPresent

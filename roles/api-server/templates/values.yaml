@@ -1,0 +1,55 @@
+---
+masterdata:
+  ca: |
+    {{ api_server_masterdata_api_ca | indent(width=4, first=false) }}
+  cert: |
+    {{ api_server_masterdata_api_cert | indent(width=4, first=false) }}
+  certKey: |
+    {{ api_server_masterdata_api_cert_key | indent(width=4, first=false) }}
+  hostname: "{{ api_server_masterdata_api_hostname }}"
+  port: "{{ api_server_masterdata_api_port }}"
+  hmac: "{{ api_server_masterdata_api_hmac }}"
+
+auditing:
+  url: "{{ api_server_auditing_url }}"
+  key: "{{ api_server_auditing_key }}"
+
+metal:
+  url: "{{ api_server_metal_api_url }}"
+  hmac: "{{ api_server_metal_api_hmac }}"
+
+frontend:
+  url: "{{ api_server_frontend_url }}"
+
+api:
+  ingressDNS: "{{ api_server_ingress_dns }}"
+  url: "{{ api_server_http_url }}"
+  logLevel: "{{ api_server_log_level }}"
+  replicas: "{{ api_server_replicas }}"
+  sessionSecret: "{{ api_server_session_secret }}"
+  jwtTokenSecret: "{{ api_server_jwt_token_secret }}"
+  image:
+    name: "{{ metal_stack_cloud_api_server_image_name }}"
+    tag: "{{ metal_stack_cloud_api_server_image_tag }}"
+  ca: |
+    {{ api_server_tls_ca | indent(width=4, first=false) }}
+  cert: |
+    {{ api_server_tls_cert | indent(width=4, first=false) }}
+  certKey: |
+    {{ api_server_tls_cert_key | indent(width=4, first=false) }}
+
+  github:
+    clientID: "{{ api_server_github_client_id }}"
+    clientSecret: "{{ api_server_github_client_secret }}"
+  azure:
+    applicationID: "{{ api_server_azure_application_id }}"
+    clientSecret: "{{ api_server_azure_client_secret }}"
+
+  stripe:
+    secretKey: "{{ api_server_stripe_secret_key }}"
+    configYaml: |
+      {{ api_server_stripe_config | indent(width=6, first=false) }}
+
+gardener:
+  kubeconfig: |
+    {{ api_server_gardener_kubeconfig | indent(width=4, first=false) }}

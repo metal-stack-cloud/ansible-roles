@@ -1,0 +1,101 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reporter-config
+data:
+  config.yaml: |
+    metal-api-url: {{ accounting_metal_api_url }}
+    metal-api-hmac: {{ accounting_metal_api_hmac }}
+    masterdata-api-hostname: {{ accounting_masterdata_api_hostname }}
+    masterdata-api-port: {{ accounting_masterdata_api_port }}
+    masterdata-api-hmac: {{ accounting_masterdata_api_hmac }}
+    stripe-account-token: {{ accounting_stripe_private_token }}
+    nsqd-addr: {{ accounting_nsqd_address }}
+    log-level: {{ accounting_log_level }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reporter-masterdata-api-certs
+type: Opaque
+stringData:
+  ca.pem: |
+    {{ accounting_masterdata_api_ca | indent(width=4, first=false) }}
+  cert.pem: |
+    {{ accounting_masterdata_api_cert | indent(width=4, first=false) }}
+  cert-key.pem: |
+    {{ accounting_masterdata_api_cert_key | indent(width=4, first=false) }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: accounting-reporter
+  name: accounting-reporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accounting-reporter
+  template:
+    metadata:
+      labels:
+        app: accounting-reporter
+    spec:
+      containers:
+      - image: {{ metal_stack_cloud_accounting_reporter_image_name }}:{{ metal_stack_cloud_accounting_reporter_image_tag }}
+        name: reporter
+        args:
+        - --config=/etc/accounting/reporter/config.yaml
+        volumeMounts:
+        - name: config
+          mountPath: /etc/accounting/reporter/
+        - name: masterdata-api-certs
+          mountPath: /certs/masterdata-api/
+      volumes:
+        - name: config
+          configMap:
+            name: reporter-config
+        - name: masterdata-api-certs
+          secret:
+            secretName: reporter-masterdata-api-certs
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sender-config
+data:
+  config.yaml: |
+    stripe-account-token: {{ accounting_stripe_private_token }}
+    nsqd-addr: {{ accounting_nsqd_address }}
+    log-level: {{ accounting_log_level }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: accounting-sender
+  name: accounting-sender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accounting-sender
+  template:
+    metadata:
+      labels:
+        app: accounting-sender
+    spec:
+      containers:
+      - image: {{ metal_stack_cloud_accounting_sender_image_name }}:{{ metal_stack_cloud_accounting_sender_image_tag }}
+        name: sender
+        args:
+        - --config=/etc/accounting/sender/config.yaml
+        volumeMounts:
+        - name: config
+          mountPath: /etc/accounting/sender/
+      volumes:
+        - name: config
+          configMap:
+            name: sender-config

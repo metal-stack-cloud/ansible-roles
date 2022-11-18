@@ -1,0 +1,145 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: status-config
+stringData:
+  config.yaml: |
+    server-url: {{ status_server_url }}
+    grpc-server-ca-path: /certs/ca.pem
+    grpc-server-cert-path: /certs/server.pem
+    grpc-server-key-path: /certs/server-key.pem
+    api-endpoint: {{ status_api_url }}
+    api-token: {{ status_api_token }}
+    api-ca-file: /api-certs/ca.pem
+    log-level: {{ status_log_level }}
+    chat-channel-id: {{ status_chat_channel_id }}
+    chat-token: {{ status_chat_token }}
+{% if status_schedule is not none %}
+    schedule: {{ status_schedule }}
+{% endif %}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: status-certs
+stringData:
+  ca.pem: |
+    {{ status_server_tls_ca | indent(width=4, first=false) }}
+  server.pem: |
+    {{ status_server_tls_cert | indent(width=4, first=false) }}
+  server-key.pem: |
+    {{ status_server_tls_cert_key | indent(width=4, first=false) }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: status-overrides
+data:
+  status-overrides.yaml: |
+    cluster:
+    machine:
+    postgres:
+    s3:
+    volume:
+    disconnected:
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: status-dashboard
+  labels:
+    app: status-dashboard
+spec:
+  replicas: {{ status_replicas }}
+  selector:
+    matchLabels:
+      app: status-dashboard
+  template:
+    metadata:
+      labels:
+        app: status-dashboard
+    spec:
+      enableServiceLinks: False
+      containers:
+      - name: status-dashboard
+        image: {{ metal_stack_cloud_status_image_name }}:{{ metal_stack_cloud_status_image_tag }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 2112
+          protocol: TCP
+        restartPolicy: Always
+        volumeMounts:
+        - mountPath: /etc/status
+          name: config
+          readOnly: true
+        - mountPath: /etc/status-overrides
+          name: overrides
+          readOnly: true
+        - name: certs
+          mountPath: /certs/
+          readOnly: true
+        - name: api-certs
+          mountPath: /api-certs/
+          readOnly: true
+      volumes:
+        - name: config
+          secret:
+            secretName: status-config
+        - name: overrides
+          configMap:
+            name: status-overrides
+        - name: certs
+          secret:
+            secretName: status-certs
+        - name: api-certs
+          secret:
+            secretName: api-certs
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: status-dashboard
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: status-dashboard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: status-dashboard
+  labels:
+    app: status-dashboard
+spec:
+  selector:
+    app: status-dashboard
+  ports:
+  - name: server
+    port: 8080
+    targetPort: 8080
+  - name: metrics
+    port: 2112
+    targetPort: 2112
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: status-dashboard
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: {{ status_ingress_dns }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: status-dashboard
+            port:
+              number: 8080

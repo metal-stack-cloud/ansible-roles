@@ -1,0 +1,23 @@
+---
+readinessProbe:
+  periodSeconds: 5
+  InitialDelaySeconds: 5
+
+livenessProbe:
+  periodSeconds: 5
+  InitialDelaySeconds: 5
+
+environment:
+  MEILI_NO_ANALYTICS: true
+  MEILI_ENV: development
+auth:
+  existingMasterKeySecret: "meili"
+
+persistence:
+  enabled: true
+  size: {{ auditing_size }}
+
+ingress:
+  enabled: true
+  hosts:
+    - {{ auditing_ingress_domain }}

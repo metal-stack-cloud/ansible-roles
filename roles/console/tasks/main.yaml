@@ -1,0 +1,27 @@
+---
+- name: Gather release versions
+  setup_yaml:
+
+- name: Check mandatory variables for this role are set
+  assert:
+    fail_msg: "not all mandatory variables given, check role documentation"
+    quiet: yes
+    that:
+      - metal_stack_cloud_console_image_tag is defined
+      - metal_stack_cloud_console_image_name is defined
+
+- name: Create namespace
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ console_namespace }}"
+        labels:
+          name: "{{ console_namespace }}"
+
+- name: Deploy console
+  k8s:
+    definition: "{{ lookup('template', 'console.yaml') }}"
+    namespace: "{{ console_namespace }}"
+    apply: yes
