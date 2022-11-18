@@ -29,6 +29,7 @@ frontend:
 
 api:
   ingress_dns: ""
+  certManagerClusterIssuer: ""
   url: localhost
   logLevel: info
   replicas: 3

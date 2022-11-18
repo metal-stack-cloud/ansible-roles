@@ -23,6 +23,7 @@ frontend:
 
 api:
   ingressDNS: "{{ api_server_ingress_dns }}"
+  certManagerClusterIssuer: "{{ cert_manager_cluster_issuer }}"
   url: "{{ api_server_http_url }}"
   logLevel: "{{ api_server_log_level }}"
   replicas: "{{ api_server_replicas }}"
