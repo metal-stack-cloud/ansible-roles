@@ -1,3 +1,6 @@
 ---
 metal_stack_cloud_namespace: metal-stack-cloud
 metal_stack_cloud_ingress_dns:
+
+metal_stack_cloud_stripe_private_token: "{{ lookup('env', 'STRIPE_SECRET_KEY') | default('', true) }}"
+metal_stack_cloud_stripe_public_token: "{{ lookup('env', 'STRIPE_PUBLIC_KEY') | default('', true) }}"
