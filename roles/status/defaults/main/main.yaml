@@ -9,6 +9,7 @@ status_log_level: info
 status_schedule:
 
 status_ingress_dns: status.{{ metal_stack_cloud_ingress_dns }}
+status_ingress_tls_enabled: false
 
 status_chat_channel_id: "{{ lookup('env', 'SLACK_CHANNEL_ID') | default('', true) }}"
 status_chat_token: "{{ lookup('env', 'SLACK_TOKEN') | default('', true) }}"

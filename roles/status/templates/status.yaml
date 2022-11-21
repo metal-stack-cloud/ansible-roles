@@ -129,15 +129,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: status-dashboard
-  annotations:
-    # TODO: make individual variable for this role to configure ingress annotations
-    cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer }}"
+  annotations: {{ status_ingress_annotations | to_json }}
 spec:
   ingressClassName: nginx
+{% if status_ingress_tls_enabled %}
   tls:
   - hosts:
     - {{ status_ingress_dns }}
     secretName: status-tls
+{% endif %}
   rules:
   - host: {{ status_ingress_dns }}
     http:
