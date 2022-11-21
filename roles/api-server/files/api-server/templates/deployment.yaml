@@ -52,6 +52,10 @@ spec:
 {{- else }}
           - --stage=DEV
 {{- end }}
+{{- if .Values.api.resources }}
+        resources:
+{{ toYaml .Values.api.resources | indent 10 }}
+{{- end }}
         volumeMounts:
         - name: api-certs
           mountPath: /api-certs/

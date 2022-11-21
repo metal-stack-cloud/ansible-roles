@@ -30,7 +30,7 @@ frontend:
 api:
   url: localhost
   logLevel: info
-  replicas: 3
+  replicas: 2
   sessionSecret: secret
   jwtTokenSecret: geheim
   image:
@@ -46,6 +46,16 @@ api:
     A certificate
     with multiple lines
 
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+
+  hpa:
+    enabled: true
+    maxReplicas: 5
+    minReplicas: 2
+    cpuPercentage:
+
   github:
     clientID: client-id
     clientSecret: client-secret
@@ -57,6 +67,14 @@ api:
     secretKey: stripe-secret
     configYaml: |
       products: []
+
+  resources:
+    requests:
+      memory: "200Mi"
+      cpu: "200m"
+    limits:
+      memory: "2Gi"
+      cpu: "2"
 
 ingress:
   enabled: true

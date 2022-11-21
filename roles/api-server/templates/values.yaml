@@ -22,8 +22,6 @@ frontend:
   url: "{{ api_server_frontend_url }}"
 
 api:
-  ingressDNS: "{{ api_server_ingress_dns }}"
-  certManagerClusterIssuer: "{{ cert_manager_cluster_issuer }}"
   url: "{{ api_server_http_url }}"
   logLevel: "{{ api_server_log_level }}"
   replicas: "{{ api_server_replicas }}"
@@ -38,6 +36,20 @@ api:
     {{ api_server_tls_cert | indent(width=4, first=false) }}
   certKey: |
     {{ api_server_tls_cert_key | indent(width=4, first=false) }}
+
+{% if api_server_resources %}
+  resources: {{ api_server_resources | to_json }}
+{% endif %}
+
+  podDisruptionBudget:
+    enabled: {{ api_server_pdb_enabled }}
+    minAvailable: {{ api_server_pdb_min_available }}
+
+  hpa:
+    enabled: {{ api_server_hpa_enabled }}
+    maxReplicas: {{ api_server_hpa_max }}
+    minReplicas: {{ api_server_hpa_min }}
+    cpuPercentage: {{ api_server_hpa_cpu_percentage }}
 
   github:
     clientID: "{{ api_server_github_client_id }}"
@@ -54,3 +66,11 @@ api:
 gardener:
   kubeconfig: |
     {{ api_server_gardener_kubeconfig | indent(width=4, first=false) }}
+
+ingress:
+  host: "{{ api_server_ingress_dns }}"
+{% if api_server_ingress_annotations %}
+  annotations: {{ api_server_ingress_annotations | to_json }}
+{% endif %}
+  tls:
+    enabled: {{ api_server_ingress_tls_enabled }}
