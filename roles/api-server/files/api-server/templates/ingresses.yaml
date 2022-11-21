@@ -1,0 +1,83 @@
+{{- if .Values.ingress.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-server
+  annotations:
+{{- if .Values.ingress.tls.enabled }}
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+{{- end }}
+{{- if .Values.ingress.annotations }}
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+{{- if .Values.ingress.tls.enabled }}
+  tls:
+  - hosts:
+    - {{ .Values.api.ingressDNS }}
+    secretName: api-server-tls
+{{- end }}
+  rules:
+  - host: {{ .Values.api.ingressDNS }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: api-server
+            port:
+              number: 9090
+        path: /api.v1
+        pathType: Prefix
+  - host: {{ .Values.api.ingressDNS }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: api-server
+            port:
+              number: 9090
+        path: /admin.v1
+        pathType: Prefix
+  - host: {{ .Values.api.ingressDNS }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: api-server
+            port:
+              number: 9090
+        path: /grpc.reflection.v1alpha
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-server-auth
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+{{- if .Values.ingress.annotations }}
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+{{- if .Values.ingress.tls.enabled }}
+  tls:
+  - hosts:
+    - {{ .Values.api.ingressDNS }}
+    secretName: api-server-tls
+{{- end }}
+  rules:
+  - host: {{ .Values.api.ingressDNS }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: api-server
+            port:
+              number: 8080
+        path: /auth
+        pathType: Prefix
+{{- end }}

@@ -28,8 +28,6 @@ frontend:
   url: localhost
 
 api:
-  ingress_dns: ""
-  certManagerClusterIssuer: ""
   url: localhost
   logLevel: info
   replicas: 3
@@ -59,3 +57,11 @@ api:
     secretKey: stripe-secret
     configYaml: |
       products: []
+
+ingress:
+  enabled: true
+  className: nginx
+  host: ""
+  annotations: {}
+  tls:
+    enabled: false
