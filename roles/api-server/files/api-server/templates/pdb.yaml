@@ -1,11 +1,11 @@
 {{- if .Values.api.podDisruptionBudget.enabled }}
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: cloud-status-dashboard
+  name: api-server
 spec:
-  minAvailable: {{- if .Values.api.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.api.podDisruptionBudget.minAvailable }}
   selector:
     matchLabels:
       app: api-server
