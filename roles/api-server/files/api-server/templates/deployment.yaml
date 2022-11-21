@@ -26,6 +26,7 @@ spec:
           - name: FRONT_END_URL
             value: "{{  .Values.frontend.url }}"
         args:
+          - serve
           - --log-level={{ .Values.api.logLevel }}
           - --grpc-server-endpoint=0.0.0.0:9090
           - --http-server-endpoint=0.0.0.0:8080

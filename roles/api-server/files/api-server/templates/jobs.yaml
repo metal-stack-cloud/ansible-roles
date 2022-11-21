@@ -20,14 +20,10 @@ spec:
             - name: SESSION_SECRET
               value: "{{ .Values.api.sessionSecret }}"
           args:
+            - setup-stripe
             - --log-level={{ .Values.api.logLevel }}
-            - --gh-client-id={{ .Values.api.github.clientID }}
-            - --gh-client-secret={{ .Values.api.github.clientSecret }}
-            - --az-application-id={{ .Values.api.azure.applicationID }}
-            - --az-client-secret={{ .Values.api.azure.clientSecret }}
             - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
             - --stripe-config-path=/app-config/stripe-config.yaml
-            - setup-stripe
           volumeMounts:
             - name: stripe-config
               mountPath: /app-config
