@@ -20,8 +20,8 @@ spec:
             - name: SESSION_SECRET
               value: "{{ .Values.api.sessionSecret }}"
           args:
-            - setup-stripe
             - --log-level={{ .Values.api.logLevel }}
+            - setup-stripe
             - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
             - --stripe-config-path=/app-config/stripe-config.yaml
           volumeMounts:

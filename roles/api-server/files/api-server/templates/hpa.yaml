@@ -3,7 +3,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: api-serverr
+  name: api-server
 spec:
   maxReplicas: {{ .Values.api.hpa.maxReplicas }}
   minReplicas: {{ .Values.api.hpa.minReplicas }}

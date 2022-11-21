@@ -15,6 +15,7 @@ api_server_stripe_secret_key: "{{ metal_stack_cloud_stripe_private_token }}"
 
 api_server_ingress_dns: "api.{{ metal_stack_cloud_ingress_dns }}"
 api_server_ingress_tls_enabled: true
+api_server_ingress_annotations:
 
 api_server_http_url: https://api.{{ metal_stack_cloud_ingress_dns }}
 api_server_frontend_url: https://console.{{ metal_stack_cloud_ingress_dns }}
@@ -42,3 +43,5 @@ api_server_hpa_enabled: true
 api_server_hpa_min: 2
 api_server_hpa_max: 5
 api_server_hpa_cpu_percentage: 70
+
+api_server_resources:

@@ -17,11 +17,11 @@ spec:
 {{- if .Values.ingress.tls.enabled }}
   tls:
   - hosts:
-    - {{ .Values.api.ingressDNS }}
+    - {{ .Values.ingress.host }}
     secretName: api-server-tls
 {{- end }}
   rules:
-  - host: {{ .Values.api.ingressDNS }}
+  - host: {{ .Values.ingress.host }}
     http:
       paths:
       - backend:
@@ -31,7 +31,7 @@ spec:
               number: 9090
         path: /api.v1
         pathType: Prefix
-  - host: {{ .Values.api.ingressDNS }}
+  - host: {{ .Values.ingress.host }}
     http:
       paths:
       - backend:
@@ -41,7 +41,7 @@ spec:
               number: 9090
         path: /admin.v1
         pathType: Prefix
-  - host: {{ .Values.api.ingressDNS }}
+  - host: {{ .Values.ingress.host }}
     http:
       paths:
       - backend:
@@ -66,11 +66,11 @@ spec:
 {{- if .Values.ingress.tls.enabled }}
   tls:
   - hosts:
-    - {{ .Values.api.ingressDNS }}
+    - {{ .Values.ingress.host }}
     secretName: api-server-tls
 {{- end }}
   rules:
-  - host: {{ .Values.api.ingressDNS }}
+  - host: {{ .Values.ingress.host }}
     http:
       paths:
       - backend:
