@@ -68,7 +68,9 @@ gardener:
     {{ api_server_gardener_kubeconfig | indent(width=4, first=false) }}
 
 ingress:
-  host: "{{ api_server_ingress_dns }}"
+  authHost: "{{ api_server_ingress_dns_auth }}"
+  grpcHost: "{{ api_server_ingress_dns_grpc }}"
+  grpcWebHost: "{{ api_server_ingress_dns_web_grpc }}"
 {% if api_server_ingress_annotations %}
   annotations: {{ api_server_ingress_annotations | to_json }}
 {% endif %}

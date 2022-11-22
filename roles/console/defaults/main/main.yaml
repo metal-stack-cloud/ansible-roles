@@ -2,7 +2,7 @@
 console_namespace: "{{ metal_stack_cloud_namespace }}"
 console_replicas: 3
 
-console_api_url: https://api.{{ metal_stack_cloud_ingress_dns }}
+console_api_url: https://grpc-web.{{ metal_stack_cloud_ingress_dns }}
 console_api_auth_callback_url: https://api.{{ metal_stack_cloud_ingress_dns }}/auth
 console_stripe_public_key: "{{ metal_stack_cloud_stripe_public_token }}"
 

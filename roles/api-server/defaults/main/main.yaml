@@ -13,7 +13,9 @@ api_server_azure_application_id: "{{ lookup('env', 'AZ_APPLICATION_ID') | defaul
 api_server_azure_client_secret: "{{ lookup('env', 'AZ_CLIENT_SECRET') | default('', true) }}"
 api_server_stripe_secret_key: "{{ metal_stack_cloud_stripe_private_token }}"
 
-api_server_ingress_dns: "api.{{ metal_stack_cloud_ingress_dns }}"
+api_server_ingress_dns_auth: "api.{{ metal_stack_cloud_ingress_dns }}"
+api_server_ingress_dns_grpc: "api.{{ metal_stack_cloud_ingress_dns }}"
+api_server_ingress_dns_web_grpc: "grpc-web.{{ metal_stack_cloud_ingress_dns }}"
 api_server_ingress_tls_enabled: true
 api_server_ingress_annotations:
 

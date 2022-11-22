@@ -36,15 +36,23 @@ api:
   image:
     name: ghcr.io/metal-stack-cloud/api-server
     tag: latest
-  ca: |
-    A certificate
-    with multiple lines
-  cert: |
-    A certificate
-    with multiple lines
-  certKey: |
-    A certificate
-    with multiple lines
+
+  ca:
+  # ca: |
+  #   A certificate
+  #   with multiple lines
+
+  # if not provided, it is expected that a secret with valid certs exist
+  # in a secret called api-server-tls
+  # (can also be deployed through cert-manager ingress annotation)
+  cert:
+  # cert: |
+  #   A certificate
+  #   with multiple lines
+  certKey:
+  # certKey: |
+  #   A certificate
+  #   with multiple lines
 
   podDisruptionBudget:
     enabled: true
@@ -79,7 +87,9 @@ api:
 ingress:
   enabled: true
   className: nginx
-  host: ""
+  authHost: ""
+  grpcHost: ""
+  grpcWebHost: ""
   annotations: {}
   tls:
     enabled: false
