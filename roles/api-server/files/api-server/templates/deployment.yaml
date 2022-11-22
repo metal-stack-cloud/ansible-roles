@@ -31,6 +31,7 @@ spec:
           - --grpc-server-endpoint=0.0.0.0:9090
           - --http-server-endpoint=0.0.0.0:8080
           - --server-http-url={{ .Values.api.url }}
+          - --server-grpc-host={{ .Values.api.grpcHost }}
           - --gh-client-id={{ .Values.api.github.clientID }}
           - --gh-client-secret={{ .Values.api.github.clientSecret }}
           - --az-application-id={{ .Values.api.azure.applicationID }}

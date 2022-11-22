@@ -29,6 +29,7 @@ frontend:
 
 api:
   url: localhost
+  grpcHost: localhost:9090
   logLevel: info
   replicas: 2
   sessionSecret: secret

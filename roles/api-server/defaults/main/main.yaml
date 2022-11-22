@@ -21,6 +21,7 @@ api_server_ingress_annotations:
 
 api_server_http_url: https://api.{{ metal_stack_cloud_ingress_dns }}
 api_server_frontend_url: https://console.{{ metal_stack_cloud_ingress_dns }}
+api_server_grpc_host: api.{{ metal_stack_cloud_ingress_dns }}
 
 api_server_masterdata_api_hostname: masterdata-api.metal-control-plane.svc.cluster.local
 api_server_masterdata_api_hmac: change-me

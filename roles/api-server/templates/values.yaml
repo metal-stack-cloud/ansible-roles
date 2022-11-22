@@ -23,6 +23,7 @@ frontend:
 
 api:
   url: "{{ api_server_http_url }}"
+  grpcHost: "{{ api_server_grpc_host }}"
   logLevel: "{{ api_server_log_level }}"
   replicas: "{{ api_server_replicas }}"
   sessionSecret: "{{ api_server_session_secret }}"
