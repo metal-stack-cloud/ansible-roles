@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-server-stripe-config
+  labels:
+    app: api-server
+data:
+  stripe-config: {{ quote .Values.api.stripe.configYaml }}

@@ -1,0 +1,3 @@
+window.API_URL = "{{ console_api_url }}"
+window.AUTH_CALLBACK = "{{ console_api_auth_callback_url }}"
+window.STRIPE_PUBLIC_KEY = "{{ console_stripe_public_key }}"
