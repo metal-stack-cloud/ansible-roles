@@ -48,7 +48,7 @@ spec:
   tls:
   - hosts:
     - {{ .Values.ingress.authHost }}
-    secretName: api-server-tls
+    secretName: api-server-auth-tls
 {{- end }}
   rules:
   - host: {{ .Values.ingress.authHost }}
@@ -81,7 +81,7 @@ spec:
   tls:
   - hosts:
     - {{ .Values.ingress.grpcWebHost }}
-    secretName: api-server-tls
+    secretName: api-server-grpc-web-tls
 {{- end }}
   rules:
   - host: {{ .Values.ingress.grpcWebHost }}
