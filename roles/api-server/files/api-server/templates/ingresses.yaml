@@ -8,8 +8,8 @@ metadata:
     # we will always terminate grpc at the api-server
     nginx.ingress.kubernetes.io/backend-protocol: "GRPCS"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-{{- if .Values.ingress.annotations }}
-{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{- if .Values.ingress.annotationsGrpc }}
+{{ toYaml .Values.ingress.annotationsGrpc | indent 4 }}
 {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}

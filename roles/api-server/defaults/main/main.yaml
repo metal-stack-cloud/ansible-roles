@@ -18,6 +18,7 @@ api_server_ingress_dns_grpc: "api.{{ metal_stack_cloud_ingress_dns }}"
 api_server_ingress_dns_web_grpc: "grpc-web.{{ metal_stack_cloud_ingress_dns }}"
 api_server_ingress_tls_enabled: true
 api_server_ingress_annotations:
+api_server_ingress_annotations_grpc:
 
 api_server_http_url: https://api.{{ metal_stack_cloud_ingress_dns }}
 api_server_frontend_url: https://console.{{ metal_stack_cloud_ingress_dns }}
