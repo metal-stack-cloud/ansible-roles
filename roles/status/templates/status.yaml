@@ -18,6 +18,10 @@ stringData:
     {{ status_server_tls_cert | indent(width=4, first=false) }}
   server-key.pem: |
     {{ status_server_tls_cert_key | indent(width=4, first=false) }}
+{% if status_api_ca_cert %}
+  api-ca.pem: |
+    {{ status_api_ca_cert | indent(width=4, first=false) }}
+{% endif %}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -71,9 +75,6 @@ spec:
         - name: certs
           mountPath: /certs/
           readOnly: true
-        - name: api-certs
-          mountPath: /api-certs/
-          readOnly: true
       volumes:
         - name: config
           secret:
@@ -84,9 +85,6 @@ spec:
         - name: certs
           secret:
             secretName: status-certs
-        - name: api-certs
-          secret:
-            secretName: api-server-tls
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
