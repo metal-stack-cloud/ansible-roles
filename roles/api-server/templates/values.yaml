@@ -30,18 +30,6 @@ api:
   image:
     name: "{{ metal_stack_cloud_api_server_image_name }}"
     tag: "{{ metal_stack_cloud_api_server_image_tag }}"
-{% if api_server_tls_ca %}
-  ca: |
-    {{ api_server_tls_ca | indent(width=4, first=false) }}
-{% endif %}
-{% if api_server_tls_cert %}
-  cert: |
-    {{ api_server_tls_cert | indent(width=4, first=false) }}
-{% endif %}
-{% if api_server_tls_cert_key %}
-  certKey: |
-    {{ api_server_tls_cert_key | indent(width=4, first=false) }}
-{% endif %}
 
 {% if api_server_resources %}
   resources: {{ api_server_resources | to_json }}
