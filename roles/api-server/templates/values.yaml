@@ -23,7 +23,6 @@ frontend:
 
 api:
   url: "{{ api_server_http_url }}"
-  grpcHost: "{{ api_server_grpc_host }}"
   logLevel: "{{ api_server_log_level }}"
   replicas: "{{ api_server_replicas }}"
   sessionSecret: "{{ api_server_session_secret }}"
@@ -75,12 +74,7 @@ gardener:
     {{ api_server_gardener_kubeconfig | indent(width=4, first=false) }}
 
 ingress:
-  authHost: "{{ api_server_ingress_dns_auth }}"
-  grpcHost: "{{ api_server_ingress_dns_grpc }}"
-  grpcWebHost: "{{ api_server_ingress_dns_web_grpc }}"
-{% if api_server_ingress_annotations_grpc %}
-  annotationsGrpc: {{ api_server_ingress_annotations_grpc | to_json }}
-{% endif %}
+  host: "{{ api_server_ingress_dns }}"
 {% if api_server_ingress_annotations %}
   annotations: {{ api_server_ingress_annotations | to_json }}
 {% endif %}

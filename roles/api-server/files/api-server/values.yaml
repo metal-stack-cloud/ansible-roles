@@ -29,7 +29,6 @@ frontend:
 
 api:
   url: localhost
-  grpcHost: localhost:9090
   logLevel: info
   replicas: 2
   sessionSecret: secret
@@ -88,9 +87,7 @@ api:
 ingress:
   enabled: true
   className: nginx
-  authHost: ""
-  grpcHost: ""
-  grpcWebHost: ""
+  host: ""
   annotations: {}
   tls:
     enabled: false

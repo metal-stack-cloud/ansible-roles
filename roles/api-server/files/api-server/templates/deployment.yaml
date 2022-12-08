@@ -28,20 +28,13 @@ spec:
         args:
           - serve
           - --log-level={{ .Values.api.logLevel }}
-          - --grpc-server-endpoint=0.0.0.0:9090
           - --http-server-endpoint=0.0.0.0:8080
           - --server-http-url={{ .Values.api.url }}
-          - --server-grpc-host={{ .Values.api.grpcHost }}
           - --gh-client-id={{ .Values.api.github.clientID }}
           - --gh-client-secret={{ .Values.api.github.clientSecret }}
           - --az-application-id={{ .Values.api.azure.applicationID }}
           - --az-client-secret={{ .Values.api.azure.clientSecret }}
           - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
-{{- if .Values.api.ca }}
-          - --server-ca-path=/api-ca-certs/ca.pem
-{{- end }}
-          - --server-cert-path=/api-certs/tls.crt
-          - --server-key-path=/api-certs/tls.key
           - --masterdata-api-hostname={{ .Values.masterdata.hostname }}
           - --masterdata-api-port={{ .Values.masterdata.port }}
           - --masterdata-api-hmac={{ .Values.masterdata.hmac }}
@@ -61,12 +54,6 @@ spec:
 {{ toYaml .Values.api.resources | indent 10 }}
 {{- end }}
         volumeMounts:
-{{- if .Values.api.ca }}
-        - name: ca
-          mountPath: /api-ca-certs/
-{{- end }}
-        - name: certs
-          mountPath: /api-certs/
         - name: masterdata-api-certs
           mountPath: /certs/
 {{- if .Values.gardener.kubeconfig }}
@@ -74,14 +61,6 @@ spec:
           mountPath: /gardener/
 {{- end }}
       volumes:
-{{- if .Values.api.ca }}
-        - name: ca
-          secret:
-            secretName: api-ca-certs
-{{- end }}
-        - name: certs
-          secret:
-            secretName: api-server-tls
         - name: masterdata-api-certs
           secret:
             secretName: masterdata-api-certs
