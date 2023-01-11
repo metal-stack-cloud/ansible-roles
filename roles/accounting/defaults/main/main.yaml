@@ -2,7 +2,7 @@
 accounting_namespace: "{{ metal_stack_cloud_namespace }}"
 accounting_log_level: debug
 
-accounting_metal_api_url: http://metal-api.metal-control-plane.svc.cluster.local:8080/metal
+accounting_metal_api_url: http://metal-api.metal-control-plane.svc.cluster.local:8080
 accounting_metal_api_hmac: metal-view
 
 accounting_masterdata_api_hostname: masterdata-api.metal-control-plane.svc.cluster.local
