@@ -1,0 +1,37 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: api-server-setup-stripe
+  labels:
+    app: api-server
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+        - name: api-server
+          image: "{{ .Values.api.image.name }}:{{ .Values.api.image.tag }}"
+          env:
+            - name: SESSION_SECRET
+              value: "{{ .Values.api.sessionSecret }}"
+          args:
+            - setup-stripe
+            - --log-level={{ .Values.api.logLevel }}
+            - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
+            - --stripe-config-path=/app-config/stripe-config.yaml
+          volumeMounts:
+            - name: stripe-config
+              mountPath: /app-config
+      volumes:
+        - name: stripe-config
+          configMap:
+            name: api-server-stripe-config
+            items:
+              - key: stripe-config
+                path: stripe-config.yaml
+      restartPolicy: Never

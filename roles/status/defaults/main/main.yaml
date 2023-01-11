@@ -3,12 +3,16 @@ status_namespace: "{{ metal_stack_cloud_namespace }}"
 status_replicas: 2
 
 status_api_url: https://api-server:9090
+status_api_ca_cert:
+
 status_server_url: https://status.{{ metal_stack_cloud_ingress_dns }}
 
 status_log_level: info
 status_schedule:
 
 status_ingress_dns: status.{{ metal_stack_cloud_ingress_dns }}
+status_ingress_tls_enabled: false
+status_ingress_annotations:
 
 status_chat_channel_id: "{{ lookup('env', 'SLACK_CHANNEL_ID') | default('', true) }}"
 status_chat_token: "{{ lookup('env', 'SLACK_TOKEN') | default('', true) }}"

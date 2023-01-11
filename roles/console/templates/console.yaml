@@ -5,9 +5,7 @@ metadata:
   name: console-config
 data:
   config.js: |
-    window.API_URL = "{{ console_api_url }}"
-    window.AUTH_CALLBACK = "{{ console_api_auth_callback_url }}"
-    window.STRIPE_PUBLIC_KEY = "{{ console_stripe_public_key }}"
+    {{ lookup('template', 'console-config.yaml') | indent(width=4, first=false) }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -24,6 +22,8 @@ spec:
     metadata:
       labels:
         app: console
+      annotations:
+        checksum/config: "{{ lookup('template', 'console-config.yaml') | string | hash('sha1') }}"
     spec:
       containers:
       - image: {{ metal_stack_cloud_console_image_name }}:{{ metal_stack_cloud_console_image_tag }}
@@ -56,15 +56,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: console
-  annotations:
-    # TODO: make individual variable for this role to configure ingress annotations
-    cert-manager.io/cluster-issuer: "{{ cert_manager_cluster_issuer }}"
+  annotations: {{ console_ingress_annotations | to_json }}
 spec:
   ingressClassName: nginx
+{% if console_ingress_tls_enabled %}
   tls:
   - hosts:
     - {{ console_ingress_dns }}
     secretName: console-tls
+{% endif %}
   rules:
   - host: {{ console_ingress_dns }}
     http:

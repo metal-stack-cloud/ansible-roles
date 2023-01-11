@@ -3,3 +3,5 @@ auditing_namespace: "{{ metal_stack_cloud_namespace }}"
 auditing_size: 10Gi
 auditing_secret: "{{ metal_stack_cloud_auditing_key }}"
 auditing_ingress_domain: auditing.{{ metal_stack_cloud_ingress_dns }}
+auditing_ingress_annotations:
+auditing_ingress_tls_enabled: false

@@ -14,6 +14,9 @@ api_server_azure_client_secret: "{{ lookup('env', 'AZ_CLIENT_SECRET') | default(
 api_server_stripe_secret_key: "{{ metal_stack_cloud_stripe_private_token }}"
 
 api_server_ingress_dns: "api.{{ metal_stack_cloud_ingress_dns }}"
+api_server_ingress_tls_enabled: true
+api_server_ingress_annotations:
+
 api_server_http_url: https://api.{{ metal_stack_cloud_ingress_dns }}
 api_server_frontend_url: https://console.{{ metal_stack_cloud_ingress_dns }}
 
@@ -29,6 +32,12 @@ api_server_auditing_key: "{{ metal_stack_cloud_auditing_key }}"
 
 api_server_gardener_kubeconfig: ""
 
-api_server_tls_ca:
-api_server_tls_cert:
-api_server_tls_cert_key:
+api_server_pdb_enabled: true
+api_server_pdb_min_available: 1
+
+api_server_hpa_enabled: true
+api_server_hpa_min: 2
+api_server_hpa_max: 5
+api_server_hpa_cpu_percentage: 70
+
+api_server_resources:
