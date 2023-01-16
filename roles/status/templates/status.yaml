@@ -8,22 +8,6 @@ stringData:
     {{ lookup('template', 'status-config.yaml') | indent(width=4, first=false) }}
 ---
 apiVersion: v1
-kind: Secret
-metadata:
-  name: status-certs
-stringData:
-  ca.pem: |
-    {{ status_server_tls_ca | indent(width=4, first=false) }}
-  server.pem: |
-    {{ status_server_tls_cert | indent(width=4, first=false) }}
-  server-key.pem: |
-    {{ status_server_tls_cert_key | indent(width=4, first=false) }}
-{% if status_api_ca_cert %}
-  api-ca.pem: |
-    {{ status_api_ca_cert | indent(width=4, first=false) }}
-{% endif %}
----
-apiVersion: v1
 kind: ConfigMap
 metadata:
   name: status-overrides
@@ -72,9 +56,6 @@ spec:
         - mountPath: /etc/status-overrides
           name: overrides
           readOnly: true
-        - name: certs
-          mountPath: /certs/
-          readOnly: true
       volumes:
         - name: config
           secret:
@@ -82,9 +63,6 @@ spec:
         - name: overrides
           configMap:
             name: status-overrides
-        - name: certs
-          secret:
-            secretName: status-certs
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
