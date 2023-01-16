@@ -5,14 +5,7 @@ metadata:
   name: reporter-config
 data:
   config.yaml: |
-    metal-api-url: {{ accounting_metal_api_url }}
-    metal-api-hmac: {{ accounting_metal_api_hmac }}
-    masterdata-api-hostname: {{ accounting_masterdata_api_hostname }}
-    masterdata-api-port: {{ accounting_masterdata_api_port }}
-    masterdata-api-hmac: {{ accounting_masterdata_api_hmac }}
-    stripe-account-token: {{ accounting_stripe_private_token }}
-    nsqd-addr: {{ accounting_nsqd_address }}
-    log-level: {{ accounting_log_level }}
+    {{ lookup('template', 'accounting-config.yaml') | indent(width=4, first=false) }}
 ---
 apiVersion: v1
 kind: Secret
@@ -42,6 +35,8 @@ spec:
     metadata:
       labels:
         app: accounting-reporter
+      annotations:
+        checksum/config: "{{ lookup('template', 'accounting-config.yaml') | string | hash('sha1') }}"
     spec:
       containers:
       - image: {{ metal_stack_cloud_accounting_reporter_image_name }}:{{ metal_stack_cloud_accounting_reporter_image_tag }}
