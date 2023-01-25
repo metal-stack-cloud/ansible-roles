@@ -23,6 +23,7 @@ frontend:
 
 api:
   url: "{{ api_server_http_url }}"
+  userAdmittance: "{{ metal_stack_cloud_user_admittance | lower }}"
   logLevel: "{{ api_server_log_level }}"
   replicas: "{{ api_server_replicas }}"
   sessionSecret: "{{ api_server_session_secret }}"

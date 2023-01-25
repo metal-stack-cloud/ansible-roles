@@ -29,6 +29,7 @@ frontend:
 
 api:
   url: localhost
+  userAdmittance: true
   logLevel: info
   replicas: 2
   sessionSecret: secret
