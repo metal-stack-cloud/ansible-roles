@@ -19,6 +19,8 @@ gardener:
 auditing:
   url: auditing
   key: secret
+  interval: "@daily"
+  keep: 10
 
 metal:
   url: metal-api

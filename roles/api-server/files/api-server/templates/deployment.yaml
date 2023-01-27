@@ -43,6 +43,8 @@ spec:
           - --auditing-url={{ .Values.auditing.url }}
           - --auditing-api-key={{ .Values.auditing.key }}
           - --auditing-enabled={{ if .Values.auditing.url }}true{{ else }}false{{end}}
+          - --auditing-index-interval={{ .Values.auditing.interval }}
+          - --auditing-index-keep={{ .Values.auditing.keep }}
           - --jwt-token-secret={{ .Values.api.jwtTokenSecret }}
 {{- if .Values.gardener.kubeconfig }}
           - --gardener-kubeconfig=/gardener/kubeconfig

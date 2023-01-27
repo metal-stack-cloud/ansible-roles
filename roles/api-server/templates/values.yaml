@@ -13,6 +13,8 @@ masterdata:
 auditing:
   url: "{{ api_server_auditing_url }}"
   key: "{{ api_server_auditing_key }}"
+  interval: "{{ api_server_auditing_interval }}"
+  keep: "{{ api_server_auditing_keep }}"
 
 metal:
   url: "{{ api_server_metal_api_url }}"
