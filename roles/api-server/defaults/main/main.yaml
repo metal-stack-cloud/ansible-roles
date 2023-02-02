@@ -29,6 +29,8 @@ api_server_metal_api_hmac: metal-admin
 
 api_server_auditing_url: http://meili-meilisearch.{{ metal_stack_cloud_namespace }}.svc.cluster.local:7700
 api_server_auditing_key: "{{ metal_stack_cloud_auditing_key }}"
+api_server_auditing_interval: "@daily"
+api_server_auditing_keep: 10
 
 api_server_gardener_kubeconfig: ""
 
