@@ -25,6 +25,8 @@ spec:
             value: "{{  .Values.api.sessionSecret }}"
           - name: FRONT_END_URL
             value: "{{  .Values.frontend.url }}"
+          - name: USER_ADMITTANCE
+            value: "{{ .Values.api.userAdmittance }}"
         args:
           - serve
           - --log-level={{ .Values.api.logLevel }}
