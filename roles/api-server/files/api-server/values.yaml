@@ -21,6 +21,7 @@ auditing:
   key: secret
   interval: "@daily"
   keep: 10
+  indexPrefix: auditing
 
 metal:
   url: metal-api
