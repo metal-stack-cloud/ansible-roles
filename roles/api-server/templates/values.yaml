@@ -15,6 +15,7 @@ auditing:
   key: "{{ api_server_auditing_key }}"
   interval: "{{ api_server_auditing_interval }}"
   keep: "{{ api_server_auditing_keep }}"
+  indexPrefix: "{{ api_server_auditing_index_prefix }}"
 
 metal:
   url: "{{ api_server_metal_api_url }}"
