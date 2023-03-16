@@ -5,7 +5,7 @@ api_server_replicas: 1
 api_server_session_secret: geheim
 api_server_jwt_token_secret: geheim
 
-api_server_log_level: info
+api_server_log_level: debug
 
 api_server_github_client_id: "{{ lookup('env', 'GH_CLIENT_ID') | default('', true) }}"
 api_server_github_client_secret: "{{ lookup('env', 'GH_CLIENT_SECRET') | default('', true) }}"
@@ -38,7 +38,7 @@ api_server_gardener_kubeconfig: ""
 api_server_pdb_enabled: true
 api_server_pdb_min_available: 1
 
-api_server_hpa_enabled: true
+api_server_hpa_enabled: false
 api_server_hpa_min: 2
 api_server_hpa_max: 5
 api_server_hpa_cpu_percentage: 70

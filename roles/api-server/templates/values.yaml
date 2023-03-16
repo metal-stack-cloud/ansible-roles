@@ -61,6 +61,10 @@ api:
     configYaml: |
       {{ api_server_stripe_config | indent(width=6, first=false) }}
 
+  duros:
+    config: |
+      {{ api_server_duros_config | indent(width=6, first=false) }}
+
 gardener:
   kubeconfig: |
     {{ api_server_gardener_kubeconfig | indent(width=4, first=false) }}

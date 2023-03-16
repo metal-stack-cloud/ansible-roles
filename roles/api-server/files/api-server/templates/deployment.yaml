@@ -49,6 +49,7 @@ spec:
           - --auditing-index-keep={{ .Values.auditing.keep }}
           - --auditing-index-prefix={{ .Values.auditing.indexPrefix }}
           - --jwt-token-secret={{ .Values.api.jwtTokenSecret }}
+          - --duros-config-path=/duros/duros-config.yaml
 {{- if .Values.gardener.kubeconfig }}
           - --gardener-kubeconfig=/gardener/kubeconfig
 {{- else }}
@@ -61,6 +62,8 @@ spec:
         volumeMounts:
         - name: masterdata-api-certs
           mountPath: /certs/
+        - name: duros-config
+          mountPath: /duros/
 {{- if .Values.gardener.kubeconfig }}
         - name: gardener
           mountPath: /gardener/
@@ -69,6 +72,9 @@ spec:
         - name: masterdata-api-certs
           secret:
             secretName: masterdata-api-certs
+        - name: duros-config
+          secret:
+            secretName: duros-config
 {{- if .Values.gardener.kubeconfig }}
         - name: gardener
           secret:

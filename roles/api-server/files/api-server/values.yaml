@@ -33,8 +33,8 @@ frontend:
 api:
   url: localhost
   userAdmittance: true
-  logLevel: info
-  replicas: 2
+  logLevel: debug
+  replicas: 1
   sessionSecret: secret
   jwtTokenSecret: geheim
   image:
@@ -87,6 +87,19 @@ api:
     limits:
       memory: "2Gi"
       cpu: "2"
+
+  duros:
+    config: |
+      ---
+      eqx-mu4:
+        endpoints:
+          - "1.2.3.4"
+          - "1.2.3.5"
+        admintoken: admin-jwt-token
+        storageclasses:
+          - name: standard
+            replicas: 2
+            compression: true
 
 ingress:
   enabled: true
