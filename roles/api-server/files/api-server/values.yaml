@@ -89,17 +89,17 @@ api:
       cpu: "2"
 
   duros:
-    config: |
-      ---
-      eqx-mu4:
-        endpoints:
-          - "1.2.3.4"
-          - "1.2.3.5"
-        admintoken: admin-jwt-token
-        storageclasses:
-          - name: standard
-            replicas: 2
-            compression: true
+    config:
+      # ---
+      # eqx-mu4:
+      #   endpoints:
+      #     - "1.2.3.4"
+      #     - "1.2.3.5"
+      #   admintoken: admin-jwt-token
+      #   storageclasses:
+      #     - name: standard
+      #       replicas: 2
+      #       compression: true
 
 ingress:
   enabled: true
