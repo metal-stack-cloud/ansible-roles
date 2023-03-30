@@ -62,8 +62,8 @@ api:
       {{ api_server_stripe_config | indent(width=6, first=false) }}
 
   duros:
-    config: |
-      {{ api_server_duros_config | indent(width=6, first=false) }}
+    config: 
+      {{ api_server_duros_config | to_json | indent(width=6, first=false) }}
 
 gardener:
   kubeconfig: |

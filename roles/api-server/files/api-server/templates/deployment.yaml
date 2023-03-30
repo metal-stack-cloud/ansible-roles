@@ -49,7 +49,9 @@ spec:
           - --auditing-index-keep={{ .Values.auditing.keep }}
           - --auditing-index-prefix={{ .Values.auditing.indexPrefix }}
           - --jwt-token-secret={{ .Values.api.jwtTokenSecret }}
+{{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
+{{- end -}}
 {{- if .Values.gardener.kubeconfig }}
           - --gardener-kubeconfig=/gardener/kubeconfig
 {{- else }}
