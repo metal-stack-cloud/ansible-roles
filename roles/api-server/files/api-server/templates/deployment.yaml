@@ -27,6 +27,12 @@ spec:
             value: "{{  .Values.frontend.url }}"
           - name: USER_ADMITTANCE
             value: "{{ .Values.api.userAdmittance }}"
+{{- if eq .Values.mail.mailProvider "mailjet" }}
+          - name: MJ_APIKEY_PUBLIC
+            value: "{{ .Values.mail.mjApiKeyPublic }}"
+          - name: MJ_APIKEY_PRIVATE
+            value: "{{ .Values.mail.mjApiKeyPublic }}"
+{{- end -}}
         args:
           - serve
           - --log-level={{ .Values.api.logLevel }}
@@ -52,6 +58,12 @@ spec:
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}
+{{- if eq .Values.mail.mailProvider "mailjet" }}
+          - --mail-provider={{ .Values.mail.mailProvider }}
+          - --mail-config-path=/app-config/mail-config.yaml
+          - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
+          - --smtp-from-name={{ .Values.mail.smtpFromName }
+{{- end -}}
 {{- if .Values.gardener.kubeconfig }}
           - --gardener-kubeconfig=/gardener/kubeconfig
 {{- else }}
@@ -70,6 +82,10 @@ spec:
         - name: gardener
           mountPath: /gardener/
 {{- end }}
+{{- if eq .Values.mail.mailProvider "mailjet" }}
+        - name: mail-config
+          mountPath: /app-config
+{{- end }}
       volumes:
         - name: masterdata-api-certs
           secret:
@@ -81,4 +97,12 @@ spec:
         - name: gardener
           secret:
             secretName: gardener-kubeconfig
+{{- end }}
+{{- if eq .Values.mail.mailProvider "mailjet" }}
+        - name: mail-config
+          configMap:
+            name: api-server-mail-config
+            items:
+              - key: mail-config
+                path: mail-config.yaml
 {{- end }}

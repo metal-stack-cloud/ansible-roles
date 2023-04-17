@@ -108,3 +108,10 @@ ingress:
   annotations: {}
   tls:
     enabled: false
+
+mail:
+  mailProvider: mailjet
+  smtpFromName: info@x-cellent.com
+  smtpFromAddress: MetalStackCloud
+  mjApiKeyPublic: mj-api-key-public
+  mjApiKeyPrivate: mj-api-key-private
