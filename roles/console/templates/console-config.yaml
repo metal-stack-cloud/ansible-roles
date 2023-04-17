@@ -2,7 +2,7 @@ window.API_URL = "{{ console_api_url }}"
 window.AUTH_CALLBACK = "{{ console_api_auth_callback_url }}"
 window.STRIPE_PUBLIC_KEY = "{{ console_stripe_public_key }}"
 window.USER_ADMITTANCE = {{ metal_stack_cloud_user_admittance | lower }}
-window.ACTIVATE_AZURE = "{{ console_show_azure }}"
+window.ACTIVATE_AZURE = "{{ console_show_azure_login }}"
 {% if console_open_auth_test %}
 window.OPEN_AUTH_TEST = true
 window.AUTH_TEST = "{{ console_api_auth_test_callback_url }}"

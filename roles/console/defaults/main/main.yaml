@@ -8,7 +8,7 @@ console_api_auth_test_callback_url: "{{ console_api_auth_callback_url }}/test/ca
 console_stripe_public_key: "{{ metal_stack_cloud_stripe_public_token }}"
 
 console_open_auth_test: false
-console_show_azure: false
+console_show_azure_login: false
 
 console_ingress_dns: console.{{ metal_stack_cloud_ingress_dns }}
 console_ingress_tls_enabled: false
