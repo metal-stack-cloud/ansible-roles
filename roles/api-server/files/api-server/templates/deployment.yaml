@@ -62,7 +62,7 @@ spec:
           - --mail-provider={{ .Values.mail.mailProvider }}
           - --mail-config-path=/app-config/mail-config.yaml
           - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
-          - --smtp-from-name={{ .Values.mail.smtpFromName }
+          - --smtp-from-name={{ .Values.mail.smtpFromName }}
 {{- end -}}
 {{- if .Values.gardener.kubeconfig }}
           - --gardener-kubeconfig=/gardener/kubeconfig
