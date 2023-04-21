@@ -69,6 +69,6 @@ spec:
             - --mail-provider={{ .Values.mail.mailProvider }}
             - --mail-config-path=/mail/mail-config.yaml
             - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
-            - --smtp-from-name={{ .Values.mail.smtpFromName }
+            - --smtp-from-name={{ .Values.mail.smtpFromName }}
       restartPolicy: Never
 {{- end -}}
