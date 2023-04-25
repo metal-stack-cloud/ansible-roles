@@ -7,3 +7,14 @@ metadata:
     app: api-server
 data:
   stripe-config: {{ quote .Values.api.stripe.configYaml }}
+{{- if eq .Values.mail.provider "mailjet" }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-server-mail-config
+  labels:
+    app: api-server
+data:
+  mail-config.yaml: {{ .Values.mail.mailjet.config | toJson | quote }}
+{{- end }}

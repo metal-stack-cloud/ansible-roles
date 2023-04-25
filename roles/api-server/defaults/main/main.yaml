@@ -44,3 +44,17 @@ api_server_hpa_max: 5
 api_server_hpa_cpu_percentage: 70
 
 api_server_resources:
+
+api_server_mail_provider: none
+api_server_mail_smtp_from_name: metalstack.cloud
+api_server_mail_smtp_from_address: "info@x-cellent.com"
+
+api_server_mail_mailjet_api_key_public: "{{ lookup('env', 'MJ_APIKEY_PUBLIC') | default('', true) }}"
+api_server_mail_mailjet_api_key_private: "{{ lookup('env', 'MJ_APIKEY_PRIVATE') | default('', true) }}"
+api_server_mail_mailjet_config:
+  # mail_templates: # mapping of mail templates to mailjet template ids
+  #   Welcome: 4712279
+  #   Admitted: 4727583
+  #   CouponPercentageUsedWarning: 4731146
+  #   CouponCompletelyUsedWarning: 4731184
+  #   PaymentUpdated: 4727758

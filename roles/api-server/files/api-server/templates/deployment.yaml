@@ -18,7 +18,7 @@ spec:
         checksum/secrets-config: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
     spec:
       containers:
-      - image: {{ .Values.api.image.name }}:{{ .Values.api.image.tag }}
+      - image: "{{ .Values.api.image.name }}:{{ .Values.api.image.tag }}"
         name: api-server
         env:
           - name: SESSION_SECRET
@@ -27,11 +27,11 @@ spec:
             value: "{{  .Values.frontend.url }}"
           - name: USER_ADMITTANCE
             value: "{{ .Values.api.userAdmittance }}"
-{{- if eq .Values.mail.mailProvider "mailjet" }}
+{{- if eq .Values.mail.provider "mailjet" }}
           - name: MJ_APIKEY_PUBLIC
-            value: "{{ .Values.mail.mjApiKeyPublic }}"
+            value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
           - name: MJ_APIKEY_PRIVATE
-            value: "{{ .Values.mail.mjApiKeyPublic }}"
+            value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
 {{- end }}
         args:
           - serve
@@ -58,8 +58,8 @@ spec:
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}
-{{- if eq .Values.mail.mailProvider "mailjet" }}
-          - --mail-provider={{ .Values.mail.mailProvider }}
+{{- if eq .Values.mail.provider "mailjet" }}
+          - --mail-provider={{ .Values.mail.provider }}
           - --mail-config-path=/app-config/mail-config.yaml
           - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
           - --smtp-from-name={{ .Values.mail.smtpFromName }}
@@ -82,7 +82,7 @@ spec:
         - name: gardener
           mountPath: /gardener/
 {{- end }}
-{{- if eq .Values.mail.mailProvider "mailjet" }}
+{{- if eq .Values.mail.provider "mailjet" }}
         - name: mail-config
           mountPath: /app-config
 {{- end }}
@@ -98,11 +98,11 @@ spec:
           secret:
             secretName: gardener-kubeconfig
 {{- end }}
-{{- if eq .Values.mail.mailProvider "mailjet" }}
+{{- if eq .Values.mail.provider "mailjet" }}
         - name: mail-config
           configMap:
             name: api-server-mail-config
             items:
-              - key: mail-config
+              - key: mail-config.yaml
                 path: mail-config.yaml
 {{- end }}

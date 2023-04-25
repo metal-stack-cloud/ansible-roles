@@ -110,8 +110,16 @@ ingress:
     enabled: false
 
 mail:
-  mailProvider: mailjet
-  smtpFromName: info@x-cellent.com
-  smtpFromAddress: MetalStackCloud
-  mjApiKeyPublic: mj-api-key-public
-  mjApiKeyPrivate: mj-api-key-private
+  provider: none # none, mailjet
+  smtpFromName: metalstack.cloud
+  smtpFromAddress: info@x-cellent.com
+  mailjet:
+    apiKeyPublic: mj-api-key-public
+    apiKeyPrivate: mj-api-key-private
+    config:
+      # mail_templates: # mapping of mail templates to mailjet template ids
+      #   Welcome: 4712279
+      #   Admitted: 4727583
+      #   CouponPercentageUsedWarning: 4731146
+      #   CouponCompletelyUsedWarning: 4731184
+      #   PaymentUpdated: 4727758

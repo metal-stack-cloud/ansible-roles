@@ -20,10 +20,11 @@ spec:
             - name: SESSION_SECRET
               value: "{{ .Values.api.sessionSecret }}"
           args:
-            - stripe-jobs setup
+            - stripe-jobs
             - --log-level={{ .Values.api.logLevel }}
             - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
             - --stripe-config-path=/app-config/stripe-config.yaml
+            - setup
           volumeMounts:
             - name: stripe-config
               mountPath: /app-config
@@ -59,9 +60,9 @@ spec:
             - name: SESSION_SECRET
               value: "{{ .Values.api.sessionSecret }}"
             - name: MJ_APIKEY_PUBLIC
-              value: "{{ .Values.mail.mjApiKeyPublic }}"
+              value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
             - name: MJ_APIKEY_PRIVATE
-              value: "{{ .Values.mail.mjApiKeyPublic }}"
+              value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
           args:
             - stripe-jobs
             - --log-level={{ .Values.api.logLevel }}
