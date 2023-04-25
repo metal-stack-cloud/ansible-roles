@@ -32,7 +32,7 @@ spec:
             value: "{{ .Values.mail.mjApiKeyPublic }}"
           - name: MJ_APIKEY_PRIVATE
             value: "{{ .Values.mail.mjApiKeyPublic }}"
-{{- end -}}
+{{- end }}
         args:
           - serve
           - --log-level={{ .Values.api.logLevel }}
