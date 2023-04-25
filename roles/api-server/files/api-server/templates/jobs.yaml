@@ -63,12 +63,13 @@ spec:
             - name: MJ_APIKEY_PRIVATE
               value: "{{ .Values.mail.mjApiKeyPublic }}"
           args:
-            - stripe-jobs check-for-coupon-usage
+            - stripe-jobs
             - --log-level={{ .Values.api.logLevel }}
             - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
             - --mail-provider={{ .Values.mail.mailProvider }}
             - --mail-config-path=/mail/mail-config.yaml
             - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
             - --smtp-from-name={{ .Values.mail.smtpFromName }}
+            - check-for-coupon-usage
       restartPolicy: Never
 {{- end -}}
