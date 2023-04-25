@@ -76,3 +76,14 @@ ingress:
 {% endif %}
   tls:
     enabled: {{ api_server_ingress_tls_enabled }}
+
+
+mail:
+  provider: "{{ api_server_mail_provider }}"
+  smtpFromName: "{{ api_server_mail_smtp_from_name }}"
+  smtpFromAddress: "{{ api_server_mail_smtp_from_address }}"
+  mailjet:
+    apiKeyPublic: "{{ api_server_mail_mailjet_api_key_public }}"
+    apiKeyPrivate: "{{ api_server_mail_mailjet_api_key_private }}"
+    config:
+      {{ api_server_mail_mailjet_config | to_json | indent(width=6, first=false) }}
