@@ -31,7 +31,7 @@ spec:
           - name: MJ_APIKEY_PUBLIC
             value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
           - name: MJ_APIKEY_PRIVATE
-            value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
+            value: "{{ .Values.mail.mailjet.apiKeyPrivate }}"
 {{- end }}
         args:
           - serve
