@@ -37,10 +37,10 @@ spec:
                 path: stripe-config.yaml
       restartPolicy: Never
 
-{{- if eq .Values.mail.mailProvider "mailjet" }}
+{{- if eq .Values.mail.provider "mailjet" }}
 ---
 apiVersion: batch/v1
-kind: Job
+kind: CronJob
 metadata:
   name: api-server-send-coupon-usage-warnings
   labels:
@@ -50,27 +50,33 @@ metadata:
     "helm.sh/hook-weight": "1"
     "helm.sh/hook-delete-policy": before-hook-creation
 spec:
-  ttlSecondsAfterFinished: 100
-  template:
+  schedule: "13 * * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Replace
+  jobTemplate:
     spec:
-      containers:
-        - name: api-server
-          image: "{{ .Values.api.image.name }}:{{ .Values.api.image.tag }}"
-          env:
-            - name: SESSION_SECRET
-              value: "{{ .Values.api.sessionSecret }}"
-            - name: MJ_APIKEY_PUBLIC
-              value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
-            - name: MJ_APIKEY_PRIVATE
-              value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
-          args:
-            - stripe-jobs
-            - --log-level={{ .Values.api.logLevel }}
-            - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
-            - --mail-provider={{ .Values.mail.mailProvider }}
-            - --mail-config-path=/mail/mail-config.yaml
-            - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
-            - --smtp-from-name={{ .Values.mail.smtpFromName }}
-            - check-for-coupon-usage
-      restartPolicy: Never
+      backoffLimit: 3
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: api-server
+              image: "{{ .Values.api.image.name }}:{{ .Values.api.image.tag }}"
+              env:
+                - name: SESSION_SECRET
+                  value: "{{ .Values.api.sessionSecret }}"
+                - name: MJ_APIKEY_PUBLIC
+                  value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
+                - name: MJ_APIKEY_PRIVATE
+                  value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
+              args:
+                - stripe-jobs
+                - --log-level={{ .Values.api.logLevel }}
+                - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
+                - --mail-provider={{ .Values.mail.mailProvider }}
+                - --mail-config-path=/mail/mail-config.yaml
+                - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
+                - --smtp-from-name={{ .Values.mail.smtpFromName }}
+                - check-for-coupon-usage
 {{- end -}}
