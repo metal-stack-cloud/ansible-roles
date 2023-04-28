@@ -79,4 +79,14 @@ spec:
                 - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
                 - --smtp-from-name={{ .Values.mail.smtpFromName }}
                 - check-for-coupon-usage
+              volumeMounts:
+              - name: mail-config
+                mountPath: /mail
+          volumes:
+            - name: mail-config
+              configMap:
+                name: api-server-mail-config
+                items:
+                  - key: mail-config.yaml
+                    path: mail-config.yaml
 {{- end -}}
