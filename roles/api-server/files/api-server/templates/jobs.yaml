@@ -74,7 +74,7 @@ spec:
                 - stripe-jobs
                 - --log-level={{ .Values.api.logLevel }}
                 - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
-                - --mail-provider={{ .Values.mail.mailProvider }}
+                - --mail-provider={{ .Values.mail.provider }}
                 - --mail-config-path=/mail/mail-config.yaml
                 - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
                 - --smtp-from-name={{ .Values.mail.smtpFromName }}
