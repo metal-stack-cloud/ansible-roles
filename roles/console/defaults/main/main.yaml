@@ -14,8 +14,6 @@ console_debug_mode: true
 
 console_email_consent: false
 
-console_load_privacy_window: true
-
 console_ingress_dns: console.{{ metal_stack_cloud_ingress_dns }}
 console_ingress_tls_enabled: false
 console_ingress_annotations:
