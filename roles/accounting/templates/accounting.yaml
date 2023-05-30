@@ -65,6 +65,7 @@ data:
     stripe-account-token: {{ accounting_stripe_private_token }}
     nsqd-addr: {{ accounting_nsqd_address }}
     log-level: {{ accounting_log_level }}
+    log-only: {{ accounting_log_only | lower }}
 ---
 apiVersion: apps/v1
 kind: Deployment

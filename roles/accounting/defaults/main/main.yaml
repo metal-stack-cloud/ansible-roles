@@ -2,6 +2,10 @@
 accounting_namespace: "{{ metal_stack_cloud_namespace }}"
 accounting_log_level: info
 
+# this disables sending usage records to the accounting backend
+# do not enable this for production use-cases
+accounting_log_only: false
+
 accounting_metal_api_url: http://metal-api.metal-control-plane.svc.cluster.local:8080
 accounting_metal_api_hmac: metal-view
 
