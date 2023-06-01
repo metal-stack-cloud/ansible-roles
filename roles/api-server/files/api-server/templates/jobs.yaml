@@ -73,6 +73,7 @@ spec:
               args:
                 - stripe-jobs
                 - --log-level={{ .Values.api.logLevel }}
+                - --log-only={{ .Values.api.logOnly }}
                 - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
                 - --mail-provider={{ .Values.mail.provider }}
                 - --mail-config-path=/mail/mail-config.yaml

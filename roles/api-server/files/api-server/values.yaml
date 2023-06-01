@@ -34,6 +34,7 @@ api:
   url: localhost
   userAdmittance: true
   logLevel: debug
+  logOnly: false
   replicas: 1
   sessionSecret: secret
   jwtTokenSecret: geheim

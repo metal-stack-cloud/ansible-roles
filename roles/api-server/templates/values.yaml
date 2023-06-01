@@ -28,6 +28,7 @@ api:
   url: "{{ api_server_http_url }}"
   userAdmittance: "{{ metal_stack_cloud_user_admittance | lower }}"
   logLevel: "{{ api_server_log_level }}"
+  logOnly: "{{ api_server_log_only }}"
   replicas: "{{ api_server_replicas }}"
   sessionSecret: "{{ api_server_session_secret }}"
   jwtTokenSecret: "{{ api_server_jwt_token_secret }}"
