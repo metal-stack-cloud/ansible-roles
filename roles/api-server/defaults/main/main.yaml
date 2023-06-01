@@ -6,6 +6,9 @@ api_server_session_secret: geheim
 api_server_jwt_token_secret: geheim
 
 api_server_log_level: debug
+# this disables sending mails if coupon usage drains
+# do not enable this for production use-cases
+api_server_log_only: false
 
 api_server_github_client_id: "{{ lookup('env', 'GH_CLIENT_ID') | default('', true) }}"
 api_server_github_client_secret: "{{ lookup('env', 'GH_CLIENT_SECRET') | default('', true) }}"
