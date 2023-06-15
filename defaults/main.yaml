@@ -1,5 +1,8 @@
 ---
 metal_stack_cloud_release:
+  nested:
+    - url_path: "vectors.metal-stack.url"
+      meta_var: "metal_stack_release"
   mapping:
     metal_stack_cloud_api_server_image_tag: "docker-images.metal-stack-cloud.api-server.tag"
     metal_stack_cloud_api_server_image_name: "docker-images.metal-stack-cloud.api-server.name"
