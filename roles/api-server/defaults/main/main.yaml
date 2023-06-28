@@ -61,3 +61,6 @@ api_server_mail_mailjet_config:
   #   CouponPercentageUsedWarning: 4731146
   #   CouponCompletelyUsedWarning: 4731184
   #   PaymentUpdated: 4727758
+
+api_server_hubspot_portal_id: "25936940"
+api_server_hubspot_form_guid: 09ff67d2-06c5-42e3-9000-3dcd4b34cfda

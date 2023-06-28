@@ -69,6 +69,12 @@ spec:
 {{- else }}
           - --stage=DEV
 {{- end }}
+{{- if .Values.hubspot.portalID }}
+          - --hubspot-portal-id={{ .Values.hubspot.portalID }}
+{{- end }}
+{{- if .Values.hubspot.formGUID }}
+          - --hubspot-form-guid={{ .Values.hubspot.formGUID }}
+{{- end }}
 {{- if .Values.api.resources }}
         resources:
 {{ toYaml .Values.api.resources | indent 10 }}
