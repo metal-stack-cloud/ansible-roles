@@ -30,6 +30,11 @@
     helm_target_namespace: "{{ api_server_namespace }}"
     helm_value_file_template: values.yaml
 
+- name: Deploy nsq
+  k8s:
+    definition: "{{ lookup('template', 'nsq.yaml') }}"
+    namespace: "{{ api_server_namespace }}"
+
 - name: Generate admin token
   k8s:
     definition:
