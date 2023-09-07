@@ -35,6 +35,12 @@
     definition: "{{ lookup('template', 'nsq.yaml') }}"
     namespace: "{{ api_server_namespace }}"
 
+- name: Deploy sender
+  k8s:
+    definition: "{{ lookup('template', 'sender.yaml') }}"
+    namespace: "{{ api_server_namespace }}"
+    apply: yes
+
 - name: Generate admin token
   k8s:
     definition:

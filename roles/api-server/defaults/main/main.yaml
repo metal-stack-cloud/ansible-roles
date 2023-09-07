@@ -48,13 +48,19 @@ api_server_hpa_cpu_percentage: 70
 
 api_server_resources:
 
-api_server_mail_provider: none
-api_server_mail_smtp_from_name: metalstack.cloud
-api_server_mail_smtp_from_address: "info@x-cellent.com"
+metal_stack_cloud_api_server_sender_image_tag: "sender-init"
+metal_stack_cloud_api_server_sender_image_name: "ghcr.io/metal-stack-cloud/api-server-sender"
 
-api_server_mail_mailjet_api_key_public: "{{ lookup('env', 'MJ_APIKEY_PUBLIC') | default('', true) }}"
-api_server_mail_mailjet_api_key_private: "{{ lookup('env', 'MJ_APIKEY_PRIVATE') | default('', true) }}"
-api_server_mail_mailjet_config:
+api_server_sender_log_only: false
+api_server_sender_log_level: debug
+
+api_server_sender_mail_provider: none
+api_server_sender_mail_smtp_from_name: metalstack.cloud
+api_server_sender_mail_smtp_from_address: "info@x-cellent.com"
+api_server_sender_mail_config_path: /app-config/mail-config.yaml
+api_server_sender_mail_mailjet_api_key_public: "{{ lookup('env', 'MJ_APIKEY_PUBLIC') | default('', true) }}"
+api_server_sender_mail_mailjet_api_key_private: "{{ lookup('env', 'MJ_APIKEY_PRIVATE') | default('', true) }}"
+api_server_sender_mail_mailjet_config:
   # mail_templates: # mapping of mail templates to mailjet template ids
   #   Welcome: 4712279
   #   Admitted: 4727583
@@ -65,17 +71,18 @@ api_server_mail_mailjet_config:
 api_server_hubspot_portal_id: ""
 api_server_hubspot_form_guid: ""
 
-api_server_nsqd_address: nsqd:4150
+api_server_sender_nsqd_address: nsqd:4150
+api_server_sender_nsqd_topic: api-server-sender
 
-api_server_nsq_set_resource_limits: true
-api_server_nsq_nsqd_resources:
+api_server_sender_nsq_set_resource_limits: true
+api_server_sender_nsq_nsqd_resources:
   requests:
     memory: "32Mi"
     cpu: "50m"
   limits:
     memory: "256Mi"
     cpu: "1"
-api_server_nsq_nsq_lookupd_resources:
+api_server_sender_nsq_nsq_lookupd_resources:
   requests:
     memory: "8Mi"
     cpu: "20m"
@@ -83,7 +90,7 @@ api_server_nsq_nsq_lookupd_resources:
     memory: "100Mi"
     cpu: "1"
 
-api_server_nsq_log_level: info
-api_server_nsq_nsqd_data_size: 100Mi
+api_server_sender_nsq_log_level: info
+api_server_sender_nsq_nsqd_data_size: 100Mi
 
-api_server_nsq_image_pull_policy: IfNotPresent
+api_server_sender_nsq_image_pull_policy: IfNotPresent

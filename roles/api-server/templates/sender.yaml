@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sender-config
+data:
+  config.yaml: |
+    {{ lookup('template', 'sender-config.yaml') | indent(width=4, first=false) }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-server-sender
+  name: api-server-sender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-server-sender
+  template:
+    metadata:
+      labels:
+        app: api-server-sender
+    spec:
+      containers:
+      - image: {{ api_server_sender_image_name }}:{{ api_server_sender_image_tag }}
+        name: sender
+        args:
+        - --config=/etc/api-server/sender/config.yaml
+        volumeMounts:
+        - name: config
+          mountPath: /etc/api-server/sender/
+        - name: mail-config
+          mountPath: /app-config
+        env:
+          - name: MJ_APIKEY_PUBLIC
+            value: "{{ api_server_sender_mj_apikey_public }}"
+          - name: MJ_APIKEY_PRIVATE
+            value: "{{ api_server_sender_mj_apikey_private }}"
+      volumes:
+        - name: config
+          configMap:
+            name: sender-config
+        - name: mail-config
+          configMap:
+            name: api-server-mail-config
+            items:
+              - key: mail-config.yaml
+                path: mail-config.yaml
