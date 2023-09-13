@@ -1,0 +1,5 @@
+---
+- name: Deploy nsq
+  k8s:
+    definition: "{{ lookup('template', 'nsq.yaml') }}"
+    namespace: "{{ nsq_namespace }}"

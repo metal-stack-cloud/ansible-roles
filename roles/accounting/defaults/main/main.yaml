@@ -1,5 +1,5 @@
 ---
-accounting_namespace: "{{ metal_stack_cloud_namespace }}"
+accounting_namespace: "accounting"
 accounting_log_level: info
 
 # this disables sending usage records to the accounting backend
@@ -16,6 +16,7 @@ accounting_masterdata_api_hostname: masterdata-api.metal-control-plane.svc.clust
 accounting_masterdata_api_hmac: change-me
 accounting_masterdata_api_port: 8443
 
+accounting_nsq_name: accounting-nsqd
 accounting_nsqd_address: nsqd:4150
 
 accounting_nsq_set_resource_limits: true

@@ -31,9 +31,14 @@
     helm_value_file_template: values.yaml
 
 - name: Deploy nsq
-  k8s:
-    definition: "{{ lookup('template', 'nsq.yaml') }}"
-    namespace: "{{ api_server_namespace }}"
+  include_role:
+    name: metal-stack-cloud-ansible-roles/roles/nsq
+  vars:
+    nsq_name: "{{ api_server_nsq_name }}"
+    nsq_namespace: "{{ api_server_namespace }}"
+    nsq_image_pull_policy: "{{ api_server_nsq_image_pull_policy }}"
+    nsq_nsqd_resources: "{{ api_server_nsq_nsqd_resources }}"
+    nsq_nsqd_data_size: "{{ api_server_nsq_nsqd_data_size }}"
 
 - name: Deploy sender
   k8s:

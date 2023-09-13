@@ -24,7 +24,7 @@ spec:
         app: api-server-sender
     spec:
       containers:
-      - image: {{ api_server_sender_image_name }}:{{ api_server_sender_image_tag }}
+      - image: {{ metal_stack_cloud_api_server_sender_image_name }}:{{ metal_stack_cloud_api_server_sender_image_tag }}
         name: sender
         args:
         - --config=/etc/api-server/sender/config.yaml
