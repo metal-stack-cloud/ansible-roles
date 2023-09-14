@@ -4,38 +4,38 @@ kind: StatefulSet
 metadata:
   labels:
     app: nsqd
-  name: nsqd
+  name: {{ nsq_name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: nsqd
-  serviceName: nsqd
+  serviceName: {{ nsq_name }}
   template:
     metadata:
       labels:
         app: nsqd
     spec:
       containers:
-      - name: nsqd
+      - name: {{ nsq_name }}
         args:
         - /nsqd
-        - -log-level={{ accounting_nsq_log_level }}
+        - -log-level={{ nsq_log_level }}
         - -data-path=/data
         image: {{ metal_stack_cloud_nsq_image_name }}:{{ metal_stack_cloud_nsq_image_tag }}
-        imagePullPolicy: {{ accounting_nsq_image_pull_policy }}
+        imagePullPolicy: {{ nsq_image_pull_policy }}
         ports:
         - containerPort: 4150
         - containerPort: 4151
-{% if accounting_nsq_set_resource_limits %}
-        resources: {{ accounting_nsq_nsqd_resources | to_json }}
+{% if nsq_set_resource_limits %}
+        resources: {{ nsq_nsqd_resources | to_json }}
 {% endif %}
         volumeMounts:
         - name: nsqd
           mountPath: /data
       - name: nsq-admin
         image: {{ metal_stack_cloud_nsq_image_name }}:{{ metal_stack_cloud_nsq_image_tag }}
-        imagePullPolicy: {{ accounting_nsq_image_pull_policy }}
+        imagePullPolicy: {{ nsq_image_pull_policy }}
         ports:
         - containerPort: 4171
           name: http
@@ -53,7 +53,7 @@ spec:
           periodSeconds: 30
         args:
           - /nsqadmin
-          - -log-level={{ accounting_nsq_log_level }}
+          - -log-level={{ nsq_log_level }}
           - --nsqd-http-address=localhost:4151
       volumes:
       - name: nsqd
@@ -67,7 +67,7 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: {{ accounting_nsq_nsqd_data_size }}
+          storage: {{ nsq_nsqd_data_size }}
 ---
 apiVersion: v1
 kind: Service

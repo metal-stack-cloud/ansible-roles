@@ -114,13 +114,18 @@ mail:
   provider: none # none, mailjet
   smtpFromName: metalstack.cloud
   smtpFromAddress: info@x-cellent.com
+  nsqdAddress: nsqd:4150
+  nsqdTopic: api-server-emails
+  supportMail: support@metalstack.cloud 
   mailjet:
     apiKeyPublic: mj-api-key-public
     apiKeyPrivate: mj-api-key-private
     config:
       # mail_templates: # mapping of mail templates to mailjet template ids
-      #   Welcome: 4712279
-      #   Admitted: 4727583
-      #   CouponPercentageUsedWarning: 4731146
-      #   CouponCompletelyUsedWarning: 4731184
-      #   PaymentUpdated: 4727758
+        # MAIL_TYPE_WELCOME: 4630468
+        # MAIL_TYPE_ADMITTED: 4727583
+        # MAIL_TYPE_COUPON_PERCENTAGE_USED_WARNING: 4731146
+        # MAIL_TYPE_COUPON_COMPLETELY_USED_WARNING: 4731184
+        # MAIL_TYPE_PAYMENT_UPDATED: 4727758
+        # MAIL_TYPE_ADMISSION_REQUESTED: 4791798
+

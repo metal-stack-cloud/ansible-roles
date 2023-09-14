@@ -27,12 +27,6 @@ spec:
             value: "{{  .Values.frontend.url }}"
           - name: USER_ADMITTANCE
             value: "{{ .Values.api.userAdmittance }}"
-{{- if eq .Values.mail.provider "mailjet" }}
-          - name: MJ_APIKEY_PUBLIC
-            value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
-          - name: MJ_APIKEY_PRIVATE
-            value: "{{ .Values.mail.mailjet.apiKeyPrivate }}"
-{{- end }}
         args:
           - serve
           - --log-level={{ .Values.api.logLevel }}
@@ -55,14 +49,11 @@ spec:
           - --auditing-index-keep={{ .Values.auditing.keep }}
           - --auditing-index-prefix={{ .Values.auditing.indexPrefix }}
           - --jwt-token-secret={{ .Values.api.jwtTokenSecret }}
+          - --support-mail={{ .Values.mail.supportMail }}
+          - --nsqd-addr={{ .Values.mail.nsqdAddress }}
+          - --nsqd-topic={{ .Values.mail.nsqdTopic }}
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
-{{- end -}}
-{{- if eq .Values.mail.provider "mailjet" }}
-          - --mail-provider={{ .Values.mail.provider }}
-          - --mail-config-path=/app-config/mail-config.yaml
-          - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
-          - --smtp-from-name={{ .Values.mail.smtpFromName }}
 {{- end -}}
 {{- if .Values.gardener.kubeconfig }}
           - --gardener-kubeconfig=/gardener/kubeconfig

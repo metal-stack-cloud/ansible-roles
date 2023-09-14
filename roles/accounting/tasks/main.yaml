@@ -25,9 +25,14 @@
           name: "{{ accounting_namespace }}"
 
 - name: Deploy nsq
-  k8s:
-    definition: "{{ lookup('template', 'nsq.yaml') }}"
-    namespace: "{{ accounting_namespace }}"
+  include_role:
+    name: metal-stack-cloud-ansible-roles/roles/nsq
+  vars:
+    nsq_name: "{{ accounting_nsq_name }}"
+    nsq_namespace: "{{ accounting_namespace }}"
+    nsq_image_pull_policy: "{{ accounting_nsq_image_pull_policy }}"
+    nsq_nsqd_resources: "{{ accounting_nsq_nsqd_resources }}"
+    nsq_nsqd_data_size: "{{ accounting_nsq_nsqd_data_size }}"
 
 - name: Deploy accounting
   k8s:

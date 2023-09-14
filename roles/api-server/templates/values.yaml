@@ -86,7 +86,7 @@ mail:
     apiKeyPublic: "{{ api_server_mail_mailjet_api_key_public }}"
     apiKeyPrivate: "{{ api_server_mail_mailjet_api_key_private }}"
     config:
-      {{ api_server_mail_mailjet_config | to_json | indent(width=6, first=false) }}
+      {{ api_server_sender_mail_mailjet_config | to_json | indent(width=6, first=false) }}
 
 hubspot:
   portalID: "{{ api_server_hubspot_portal_id }}"

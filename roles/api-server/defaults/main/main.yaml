@@ -30,6 +30,7 @@ api_server_masterdata_api_port: 8443
 api_server_metal_api_url: http://metal-api.metal-control-plane.svc.cluster.local:8080
 api_server_metal_api_hmac: metal-admin
 
+api_server_auditing_enabled: false
 api_server_auditing_url: http://auditing-meili-meilisearch.{{ auditing_namespace }}.svc.cluster.local:7700
 api_server_auditing_key: "{{ metal_stack_cloud_auditing_key }}"
 api_server_auditing_interval: "@daily"
@@ -48,19 +49,52 @@ api_server_hpa_cpu_percentage: 70
 
 api_server_resources:
 
-api_server_mail_provider: none
-api_server_mail_smtp_from_name: metalstack.cloud
-api_server_mail_smtp_from_address: "info@x-cellent.com"
+metal_stack_cloud_api_server_sender_image_tag: "sender-init"
+metal_stack_cloud_api_server_sender_image_name: "ghcr.io/metal-stack-cloud/api-server-sender"
 
-api_server_mail_mailjet_api_key_public: "{{ lookup('env', 'MJ_APIKEY_PUBLIC') | default('', true) }}"
-api_server_mail_mailjet_api_key_private: "{{ lookup('env', 'MJ_APIKEY_PRIVATE') | default('', true) }}"
-api_server_mail_mailjet_config:
-  # mail_templates: # mapping of mail templates to mailjet template ids
-  #   Welcome: 4712279
-  #   Admitted: 4727583
-  #   CouponPercentageUsedWarning: 4731146
-  #   CouponCompletelyUsedWarning: 4731184
-  #   PaymentUpdated: 4727758
+api_server_sender_log_only: false
+api_server_sender_log_level: debug
+
+api_server_sender_mail_provider: none
+api_server_sender_mail_smtp_from_name: metalstack.cloud
+api_server_sender_mail_smtp_from_address: "info@x-cellent.com"
+api_server_sender_mail_config_path: /app-config/mail-config.yaml
+api_server_sender_mail_mailjet_api_key_public: "{{ lookup('env', 'MJ_APIKEY_PUBLIC') | default('', true) }}"
+api_server_sender_mail_mailjet_api_key_private: "{{ lookup('env', 'MJ_APIKEY_PRIVATE') | default('', true) }}"
+api_server_sender_mail_mailjet_config:
+  # mail_templates:
+  #   MAIL_TYPE_WELCOME: 4630468
+  #   MAIL_TYPE_ADMITTED: 4727583
+  #   MAIL_TYPE_COUPON_PERCENTAGE_USED_WARNING: 4731146
+  #   MAIL_TYPE_COUPON_COMPLETELY_USED_WARNING: 4731184
+  #   MAIL_TYPE_PAYMENT_UPDATED: 4727758
+  #   MAIL_TYPE_ADMISSION_REQUESTED: 4791798
 
 api_server_hubspot_portal_id: ""
 api_server_hubspot_form_guid: ""
+
+api_server_nsq_name: api-server-nsqd
+
+api_server_nsqd_address: nsqd:4150
+api_server_nsqd_topic: api-server-emails
+
+api_server_nsq_set_resource_limits: true
+api_server_nsq_nsqd_resources:
+  requests:
+    memory: "32Mi"
+    cpu: "50m"
+  limits:
+    memory: "256Mi"
+    cpu: "1"
+api_server_nsq_nsq_lookupd_resources:
+  requests:
+    memory: "8Mi"
+    cpu: "20m"
+  limits:
+    memory: "100Mi"
+    cpu: "1"
+
+api_server_nsq_log_level: info
+api_server_nsq_nsqd_data_size: 100Mi
+
+api_server_nsq_image_pull_policy: IfNotPresent
