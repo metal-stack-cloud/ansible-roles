@@ -88,6 +88,9 @@ spec:
         name: sender
         args:
         - --config=/etc/accounting/sender/config.yaml
+        ports:
+        - containerPort: 2112
+          protocol: TCP
         volumeMounts:
         - name: config
           mountPath: /etc/accounting/sender/
@@ -95,3 +98,17 @@ spec:
         - name: config
           configMap:
             name: sender-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: accounting-sender
+  labels:
+    app: accounting-sender
+spec:
+  selector:
+    app: accounting-sender
+  ports:
+  - name: metrics
+    port: 2112
+    targetPort: 2112
