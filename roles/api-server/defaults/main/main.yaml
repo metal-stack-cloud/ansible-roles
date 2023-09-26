@@ -30,7 +30,7 @@ api_server_masterdata_api_port: 8443
 api_server_metal_api_url: http://metal-api.metal-control-plane.svc.cluster.local:8080
 api_server_metal_api_hmac: metal-admin
 
-api_server_auditing_url: http://auditing-meili-meilisearch.{{ auditing_namespace }}.svc.cluster.local:7700
+api_server_auditing_url: http://auditing-meili.{{ auditing_namespace }}.svc.cluster.local:7700
 api_server_auditing_key: "{{ metal_stack_cloud_auditing_key }}"
 api_server_auditing_interval: "@daily"
 api_server_auditing_keep: 10
