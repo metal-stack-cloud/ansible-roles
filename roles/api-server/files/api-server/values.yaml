@@ -13,6 +13,10 @@ masterdata:
   port: 3000
   hmac: secret-hmac
 
+tokenStore:
+  addr:
+  password:
+
 gardener:
   kubeconfig: ""
 

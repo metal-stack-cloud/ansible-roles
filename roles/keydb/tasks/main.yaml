@@ -1,0 +1,21 @@
+---
+- name: Create namespace
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ keydb_namespace }}"
+        labels:
+          name: "{{ keydb_namespace }}"
+
+- name: Deploy keydb
+  include_role:
+    name: ansible-common/roles/helm-chart
+  vars:
+    helm_repo: "{{ keydb_chart_repo }}"
+    helm_chart: keydb
+    helm_target_namespace: "{{ keydb_namespace }}"
+    helm_release_name: token-store
+    helm_chart_version: "{{ keydb_chart_version }}"
+    helm_value_file_template: "values.yaml"

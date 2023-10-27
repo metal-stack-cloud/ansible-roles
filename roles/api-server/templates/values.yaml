@@ -63,8 +63,12 @@ api:
       {{ api_server_stripe_config | indent(width=6, first=false) }}
 
   duros:
-    config: 
+    config:
       {{ api_server_duros_config | to_json | indent(width=6, first=false) }}
+
+tokenStore:
+  addr: {{ api_server_redis_addr }}
+  password: {{ api_server_redis_password }}
 
 gardener:
   kubeconfig: |
