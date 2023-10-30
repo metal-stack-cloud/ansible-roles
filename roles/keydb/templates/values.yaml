@@ -11,3 +11,6 @@ appendonly: "no"
 
 # Random UUID for readiness GET probe
 readinessProbeRandomUuid: fd5fed7a-af22-4531-870d-bd6da36a5d0f
+
+persistentVolume:
+  size: {{ keydb_size }}
