@@ -1,0 +1,16 @@
+---
+# find the chart values here: https://artifacthub.io/packages/helm/enapter/keydb
+nodes: {{ keydb_nodes }}
+
+password: {{ keydb_password }}
+
+multiMaster: "yes"
+activeReplicas: "yes"
+protectedMode: "no"
+appendonly: "no"
+
+# Random UUID for readiness GET probe
+readinessProbeRandomUuid: fd5fed7a-af22-4531-870d-bd6da36a5d0f
+
+persistentVolume:
+  size: {{ keydb_size }}

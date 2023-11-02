@@ -48,6 +48,9 @@ api_server_hpa_cpu_percentage: 70
 
 api_server_resources:
 
+api_server_redis_addr: token-store-keydb.{{ metal_stack_cloud_namespace }}.svc.cluster.local:6379
+api_server_redis_password: change-me
+
 api_server_mail_provider: none
 api_server_mail_smtp_from_name: metalstack.cloud
 api_server_mail_smtp_from_address: "info@x-cellent.com"

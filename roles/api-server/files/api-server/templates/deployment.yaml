@@ -27,6 +27,11 @@ spec:
             value: "{{  .Values.frontend.url }}"
           - name: USER_ADMITTANCE
             value: "{{ .Values.api.userAdmittance }}"
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: token-store-config
 {{- if eq .Values.mail.provider "mailjet" }}
           - name: MJ_APIKEY_PUBLIC
             value: "{{ .Values.mail.mailjet.apiKeyPublic }}"
@@ -48,6 +53,7 @@ spec:
           - --masterdata-api-hmac={{ .Values.masterdata.hmac }}
           - --metal-api-url={{ .Values.metal.url }}
           - --metal-api-hmac={{ .Values.metal.hmac }}
+          - --redis-addr={{ .Values.tokenStore.addr }}
           - --auditing-url={{ .Values.auditing.url }}
           - --auditing-api-key={{ .Values.auditing.key }}
           - --auditing-enabled={{ if .Values.auditing.url }}true{{ else }}false{{end}}

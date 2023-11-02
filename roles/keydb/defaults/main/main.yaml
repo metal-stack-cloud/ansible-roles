@@ -1,0 +1,10 @@
+---
+keydb_namespace: "{{ metal_stack_cloud_namespace }}"
+
+keydb_chart_repo: https://enapter.github.io/charts
+keydb_chart_version: "0.48.0"
+
+keydb_nodes: 3
+keydb_password: change-me
+
+keydb_size: 10Gi
