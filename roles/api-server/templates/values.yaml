@@ -31,7 +31,9 @@ api:
   logOnly: "{{ api_server_log_only }}"
   replicas: "{{ api_server_replicas }}"
   sessionSecret: "{{ api_server_session_secret }}"
-  jwtTokenSecret: "{{ api_server_jwt_token_secret }}"
+  jwt:
+    cert: "{{ api_server_jwt_token_cert | b64encode  }}"
+    key: "{{ api_server_jwt_token_cert_key | b64encode }}"
   image:
     name: "{{ metal_stack_cloud_api_server_image_name }}"
     tag: "{{ metal_stack_cloud_api_server_image_tag }}"

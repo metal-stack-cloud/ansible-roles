@@ -60,7 +60,6 @@ spec:
           - --auditing-index-interval={{ .Values.auditing.interval }}
           - --auditing-index-keep={{ .Values.auditing.keep }}
           - --auditing-index-prefix={{ .Values.auditing.indexPrefix }}
-          - --jwt-token-secret={{ .Values.api.jwtTokenSecret }}
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}
@@ -86,6 +85,8 @@ spec:
 {{ toYaml .Values.api.resources | indent 10 }}
 {{- end }}
         volumeMounts:
+        - name: jwt-token-certs
+          mountPath: /jwt-token/certs
         - name: masterdata-api-certs
           mountPath: /certs/
         - name: duros-config
@@ -99,6 +100,9 @@ spec:
           mountPath: /app-config
 {{- end }}
       volumes:
+        - name: jwt-token-certs
+          secret:
+            secretName: jwt-token-certs
         - name: masterdata-api-certs
           secret:
             secretName: masterdata-api-certs

@@ -9,6 +9,8 @@
     that:
       - metal_stack_cloud_api_server_image_name is defined
       - metal_stack_cloud_api_server_image_tag is defined
+      - api_server_jwt_token_cert is not none
+      - api_server_jwt_token_cert_key is not none
 
 - name: Create namespace
   k8s:
@@ -30,6 +32,7 @@
     helm_target_namespace: "{{ api_server_namespace }}"
     helm_value_file_template: values.yaml
 
+# FIXME: make generation with certs
 - name: Generate admin token
   k8s:
     definition:
@@ -38,7 +41,7 @@
       metadata:
         name: api-server-admin-token
       stringData:
-        token: "{{ api_server_jwt_token_secret | string | generate_jwt(roles=jwt_roles) }}"
+        token: "bla"
     namespace: "{{ api_server_namespace }}"
     apply: yes
   vars:

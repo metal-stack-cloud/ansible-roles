@@ -3,7 +3,9 @@ api_server_namespace: "{{ metal_stack_cloud_namespace }}"
 api_server_replicas: 1
 
 api_server_session_secret: geheim
-api_server_jwt_token_secret: geheim
+
+api_server_jwt_token_cert:
+api_server_jwt_token_cert_key:
 
 api_server_log_level: debug
 # this disables sending mails if coupon usage drains
