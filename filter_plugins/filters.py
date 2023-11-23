@@ -1,7 +1,6 @@
 import jwt
 from datetime import datetime, timezone, timedelta
 
-
 def generate_jwt(secret, issuer="metal-stack-cloud", sub="admin", expiry=datetime.now(tz=timezone.utc) + timedelta(days=365*100), roles=None, permissions=None):
     data = {
         "iss": issuer,
@@ -14,7 +13,8 @@ def generate_jwt(secret, issuer="metal-stack-cloud", sub="admin", expiry=datetim
     if permissions:
         data["permissions"] = permissions
 
-    return jwt.encode(data, secret, algorithm="HS256")
+
+    return jwt.encode(data, secret, algorithm="HS512")
 
 
 class FilterModule(object):
