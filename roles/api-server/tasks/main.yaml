@@ -29,3 +29,7 @@
     helm_release_name: api-server
     helm_target_namespace: "{{ api_server_namespace }}"
     helm_value_file_template: values.yaml
+
+- name: run generate token tasks
+  import_tasks: generate_tokens.yaml
+  when: api_server_generate_infrastructure_tokens
