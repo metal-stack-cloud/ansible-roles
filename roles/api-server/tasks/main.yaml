@@ -20,15 +20,15 @@
         labels:
           name: "{{ api_server_namespace }}"
 
-# - name: Deploy api-server chart
-#   include_role:
-#     name: ansible-common/roles/helm-chart
-#   vars:
-#     helm_chart_custom_folder: "{{ ansible_parent_role_paths[0] }}/files/api-server"
-#     helm_chart: "./api-server"
-#     helm_release_name: api-server
-#     helm_target_namespace: "{{ api_server_namespace }}"
-#     helm_value_file_template: values.yaml
+- name: Deploy api-server chart
+  include_role:
+    name: ansible-common/roles/helm-chart
+  vars:
+    helm_chart_custom_folder: "{{ ansible_parent_role_paths[0] }}/files/api-server"
+    helm_chart: "./api-server"
+    helm_release_name: api-server
+    helm_target_namespace: "{{ api_server_namespace }}"
+    helm_value_file_template: values.yaml
 
 - name: run generate token tasks
   import_tasks: generate_tokens.yaml
