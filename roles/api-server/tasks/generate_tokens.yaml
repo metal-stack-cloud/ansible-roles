@@ -19,8 +19,9 @@
     pod: "{{ _api_server_pod }}"
     command: |
       /server token
-        --redis-addr {{ api_server_redis_addr }}
-        --redis-password {{ api_server_redis_password }}
+        --redis-addr={{ api_server_redis_addr }}
+        --redis-password={{ api_server_redis_password }}
+        --server-http-url={{ api_server_http_url }}
         --description={{ item.description | quote }}
         {% if roles is defined and item.roles %}
         --roles={{ item.roles | join(',') | quote }}
