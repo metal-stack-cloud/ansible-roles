@@ -23,14 +23,16 @@
         --redis-password={{ api_server_redis_password }}
         --server-http-url={{ api_server_http_url }}
         --description={{ item.description | quote }}
-        {% if roles is defined and item.roles %}
+        {% if item.roles is defined and item.roles %}
         --roles={{ item.roles | join(',') | quote }}
         {% endif %}
-        {% if permssions is defined and item.permissions %}
+        {% if item.permissions is defined and item.permissions %}
         --permissions="{{ item.permissions | join(',') | quote }}"
         {% endif %}
   register: _generated_tokens
   loop: "{{ api_server_generate_infrastructure_tokens }}"
+  loop_control:
+    label: "{{ item.secret }}"
 
 - name: Persist tokens
   no_log: true
