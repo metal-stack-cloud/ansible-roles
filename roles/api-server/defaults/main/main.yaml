@@ -3,7 +3,6 @@ api_server_namespace: "{{ metal_stack_cloud_namespace }}"
 api_server_replicas: 1
 
 api_server_session_secret: geheim
-api_server_jwt_token_secret: geheim
 
 api_server_log_level: debug
 # this disables sending mails if coupon usage drains
@@ -67,3 +66,9 @@ api_server_mail_mailjet_config:
 
 api_server_hubspot_portal_id: ""
 api_server_hubspot_form_guid: ""
+
+api_server_generate_infrastructure_tokens:
+  - description: accounting-reporter
+    secret: accounting-reporter-token
+    roles:
+      - '*=admin'

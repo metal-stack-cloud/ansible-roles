@@ -30,18 +30,6 @@
     helm_target_namespace: "{{ api_server_namespace }}"
     helm_value_file_template: values.yaml
 
-- name: Generate admin token
-  k8s:
-    definition:
-      apiVersion: v1
-      kind: Secret
-      metadata:
-        name: api-server-admin-token
-      stringData:
-        token: "{{ api_server_jwt_token_secret | string | generate_jwt(roles=jwt_roles) }}"
-    namespace: "{{ api_server_namespace }}"
-    apply: yes
-  vars:
-    jwt_roles:
-      "*": "admin"
-  when: not lookup('k8s', api_version='v1', kind='Secret', namespace=api_server_namespace, resource_name='api-server-admin-token')
+- name: run generate token tasks
+  import_tasks: generate_tokens.yaml
+  when: api_server_generate_infrastructure_tokens

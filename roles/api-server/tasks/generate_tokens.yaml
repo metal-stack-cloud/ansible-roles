@@ -1,0 +1,51 @@
+---
+- name: Wait until the api-server is running
+  kubernetes.core.k8s_info:
+    kind: Deployment
+    name: api-server
+    namespace: "{{ api_server_namespace }}"
+    wait: yes
+    wait_sleep: 1
+    wait_timeout: 60
+
+- name: Identify pod for token creation
+  set_fact:
+    _api_server_pod: "{{ lookup('k8s', api_version='v1', kind='Pod', namespace=api_server_namespace, label_selector='app=api-server')[0].get('metadata', {}).get('name') if api_server_replicas > 1 else lookup('k8s', api_version='v1', kind='Pod', namespace=api_server_namespace, label_selector='app=api-server').get('metadata', {}).get('name') }}"
+
+- name: Generate tokens
+  no_log: true
+  kubernetes.core.k8s_exec:
+    namespace: "{{ api_server_namespace }}"
+    pod: "{{ _api_server_pod }}"
+    command: |
+      /server token
+        --redis-addr={{ api_server_redis_addr }}
+        --redis-password={{ api_server_redis_password }}
+        --server-http-url={{ api_server_http_url }}
+        --description={{ item.description | quote }}
+        {% if item.roles is defined and item.roles %}
+        --roles={{ item.roles | join(',') | quote }}
+        {% endif %}
+        {% if item.permissions is defined and item.permissions %}
+        --permissions="{{ item.permissions | join(',') | quote }}"
+        {% endif %}
+  register: _generated_tokens
+  loop: "{{ api_server_generate_infrastructure_tokens }}"
+  loop_control:
+    label: "{{ item.secret }}"
+
+- name: Persist tokens
+  no_log: true
+  k8s:
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: "{{ item.0.secret }}"
+      stringData:
+        token: "{{ item.1.stdout }}"
+    namespace: "{{ api_server_namespace }}"
+    apply: yes
+  loop: "{{ api_server_generate_infrastructure_tokens | zip(_generated_tokens.results) }}"
+  loop_control:
+    label: "{{ item.0.secret }}"
