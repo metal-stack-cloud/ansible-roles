@@ -14,6 +14,7 @@ console_debug_mode: true
 
 console_email_consent: false
 console_show_outage_banner: false
+console_show_survey: true
 
 console_ingress_dns: console.{{ metal_stack_cloud_ingress_dns }}
 console_ingress_tls_enabled: false
