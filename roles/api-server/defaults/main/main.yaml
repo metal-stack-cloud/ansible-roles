@@ -13,6 +13,8 @@ api_server_github_client_id: "{{ lookup('env', 'GH_CLIENT_ID') | default('', tru
 api_server_github_client_secret: "{{ lookup('env', 'GH_CLIENT_SECRET') | default('', true) }}"
 api_server_azure_application_id: "{{ lookup('env', 'AZ_APPLICATION_ID') | default('', true) }}"
 api_server_azure_client_secret: "{{ lookup('env', 'AZ_CLIENT_SECRET') | default('', true) }}"
+api_server_google_application_id: "{{ lookup('env', 'GOOGLE_APPLICATION_ID') | default('', true) }}"
+api_server_google_client_secret: "{{ lookup('env', 'GOOGLE_CLIENT_SECRET') | default('', true) }}"
 api_server_stripe_secret_key: "{{ metal_stack_cloud_stripe_private_token }}"
 
 api_server_ingress_dns: "api.{{ metal_stack_cloud_ingress_dns }}"
