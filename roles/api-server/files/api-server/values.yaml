@@ -78,6 +78,9 @@ api:
   azure:
     applicationID: app-id
     clientSecret: client-secret
+  google:
+    applicationID: app-id
+    clientSecret: client-secret
 
   stripe:
     secretKey: stripe-secret
