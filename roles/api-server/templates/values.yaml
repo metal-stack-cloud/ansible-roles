@@ -55,6 +55,9 @@ api:
   azure:
     applicationID: "{{ api_server_azure_application_id }}"
     clientSecret: "{{ api_server_azure_client_secret }}"
+  google:
+    applicationID: "{{ api_server_google_application_id }}"
+    clientSecret: "{{ api_server_google_client_secret }}"
 
   stripe:
     secretKey: "{{ api_server_stripe_secret_key }}"
