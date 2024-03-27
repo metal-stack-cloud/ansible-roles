@@ -69,6 +69,8 @@ api_server_mail_mailjet_config:
 api_server_hubspot_portal_id: ""
 api_server_hubspot_form_guid: ""
 
+api_server_admin_subjects: []
+
 api_server_generate_infrastructure_tokens:
   - description: accounting-reporter
     secret: accounting-reporter-token

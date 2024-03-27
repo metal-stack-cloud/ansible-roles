@@ -30,6 +30,7 @@ api:
   logLevel: "{{ api_server_log_level }}"
   logOnly: "{{ api_server_log_only }}"
   replicas: "{{ api_server_replicas }}"
+  adminSubjects: {{ api_server_admin_subjects | to_json }}
   sessionSecret: "{{ api_server_session_secret }}"
   image:
     name: "{{ metal_stack_cloud_api_server_image_name }}"
