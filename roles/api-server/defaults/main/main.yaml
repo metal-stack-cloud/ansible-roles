@@ -72,5 +72,4 @@ api_server_hubspot_form_guid: ""
 api_server_generate_infrastructure_tokens:
   - description: accounting-reporter
     secret: accounting-reporter-token
-    roles:
-      - '*=admin'
+    admin_role: ADMIN_ROLE_VIEWER
