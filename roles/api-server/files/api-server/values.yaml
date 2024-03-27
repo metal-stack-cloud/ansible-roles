@@ -41,6 +41,7 @@ api:
   logOnly: false
   replicas: 1
   sessionSecret: secret
+  adminSubjects: []
   image:
     name: ghcr.io/metal-stack-cloud/api-server
     tag: latest

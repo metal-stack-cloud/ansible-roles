@@ -23,8 +23,14 @@
         --redis-password={{ api_server_redis_password }}
         --server-http-url={{ api_server_http_url }}
         --description={{ item.description | quote }}
-        {% if item.roles is defined and item.roles %}
-        --roles={{ item.roles | join(',') | quote }}
+        {% if item.project_roles is defined and item.project_roles %}
+        --project-roles={{ item.project_roles | join(',') | quote }}
+        {% endif %}
+        {% if item.tenant_roles is defined and item.tenant_roles %}
+        --tenant-roles={{ item.tenant_roles | join(',') | quote }}
+        {% endif %}
+        {% if item.admin_role is defined and item.admin_role %}
+        --admin-role={{ item.admin_role }}
         {% endif %}
         {% if item.permissions is defined and item.permissions %}
         --permissions="{{ item.permissions | join(',') | quote }}"

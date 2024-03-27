@@ -56,6 +56,7 @@ spec:
           - --metal-api-url={{ .Values.metal.url }}
           - --metal-api-hmac={{ .Values.metal.hmac }}
           - --redis-addr={{ .Values.tokenStore.addr }}
+          - --admin-subjects={{ join "," .Values.api.adminSubjects }}
           - --auditing-url={{ .Values.auditing.url }}
           - --auditing-api-key={{ .Values.auditing.key }}
           - --auditing-enabled={{ if .Values.auditing.url }}true{{ else }}false{{end}}
