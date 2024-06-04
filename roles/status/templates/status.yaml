@@ -48,7 +48,6 @@ spec:
           protocol: TCP
         - containerPort: 2112
           protocol: TCP
-        restartPolicy: Always
         volumeMounts:
         - mountPath: /etc/status
           name: config
