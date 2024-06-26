@@ -88,6 +88,10 @@ api:
     configYaml: |
       products: []
 
+  rateLimit:
+    maxRequestsPerMinute: 1000
+    maxUnauthenticatedRequestsPerMinute: 50
+
   resources:
     requests:
       memory: "200Mi"

@@ -69,6 +69,10 @@ api:
     config:
       {{ api_server_duros_config | to_json | indent(width=6, first=false) }}
 
+  rateLimit:
+    maxRequestsPerMinute: {{ api_server_rate_limit_max_requests_per_minute }}
+    maxUnauthenticatedRequestsPerMinute: {{ api_server_rate_limit_max_unauthenticated_requests_per_minute }}
+
 tokenStore:
   addr: {{ api_server_redis_addr }}
   password: {{ api_server_redis_password }}
