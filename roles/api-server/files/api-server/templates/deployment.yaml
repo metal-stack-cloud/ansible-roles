@@ -63,6 +63,8 @@ spec:
           - --auditing-index-interval={{ .Values.auditing.interval }}
           - --auditing-index-keep={{ .Values.auditing.keep }}
           - --auditing-index-prefix={{ .Values.auditing.indexPrefix }}
+          - --max-requests-per-minute={{ .Values.api.rateLimit.maxRequestsPerMinute }}
+          - --max-unauthenticated-requests-per-minute={{ .Values.api.rateLimit.maxUnauthenticatedRequestsPerMinute }}
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}

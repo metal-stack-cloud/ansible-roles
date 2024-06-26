@@ -37,6 +37,9 @@ api_server_auditing_interval: "@daily"
 api_server_auditing_keep: 10
 api_server_auditing_index_prefix: cloud
 
+api_server_rate_limit_max_requests_per_minute: 1000
+api_server_rate_limit_max_unauthenticated_requests_per_minute: 50
+
 api_server_gardener_kubeconfig: ""
 
 api_server_pdb_enabled: true
