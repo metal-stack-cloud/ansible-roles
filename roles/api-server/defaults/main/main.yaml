@@ -75,3 +75,6 @@ api_server_generate_infrastructure_tokens:
   - description: accounting-reporter
     secret: accounting-reporter-token
     admin_role: ADMIN_ROLE_VIEWER
+  - description: status
+    secret: status-dashboard-token
+    admin_role: ADMIN_ROLE_VIEWER
