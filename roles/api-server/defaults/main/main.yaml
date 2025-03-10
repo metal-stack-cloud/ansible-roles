@@ -33,7 +33,7 @@ api_server_metal_api_hmac: metal-admin
 
 api_server_auditing_backend: timescaledb
 
-api_server_auditing_meili_url: http://auditing-meili.{{ auditing_namespace }}.svc.cluster.local:7700
+api_server_auditing_meili_url: http://auditing-meili.metal-control-plane.svc.cluster.local:7700
 api_server_auditing_meili_key: "{{ metal_stack_cloud_auditing_key }}"
 api_server_auditing_meili_interval: "@daily"
 api_server_auditing_meili_keep: 10
@@ -90,4 +90,3 @@ api_server_generate_infrastructure_tokens:
   - description: status
     secret: status-dashboard-token
     admin_role: ADMIN_ROLE_VIEWER
-
