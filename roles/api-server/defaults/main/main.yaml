@@ -39,7 +39,7 @@ api_server_auditing_meili_interval: "@daily"
 api_server_auditing_meili_keep: 10
 api_server_auditing_meili_index_prefix: cloud
 
-api_server_auditing_timescaledb_host: "auditing-timescaledb.metal-control-plane"
+api_server_auditing_timescaledb_host: "auditing-timescaledb.metal-control-plane.svc.cluster.local"
 api_server_auditing_timescaledb_port: "5432"
 api_server_auditing_timescaledb_db: "auditing"
 api_server_auditing_timescaledb_user: "postgres"
