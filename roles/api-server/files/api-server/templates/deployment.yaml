@@ -57,14 +57,25 @@ spec:
           - --metal-api-hmac={{ .Values.metal.hmac }}
           - --redis-addr={{ .Values.tokenStore.addr }}
           - --admin-subjects={{ join "," .Values.api.adminSubjects }}
-          - --auditing-url={{ .Values.auditing.url }}
-          - --auditing-api-key={{ .Values.auditing.key }}
-          - --auditing-enabled={{ if .Values.auditing.url }}true{{ else }}false{{end}}
-          - --auditing-index-interval={{ .Values.auditing.interval }}
-          - --auditing-index-keep={{ .Values.auditing.keep }}
-          - --auditing-index-prefix={{ .Values.auditing.indexPrefix }}
           - --max-requests-per-minute={{ .Values.api.rateLimit.maxRequestsPerMinute }}
           - --max-unauthenticated-requests-per-minute={{ .Values.api.rateLimit.maxUnauthenticatedRequestsPerMinute }}
+{{- if eq .Values.auditing.backend "meili"}}
+          - --auditing-meili-enabled={{ if eq .Values.auditing.backend "meili" }}true{{ else }}false{{end}}
+          - --auditing-meili-url={{ .Values.auditing.meili.url }}
+          - --auditing-meili-api-key={{ .Values.auditing.meili.key }}
+          - --auditing-meili-index-interval={{ .Values.auditing.meili.interval }}
+          - --auditing-meili-index-prefix={{ .Values.auditing.meili.indexPrefix }}
+          - --auditing-meili-index-keep={{ .Values.auditing.meili.keep }}
+{{- end}}
+{{- if eq .Values.auditing.backend "timescaledb"}}
+          - --auditing-timescaledb-enabled={{ if eq .Values.auditing.backend "timescaledb" }}true{{ else }}false{{end}}
+          - --auditing-timescaledb-host={{ .Values.auditing.timescaledb.host }}
+          - --auditing-timescaledb-port={{ .Values.auditing.timescaledb.port }}
+          - --auditing-timescaledb-db={{ .Values.auditing.timescaledb.db }}
+          - --auditing-timescaledb-user={{ .Values.auditing.timescaledb.user }}
+          - --auditing-timescaledb-password={{ .Values.auditing.timescaledb.password }}
+          - --auditing-timescaledb-retention={{ .Values.auditing.timescaledb.retention }}
+{{- end}}
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}
