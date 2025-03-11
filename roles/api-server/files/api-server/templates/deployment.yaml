@@ -71,7 +71,7 @@ spec:
           - --auditing-timescaledb-enabled={{ if eq .Values.auditing.backend "timescaledb" }}true{{ else }}false{{end}}
           - --auditing-timescaledb-host={{ .Values.auditing.timescaledb.host }}
           - --auditing-timescaledb-port={{ .Values.auditing.timescaledb.port }}
-          - --auditing-timescaledb-db={{ .Values.auditing.timescaledb.database }}
+          - --auditing-timescaledb-db={{ .Values.auditing.timescaledb.db }}
           - --auditing-timescaledb-user={{ .Values.auditing.timescaledb.user }}
           - --auditing-timescaledb-password={{ .Values.auditing.timescaledb.password }}
           - --auditing-timescaledb-retention={{ .Values.auditing.timescaledb.retention }}
