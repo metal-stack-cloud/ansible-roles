@@ -21,20 +21,12 @@ gardener:
   kubeconfig: ""
 
 auditing:
-  backend: timescaledb
-  timescaledb:
-    host: auditing-timescaledb
-    port: 5432
-    db: auditing
-    user: postgres
-    password: "change-me"
-    retention: "14-days"
-  meili:
-    url: auditing
-    key: secret
-    interval: "@daily"
-    keep: 10
-    indexPrefix: auditing
+  host: auditing-timescaledb
+  port: 5432
+  db: auditing
+  user: postgres
+  password: "change-me"
+  retention: "14-days"
 
 metal:
   url: metal-api

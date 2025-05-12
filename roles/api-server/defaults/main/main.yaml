@@ -31,14 +31,6 @@ api_server_masterdata_api_port: 8443
 api_server_metal_api_url: http://metal-api.metal-control-plane.svc.cluster.local:8080
 api_server_metal_api_hmac: metal-admin
 
-api_server_auditing_backend: timescaledb
-
-api_server_auditing_meili_url: http://auditing-meili.metal-control-plane.svc.cluster.local:7700
-api_server_auditing_meili_key: "{{ metal_stack_cloud_auditing_key }}"
-api_server_auditing_meili_interval: "@daily"
-api_server_auditing_meili_keep: 10
-api_server_auditing_meili_index_prefix: cloud
-
 api_server_auditing_timescaledb_host: "auditing-timescaledb.metal-control-plane.svc.cluster.local"
 api_server_auditing_timescaledb_port: "5432"
 api_server_auditing_timescaledb_db: "auditing"

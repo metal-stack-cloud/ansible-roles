@@ -11,20 +11,12 @@ masterdata:
   hmac: "{{ api_server_masterdata_api_hmac }}"
 
 auditing:
-  backend: "{{ api_server_auditing_backend }}"
-  auditing:
-    url: "{{ api_server_auditing_meili_url }}"
-    key: "{{ api_server_auditing_meili_key }}"
-    interval: "{{ api_server_auditing_meili_interval }}"
-    keep: "{{ api_server_auditing_meili_keep }}"
-    indexPrefix: "{{ api_server_auditing_meili_index_prefix }}"
-  timescaledb:
-    host: "{{ api_server_auditing_timescaledb_host }}"
-    port: "{{ api_server_auditing_timescaledb_port }}"
-    db: "{{ api_server_auditing_timescaledb_db }}"
-    user: "{{ api_server_auditing_timescaledb_user }}"
-    password: "{{ api_server_auditing_timescaledb_password }}"
-    retention: "{{ api_server_auditing_timescaledb_retention }}"
+  host: "{{ api_server_auditing_timescaledb_host }}"
+  port: "{{ api_server_auditing_timescaledb_port }}"
+  db: "{{ api_server_auditing_timescaledb_db }}"
+  user: "{{ api_server_auditing_timescaledb_user }}"
+  password: "{{ api_server_auditing_timescaledb_password }}"
+  retention: "{{ api_server_auditing_timescaledb_retention }}"
 
 
 metal:
