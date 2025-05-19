@@ -21,6 +21,7 @@ gardener:
   kubeconfig: ""
 
 auditing:
+  enabled: true
   host: auditing-timescaledb
   port: 5432
   db: auditing

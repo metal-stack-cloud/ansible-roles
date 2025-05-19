@@ -11,6 +11,7 @@ masterdata:
   hmac: "{{ api_server_masterdata_api_hmac }}"
 
 auditing:
+  enabled: "{{ api_server_auditing_timescaledb_enabled }}"
   host: "{{ api_server_auditing_timescaledb_host }}"
   port: "{{ api_server_auditing_timescaledb_port }}"
   db: "{{ api_server_auditing_timescaledb_db }}"
