@@ -59,23 +59,13 @@ spec:
           - --admin-subjects={{ join "," .Values.api.adminSubjects }}
           - --max-requests-per-minute={{ .Values.api.rateLimit.maxRequestsPerMinute }}
           - --max-unauthenticated-requests-per-minute={{ .Values.api.rateLimit.maxUnauthenticatedRequestsPerMinute }}
-{{- if eq .Values.auditing.backend "meili"}}
-          - --auditing-meili-enabled={{ if eq .Values.auditing.backend "meili" }}true{{ else }}false{{end}}
-          - --auditing-meili-url={{ .Values.auditing.meili.url }}
-          - --auditing-meili-api-key={{ .Values.auditing.meili.key }}
-          - --auditing-meili-index-interval={{ .Values.auditing.meili.interval }}
-          - --auditing-meili-index-prefix={{ .Values.auditing.meili.indexPrefix }}
-          - --auditing-meili-index-keep={{ .Values.auditing.meili.keep }}
-{{- end}}
-{{- if eq .Values.auditing.backend "timescaledb"}}
-          - --auditing-timescaledb-enabled={{ if eq .Values.auditing.backend "timescaledb" }}true{{ else }}false{{end}}
-          - --auditing-timescaledb-host={{ .Values.auditing.timescaledb.host }}
-          - --auditing-timescaledb-port={{ .Values.auditing.timescaledb.port }}
-          - --auditing-timescaledb-db={{ .Values.auditing.timescaledb.db }}
-          - --auditing-timescaledb-user={{ .Values.auditing.timescaledb.user }}
-          - --auditing-timescaledb-password={{ .Values.auditing.timescaledb.password }}
-          - --auditing-timescaledb-retention={{ .Values.auditing.timescaledb.retention }}
-{{- end}}
+          - --auditing-timescaledb-enabled={{ .Values.auditing.enabled }}
+          - --auditing-timescaledb-host={{ .Values.auditing.host }}
+          - --auditing-timescaledb-port={{ .Values.auditing.port }}
+          - --auditing-timescaledb-db={{ .Values.auditing.db }}
+          - --auditing-timescaledb-user={{ .Values.auditing.user }}
+          - --auditing-timescaledb-password={{ .Values.auditing.password }}
+          - --auditing-timescaledb-retention={{ .Values.auditing.retention }}
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}
