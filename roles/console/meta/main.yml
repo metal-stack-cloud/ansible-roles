@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  role_name: console
+  author: metal-stack-cloud
+  description: This role deploys the console for metalstack.cloud.
+  license: MIT
+  min_ansible_version: "2.15"
+  galaxy_tags: []
+
+  platforms:
+    - name: GenericLinux
+      versions:
+        - all
+
+dependencies:
+  - metal-stack-cloud-ansible-roles/roles/defaults
