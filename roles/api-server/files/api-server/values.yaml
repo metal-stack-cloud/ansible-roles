@@ -39,6 +39,7 @@ frontend:
 api:
   url: localhost
   userAdmittance: true
+  disableBilling: false
   logLevel: debug
   logOnly: false
   replicas: 1

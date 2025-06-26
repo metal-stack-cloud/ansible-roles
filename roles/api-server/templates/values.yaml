@@ -30,6 +30,7 @@ frontend:
 api:
   url: "{{ api_server_http_url }}"
   userAdmittance: "{{ metal_stack_cloud_user_admittance | lower }}"
+  disableBilling: "{{ metal_stack_cloud_api_server_disable_billing | lower }}"
   logLevel: "{{ api_server_log_level }}"
   logOnly: "{{ api_server_log_only }}"
   replicas: "{{ api_server_replicas }}"

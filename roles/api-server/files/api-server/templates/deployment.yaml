@@ -69,6 +69,9 @@ spec:
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}
+{{- if .Values.api.disableBilling }}
+          - --disable-billing=true
+{{- end -}}
 {{- if eq .Values.mail.provider "mailjet" }}
           - --mail-provider={{ .Values.mail.provider }}
           - --mail-config-path=/app-config/mail-config.yaml
