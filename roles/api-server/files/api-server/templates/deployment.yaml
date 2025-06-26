@@ -66,6 +66,7 @@ spec:
           - --auditing-timescaledb-user={{ .Values.auditing.user }}
           - --auditing-timescaledb-password={{ .Values.auditing.password }}
           - --auditing-timescaledb-retention={{ .Values.auditing.retention }}
+          - --disable-billing={{ .Values.api.disableBilling }}
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}

@@ -8,6 +8,7 @@ window.DEBUG = {{ console_debug_mode | lower }}
 window.EMAIL_CONSENT = {{ console_email_consent | lower }}
 window.SHOW_OUTAGE_BANNER = {{ console_show_outage_banner | lower }}
 window.SHOW_SURVEY = {{ console_show_survey | lower }}
+window.DISABLE_BILLING = {{ metal_stack_cloud_disable_billing | lower }}
 {% if console_open_auth_test %}
 window.OPEN_AUTH_TEST = true
 window.AUTH_TEST = "{{ console_api_auth_test_callback_url }}"
