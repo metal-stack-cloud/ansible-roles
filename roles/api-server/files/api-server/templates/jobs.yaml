@@ -1,4 +1,4 @@
-{{ if eq .Values.api.disableBilling false }}
+{{ if not .Values.api.disableBilling }}
 ---
 apiVersion: batch/v1
 kind: Job
