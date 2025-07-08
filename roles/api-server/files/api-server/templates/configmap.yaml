@@ -1,4 +1,4 @@
-{% if not metal_stack_cloud_disable_billing %}
+{{ if eq .Values.api.disableBilling false }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -8,7 +8,7 @@ metadata:
     app: api-server
 data:
   stripe-config: {{ quote .Values.api.stripe.configYaml }}
-{% endif %}
+{{- end -}}
 {{- if eq .Values.mail.provider "mailjet" }}
 ---
 apiVersion: v1

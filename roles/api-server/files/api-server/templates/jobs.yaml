@@ -1,4 +1,4 @@
-{% if not metal_stack_cloud_disable_billing %}
+{{ if eq .Values.api.disableBilling false }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -92,4 +92,4 @@ spec:
                   - key: mail-config.yaml
                     path: mail-config.yaml
 {{- end -}}
-{% endif %}
+{{- end -}}
