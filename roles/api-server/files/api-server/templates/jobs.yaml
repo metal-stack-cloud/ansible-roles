@@ -1,3 +1,4 @@
+{{ if not .Values.api.disableBilling }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -90,4 +91,5 @@ spec:
                 items:
                   - key: mail-config.yaml
                     path: mail-config.yaml
+{{- end -}}
 {{- end -}}
