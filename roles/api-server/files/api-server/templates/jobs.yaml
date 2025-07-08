@@ -1,4 +1,5 @@
 ---
+{{- if eq .Values.api.disableBilling false }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -36,6 +37,7 @@ spec:
               - key: stripe-config
                 path: stripe-config.yaml
       restartPolicy: Never
+{{- end -}}
 
 {{- if eq .Values.mail.provider "mailjet" }}
 ---
