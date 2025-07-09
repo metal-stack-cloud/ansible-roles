@@ -67,6 +67,9 @@ spec:
           - --auditing-timescaledb-password={{ .Values.auditing.password }}
           - --auditing-timescaledb-retention={{ .Values.auditing.retention }}
           - --disable-billing={{ .Values.api.disableBilling }}
+{{- if .Values.api.defaultMachineType }}
+          - --default-machine-type={{ .Values.api.defaultMachineType }}
+{{- end -}}
 {{- if .Values.api.duros.config }}
           - --duros-config-path=/duros/duros-config.yaml
 {{- end -}}
