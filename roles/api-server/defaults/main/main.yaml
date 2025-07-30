@@ -77,6 +77,8 @@ api_server_hubspot_form_guid: ""
 api_server_admin_subjects: []
 
 api_server_default_machine_type:
+api_server_after_login_url:
+api_server_terms_and_conditions_url:
 
 api_server_generate_infrastructure_tokens:
   - description: accounting-reporter
