@@ -46,6 +46,8 @@ api:
   adminSubjects: []
   disableBilling: false
   defaultMachineType:
+  afterLoginURL:
+  termsAndConditionsURL:
   image:
     name: ghcr.io/metal-stack-cloud/api-server
     tag: latest

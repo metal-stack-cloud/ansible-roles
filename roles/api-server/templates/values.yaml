@@ -39,6 +39,12 @@ api:
 {% if api_server_default_machine_type %}
   defaultMachineType: "{{ api_server_default_machine_type }}"
 {% endif %}
+{% if api_server_default_machine_type %}
+  afterLoginURL: "{{ api_server_after_login_url }}"
+{% endif %}
+{% if api_server_terms_and_conditions_url %}
+  termsAndConditionsURL: "{{ api_server_terms_and_conditions_url }}"
+{% endif %}
   image:
     name: "{{ metal_stack_cloud_api_server_image_name }}"
     tag: "{{ metal_stack_cloud_api_server_image_tag }}"

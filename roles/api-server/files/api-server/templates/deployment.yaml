@@ -23,8 +23,6 @@ spec:
         env:
           - name: SESSION_SECRET
             value: "{{ .Values.api.sessionSecret }}"
-          - name: FRONT_END_URL
-            value: "{{ .Values.frontend.url }}"
           - name: USER_ADMITTANCE
             value: "{{ .Values.api.userAdmittance }}"
           - name: REDIS_PASSWORD
@@ -43,6 +41,13 @@ spec:
           - --log-level={{ .Values.api.logLevel }}
           - --http-server-endpoint=0.0.0.0:8080
           - --server-http-url={{ .Values.api.url }}
+          - --front-end-url={{ .Values.frontend.url }}
+{{- if .Values.api.afterLoginURL }}
+          - --after-login-url={{ .Values.api.afterLoginURL }}
+{{- end }}
+{{- if .Values.api.termsAndConditionsURL }}
+          - --terms-and-conditions-url={{ .Values.api.termsAndConditionsURL }}
+{{- end }}
           - --gh-client-id={{ .Values.api.github.clientID }}
           - --gh-client-secret={{ .Values.api.github.clientSecret }}
           - --az-application-id={{ .Values.api.azure.applicationID }}
@@ -50,6 +55,7 @@ spec:
           - --google-application-id={{ .Values.api.google.applicationID }}
           - --google-client-secret={{ .Values.api.google.clientSecret }}
           - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
+          - --stripe-public-token={{ .Values.api.stripe.publicKey }}
           - --masterdata-api-hostname={{ .Values.masterdata.hostname }}
           - --masterdata-api-port={{ .Values.masterdata.port }}
           - --masterdata-api-hmac={{ .Values.masterdata.hmac }}
