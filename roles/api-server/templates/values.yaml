@@ -36,6 +36,9 @@ api:
   adminSubjects: {{ api_server_admin_subjects | to_json }}
   sessionSecret: "{{ api_server_session_secret }}"
   disableBilling: "{{ metal_stack_cloud_disable_billing }}"
+{% if api_server_default_machine_type %}
+  defaultMachineType: "{{ api_server_default_machine_type }}"
+{% endif %}
   image:
     name: "{{ metal_stack_cloud_api_server_image_name }}"
     tag: "{{ metal_stack_cloud_api_server_image_tag }}"

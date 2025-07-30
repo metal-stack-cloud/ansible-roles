@@ -45,6 +45,7 @@ api:
   sessionSecret: secret
   adminSubjects: []
   disableBilling: false
+  defaultMachineType:
   image:
     name: ghcr.io/metal-stack-cloud/api-server
     tag: latest
