@@ -91,6 +91,7 @@ api:
 
   stripe:
     secretKey: stripe-secret
+    publicToken:
     configYaml: |
       products: []
 

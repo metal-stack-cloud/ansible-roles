@@ -55,7 +55,7 @@ spec:
           - --google-application-id={{ .Values.api.google.applicationID }}
           - --google-client-secret={{ .Values.api.google.clientSecret }}
           - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
-          - --stripe-public-token={{ .Values.api.stripe.publicKey }}
+          - --stripe-public-token={{ .Values.api.stripe.publicToken }}
           - --masterdata-api-hostname={{ .Values.masterdata.hostname }}
           - --masterdata-api-port={{ .Values.masterdata.port }}
           - --masterdata-api-hmac={{ .Values.masterdata.hmac }}

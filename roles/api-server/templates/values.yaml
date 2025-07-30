@@ -76,6 +76,7 @@ api:
 {% if not metal_stack_cloud_disable_billing %}
   stripe:
     secretKey: "{{ api_server_stripe_secret_key }}"
+    publicToken: "{{ metal_stack_cloud_stripe_public_token }}"
     configYaml: |
       {{ api_server_stripe_config | indent(width=6, first=false) }}
 {% endif %}
