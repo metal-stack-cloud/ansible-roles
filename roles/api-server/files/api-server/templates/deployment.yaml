@@ -23,6 +23,11 @@ spec:
         env:
           - name: SESSION_SECRET
             value: "{{ .Values.api.sessionSecret }}"
+          # the front end url has to be kept as environment variable
+          # it is used by the local development of the console and toggles
+          # this value to localhost:3000 and console.172...
+          - name: FRONT_END_URL
+            value: "{{ .Values.frontend.url }}"
           - name: USER_ADMITTANCE
             value: "{{ .Values.api.userAdmittance }}"
           - name: REDIS_PASSWORD
@@ -41,7 +46,6 @@ spec:
           - --log-level={{ .Values.api.logLevel }}
           - --http-server-endpoint=0.0.0.0:8080
           - --server-http-url={{ .Values.api.url }}
-          - --front-end-url={{ .Values.frontend.url }}
 {{- if .Values.api.afterLoginURL }}
           - --after-login-url={{ .Values.api.afterLoginURL }}
 {{- end }}
