@@ -5,7 +5,7 @@ api_server_replicas: 1
 api_server_session_secret: geheim
 
 api_server_log_level: debug
-# this disables sending mails if coupon usage drains
+# this disables sending mails if customer balance drains
 # do not enable this for production use-cases
 api_server_log_only: false
 
