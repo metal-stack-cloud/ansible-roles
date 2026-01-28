@@ -89,7 +89,9 @@ spec:
           - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
           - --smtp-from-name={{ .Values.mail.smtpFromName }}
 {{- end -}}
-{{- if .Values.gardener.kubeconfig }}
+{{- if .Values.virtualGardenKubeconfigRefresher.enabled }}
+          - --gardener-kubeconfig=/etc/virtual-garden-kubeconfig/kubeconfig
+{{- else if .Values.gardener.kubeconfig }}
           - --gardener-kubeconfig=/gardener/kubeconfig
 {{- else }}
           - --stage=DEV
@@ -109,7 +111,10 @@ spec:
           mountPath: /certs/
         - name: duros-config
           mountPath: /duros/
-{{- if .Values.gardener.kubeconfig }}
+{{- if .Values.virtualGardenKubeconfigRefresher.enabled }}
+        - name: virtual-garden-kubeconfig
+          mountPath: /etc/virtual-garden-kubeconfig/
+{{- else if .Values.gardener.kubeconfig }}
         - name: gardener
           mountPath: /gardener/
 {{- end }}
@@ -124,7 +129,11 @@ spec:
         - name: duros-config
           secret:
             secretName: duros-config
-{{- if .Values.gardener.kubeconfig }}
+{{- if .Values.virtualGardenKubeconfigRefresher.enabled }}
+        - name: virtual-garden-kubeconfig
+          secret:
+            secretName: virtual-garden-kubeconfig
+{{- else if .Values.gardener.kubeconfig }}
         - name: gardener
           secret:
             secretName: gardener-kubeconfig

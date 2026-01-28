@@ -15,7 +15,7 @@ masterdata:
 
 tokenStore:
   addr:
-  password:
+  password: ""
 
 gardener:
   kubeconfig: ""
@@ -142,3 +142,18 @@ mail:
       #   CouponPercentageUsedWarning: 4731146
       #   CouponCompletelyUsedWarning: 4731184
       #   PaymentUpdated: 4727758
+
+hubspot:
+  portalID:
+  formGUID:
+
+virtualGardenKubeconfigRefresher:
+  enabled: false
+  image:
+  tag:
+  gcp:
+    projectID: ""
+    location: ""
+    clusterName: ""
+    serviceAccountJSON: |
+      {}

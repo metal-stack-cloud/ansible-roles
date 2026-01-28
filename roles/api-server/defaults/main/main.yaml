@@ -87,3 +87,11 @@ api_server_generate_infrastructure_tokens:
   - description: status
     secret: status-dashboard-token
     admin_role: ADMIN_ROLE_VIEWER
+
+api_server_virtual_garden_kubeconfig_refresher_enabled: false
+api_server_virtual_garden_kubeconfig_refresher_image: ghcr.io/fi-ts/virtual-garden-kubeconfig-refresher
+api_server_virtual_garden_kubeconfig_refresher_tag: v0.1.1
+api_server_virtual_garden_kubeconfig_refresher_gcp_service_account_json:
+api_server_virtual_garden_kubeconfig_refresher_gcp_project_id:
+api_server_virtual_garden_kubeconfig_refresher_gcp_location:
+api_server_virtual_garden_kubeconfig_refresher_gcp_cluster_name:
