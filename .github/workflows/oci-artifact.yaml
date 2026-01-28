@@ -51,3 +51,5 @@ jobs:
             ansible-role.tar.gz:application/vnd.metal-stack.ansible-role.v1.tar+gzip \
             --format go-template \
             --template "{{ .digest }}")
+
+        echo "pushed to ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.tag }} (${digest})"
