@@ -149,8 +149,8 @@ hubspot:
 
 virtualGardenKubeconfigRefresher:
   enabled: false
-  image: ghcr.io/fi-ts/virtual-garden-kubeconfig-refresher
-  tag: v0.1.1
+  image:
+  tag:
   gcp:
     projectID: ""
     location: ""
