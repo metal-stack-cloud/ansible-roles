@@ -43,7 +43,7 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: api-server-send-coupon-usage-warnings
+  name: api-server-send-balance-usage-warnings
   labels:
     app: api-server
   annotations:
@@ -80,7 +80,7 @@ spec:
                 - --mail-config-path=/mail/mail-config.yaml
                 - --smtp-from-address={{ .Values.mail.smtpFromAddress }}
                 - --smtp-from-name={{ .Values.mail.smtpFromName }}
-                - check-for-coupon-usage
+                - check-for-balance-usage
               volumeMounts:
               - name: mail-config
                 mountPath: /mail
