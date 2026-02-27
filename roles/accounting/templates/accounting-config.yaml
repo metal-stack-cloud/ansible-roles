@@ -8,3 +8,4 @@ masterdata-api-hmac: {{ accounting_masterdata_api_hmac }}
 stripe-account-token: {{ accounting_stripe_private_token }}
 nsqd-addr: {{ accounting_nsqd_address }}
 log-level: {{ accounting_log_level }}
+activated-migration: {{ accounting_activated_migration | lower }}

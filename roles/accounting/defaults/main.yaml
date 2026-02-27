@@ -1,6 +1,7 @@
 ---
 accounting_namespace: "{{ metal_stack_cloud_namespace }}"
 accounting_log_level: info
+accounting_activated_migration: false
 
 # this disables sending usage records to the accounting backend
 # do not enable this for production use-cases
