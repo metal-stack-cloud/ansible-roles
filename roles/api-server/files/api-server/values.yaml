@@ -39,7 +39,7 @@ frontend:
 api:
   url: localhost
   userAdmittance: true
-  logLevel: debug
+  logLevel: info
   logOnly: false
   replicas: 1
   sessionSecret: secret
