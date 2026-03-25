@@ -36,6 +36,7 @@ api:
   adminSubjects: {{ api_server_admin_subjects | to_json }}
   sessionSecret: "{{ api_server_session_secret }}"
   disableBilling: "{{ metal_stack_cloud_disable_billing }}"
+  disableSetupStripeJob: "{{ api_server_disable_setup_stripe_job }}"
 {% if api_server_default_machine_type %}
   defaultMachineType: "{{ api_server_default_machine_type }}"
 {% endif %}
