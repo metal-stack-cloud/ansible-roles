@@ -11,7 +11,7 @@ masterdata:
   hmac: "{{ api_server_masterdata_api_hmac }}"
 
 auditing:
-  enabled: "{{ api_server_auditing_timescaledb_enabled }}"
+  enabled: "{{ api_server_auditing_timescaledb_enabled | lower }}"
   host: "{{ api_server_auditing_timescaledb_host }}"
   port: "{{ api_server_auditing_timescaledb_port }}"
   db: "{{ api_server_auditing_timescaledb_db }}"
@@ -35,7 +35,8 @@ api:
   replicas: "{{ api_server_replicas }}"
   adminSubjects: {{ api_server_admin_subjects | to_json }}
   sessionSecret: "{{ api_server_session_secret }}"
-  disableBilling: "{{ metal_stack_cloud_disable_billing }}"
+  disableBilling: "{{ metal_stack_cloud_disable_billing | lower }}"
+  disableSetupStripeJob: "{{ api_server_disable_setup_stripe_job | lower }}"
 {% if api_server_default_machine_type %}
   defaultMachineType: "{{ api_server_default_machine_type }}"
 {% endif %}
@@ -54,11 +55,11 @@ api:
 {% endif %}
 
   podDisruptionBudget:
-    enabled: {{ api_server_pdb_enabled }}
+    enabled: {{ api_server_pdb_enabled | lower }}
     minAvailable: {{ api_server_pdb_min_available }}
 
   hpa:
-    enabled: {{ api_server_hpa_enabled }}
+    enabled: {{ api_server_hpa_enabled | lower }}
     maxReplicas: {{ api_server_hpa_max }}
     minReplicas: {{ api_server_hpa_min }}
     cpuPercentage: {{ api_server_hpa_cpu_percentage }}

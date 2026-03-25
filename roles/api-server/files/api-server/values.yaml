@@ -45,6 +45,7 @@ api:
   sessionSecret: secret
   adminSubjects: []
   disableBilling: false
+  disableSetupStripeJob: false
   defaultMachineType:
   afterLoginURL:
   termsAndConditionsURL:
