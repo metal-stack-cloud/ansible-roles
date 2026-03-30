@@ -153,8 +153,8 @@ virtualGardenKubeconfigRefresher:
   image:
   tag:
   gcp:
-    projectID: ""
-    location: ""
-    clusterName: ""
+    projectID:
+    location:
+    clusterName:
     serviceAccountJSON: |
       {}
