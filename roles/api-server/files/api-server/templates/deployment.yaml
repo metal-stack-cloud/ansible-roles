@@ -58,6 +58,12 @@ spec:
           - --az-client-secret={{ .Values.api.azure.clientSecret }}
           - --google-application-id={{ .Values.api.google.applicationID }}
           - --google-client-secret={{ .Values.api.google.clientSecret }}
+          - --oidc-client-id={{ .Values.api.oidc.clientID }}
+          - --oidc-client-secret={{ .Values.api.oidc.clientSecret }}
+          - --oidc-discovery-url={{ .Values.api.oidc.discoveryURL }}
+          - --oidc-end-session-url={{ .Values.api.oidc.endSessionURL }}
+          - --oidc-unique-user-key={{ .Values.api.oidc.uniqueUserKey }}
+          - --oidc-tls-skip-verify={{ .Values.api.oidc.tlsSkipVerify }}
           - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
           - --stripe-public-token={{ .Values.api.stripe.publicToken }}
           - --masterdata-api-hostname={{ .Values.masterdata.hostname }}

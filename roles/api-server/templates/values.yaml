@@ -73,6 +73,13 @@ api:
   google:
     applicationID: "{{ api_server_google_application_id }}"
     clientSecret: "{{ api_server_google_client_secret }}"
+  oidc:
+    clientID: "{{ api_server_oidc_client_id }}"
+    clientSecret: "{{ api_server_oidc_client_secret }}"
+    discoveryURL: "{{ api_server_oidc_discovery_url }}"
+    endSessionURL: "{{ api_server_oidc_end_session_url }}"
+    uniqueUserKey: "{{ api_server_oidc_unique_user_key }}"
+    tlsSkipVerify: "{{ api_server_oidc_tls_skip_verify }}"
 
 {% if not metal_stack_cloud_disable_billing %}
   stripe:
