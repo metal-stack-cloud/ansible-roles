@@ -20,7 +20,7 @@ api_server_oidc_client_secret: "{{ lookup('env', 'OIDC_CLIENT_SECRET') | default
 api_server_oidc_discovery_url: "{{ lookup('env', 'OIDC_DISCOVERY_URL') | default('', true) }}"
 api_server_oidc_end_session_url: "{{ lookup('env', 'OIDC_END_SESSION_URL') | default('', true) }}"
 api_server_oidc_unique_user_key: "{{ lookup('env', 'OIDC_UNIQUE_USER_KEY') | default('', true) }}"
-api_server_oidc_tls_skip_verify: "{{ lookup('env', 'OIDC_TLS_SKIP_VERIFY') | default('', true) }}"
+api_server_oidc_tls_skip_verify: "{{ lookup('env', 'OIDC_TLS_SKIP_VERIFY') | default(false, true) | bool }}"
 api_server_stripe_secret_key: "{{ metal_stack_cloud_stripe_private_token }}"
 
 api_server_ingress_dns: "api.{{ metal_stack_cloud_ingress_dns }}"
