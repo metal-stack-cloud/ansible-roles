@@ -89,6 +89,13 @@ api:
   google:
     applicationID: app-id
     clientSecret: client-secret
+  oidc:
+    clientID: client-id
+    clientSecret: client-secret
+    discoveryURL: discovery-url
+    endSessionURL: end-session-url
+    uniqueUserKey: unique-user-key
+    tlsSkipVerify: false
 
   stripe:
     secretKey: stripe-secret
