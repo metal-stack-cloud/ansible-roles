@@ -158,3 +158,9 @@ virtualGardenKubeconfigRefresher:
     clusterName:
     serviceAccountJSON: |
       {}
+  metalStackCloud:
+    projectID:
+    apiToken:
+    clusterID:
+  static:
+    kubeconfig:
