@@ -26,13 +26,6 @@ accounting_nsq_nsqd_resources:
   limits:
     memory: "256Mi"
     cpu: "1"
-accounting_nsq_nsq_lookupd_resources:
-  requests:
-    memory: "8Mi"
-    cpu: "20m"
-  limits:
-    memory: "100Mi"
-    cpu: "1"
 
 accounting_nsq_log_level: info
 accounting_nsq_nsqd_data_size: 100Mi

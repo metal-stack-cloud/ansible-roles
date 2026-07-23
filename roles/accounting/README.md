@@ -1,1 +1,28 @@
-# TODO
+# accounting
+
+This role deploys the accounting stack for metal-stack-cloud. It includes NSQ (message queue) deployment and the accounting service itself, which handles usage tracking and reporting.
+
+## Variables
+
+| Name                                 | Mandatory | Description                                                        |
+| ------------------------------------ | --------- | ------------------------------------------------------------------ |
+| `accounting_namespace`               |           | Kubernetes namespace for accounting deployment                     |
+| `accounting_log_level`               |           | Log level (default: `info`)                                        |
+| `accounting_log_only`                |           | If true, only log usage records without sending them (for testing) |
+| `accounting_metal_api_url`           |           | URL of the metal-api endpoint                                      |
+| `accounting_metal_api_hmac`          |           | HMAC secret for metal-api authentication                           |
+| `accounting_api_url`                 |           | URL of the api-server instance                                     |
+| `accounting_api_token`               |           | Token for authenticating with the api-server                       |
+| `accounting_masterdata_api_hostname` |           | Hostname of the masterdata API                                     |
+| `accounting_masterdata_api_hmac`     |           | HMAC secret for masterdata API authentication                      |
+| `accounting_masterdata_api_port`     |           | Port of the masterdata API                                         |
+| `accounting_masterdata_api_ca`       |           | CA certificate for masterdata API TLS                              |
+| `accounting_masterdata_api_cert`     |           | Client certificate for masterdata API TLS                          |
+| `accounting_masterdata_api_cert_key` |           | Client certificate key for masterdata API TLS                      |
+| `accounting_stripe_private_token`    |           | Stripe private token for accounting sender                         |
+| `accounting_nsqd_address`            |           | NSQ daemon address                                                 |
+| `accounting_nsq_set_resource_limits` |           | Whether to set resource limits for NSQ pods                        |
+| `accounting_nsq_nsqd_resources`      |           | Resource requests/limits for nsqd pods                             |
+| `accounting_nsq_log_level`           |           | NSQ log level                                                      |
+| `accounting_nsq_nsqd_data_size`      |           | Data size for nsqd disk storage                                    |
+| `accounting_nsq_image_pull_policy`   |           | Image pull policy for NSQ containers                               |
