@@ -16,16 +16,3 @@ The roles in this repository are used to deploy the various microservices of the
 metalstack.cloud relies on a release vector for resolving image versions at runtime. The setup is documented in the [metal-stack deployment guide](https://metal-stack.io/docs/deployment-guide#releases-and-ansible-role-dependencies).
 
 Since it is assumed metal-stack is deployed alongside metalstack.cloud, the release vector mapping is shared between both projects.
-
-## Variables
-
-There are [global defaults](./roles/defaults/defaults/main/) for all roles of this project defined.
-
-| Name                                     | Mandatory | Description                                   |
-| ---------------------------------------- | --------- | --------------------------------------------- |
-| `metal_stack_cloud_namespace`            |           | The Kubernetes namespace for deployment       |
-| `metal_stack_cloud_ingress_dns`          |           | The base DNS name used for all ingress routes |
-| `metal_stack_cloud_stripe_private_token` |           | Stripe private API key                        |
-| `metal_stack_cloud_stripe_public_token`  |           | Stripe public API key                         |
-| `metal_stack_cloud_user_admittance`      |           | Whether user registration is enabled          |
-| `metal_stack_cloud_disable_billing`      |           | Whether billing functionality is disabled     |
