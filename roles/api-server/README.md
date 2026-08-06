@@ -4,83 +4,89 @@ This role deploys the api-server for metal-stack-cloud. It uses Helm to deploy t
 
 ## Variables
 
-| Name                                                                      | Mandatory | Description                                                   |
-| ------------------------------------------------------------------------- | --------- | ------------------------------------------------------------- |
-| `api_server_namespace`                                                    |           | Kubernetes namespace for api-server deployment                |
-| `api_server_replicas`                                                     |           | Number of api-server replicas (default: `1`)                  |
-| `api_server_session_secret`                                               |           | Secret for session encryption used by goth cookiestore        |
-| `api_server_log_level`                                                    |           | Log level (default: `info`)                                   |
-| `api_server_log_only`                                                     |           | If true, skips sending mail notifications (for testing)       |
-| `api_server_github_client_id`                                             |           | GitHub OAuth client ID (via env `GH_CLIENT_ID`)               |
-| `api_server_github_client_secret`                                         |           | GitHub OAuth client secret (via env `GH_CLIENT_SECRET`)       |
-| `api_server_azure_application_id`                                         |           | Azure OAuth application ID (via env `AZ_APPLICATION_ID`)      |
-| `api_server_azure_client_secret`                                          |           | Azure OAuth client secret (via env `AZ_CLIENT_SECRET`)        |
-| `api_server_google_application_id`                                        |           | Google OAuth application ID (via env `GOOGLE_APPLICATION_ID`) |
-| `api_server_google_client_secret`                                         |           | Google OAuth client secret (via env `GOOGLE_CLIENT_SECRET`)   |
-| `api_server_oidc_client_id`                                               |           | OIDC client ID (via env `OIDC_CLIENT_ID`)                     |
-| `api_server_oidc_client_secret`                                           |           | OIDC client secret (via env `OIDC_CLIENT_SECRET`)             |
-| `api_server_oidc_discovery_url`                                           |           | OIDC discovery URL (via env `OIDC_DISCOVERY_URL`)             |
-| `api_server_oidc_end_session_url`                                         |           | OIDC end session URL (via env `OIDC_END_SESSION_URL`)         |
-| `api_server_oidc_unique_user_key`                                         |           | OIDC unique user key (via env `OIDC_UNIQUE_USER_KEY`)         |
-| `api_server_oidc_tls_skip_verify`                                         |           | Skip OIDC TLS verification (via env `OIDC_TLS_SKIP_VERIFY`)   |
-| `api_server_stripe_secret_key`                                            |           | Stripe private API key                                        |
-| `api_server_ingress_dns`                                                  |           | DNS name for the api-server ingress                           |
-| `api_server_ingress_tls_enabled`                                          |           | Enable TLS for the api-server ingress (default: `true`)       |
-| `api_server_ingress_annotations`                                          |           | Additional annotations for the ingress                        |
-| `api_server_masterdata_api_hostname`                                      |           | Hostname of the masterdata API                                |
-| `api_server_masterdata_api_hmac`                                          |           | HMAC secret for masterdata API authentication                 |
-| `api_server_masterdata_api_port`                                          |           | Port of the masterdata API                                    |
-| `api_server_masterdata_api_ca`                                            |           | CA certificate for masterdata API TLS                         |
-| `api_server_masterdata_api_cert`                                          |           | Client certificate for masterdata API TLS                     |
-| `api_server_masterdata_api_cert_key`                                      |           | Client certificate key for masterdata API TLS                 |
-| `api_server_metal_api_url`                                                |           | URL of the metal-api endpoint                                 |
-| `api_server_metal_api_hmac`                                               |           | HMAC secret for metal-api authentication                      |
-| `api_server_frontend_url`                                                 |           | URL of the frontend console                                   |
-| `api_server_http_url`                                                     |           | HTTP URL of the api-server                                    |
-| `api_server_auditing_timescaledb_enabled`                                 |           | Enable TimescaleDB auditing integration (default: `true`)     |
-| `api_server_auditing_timescaledb_host`                                    |           | TimescaleDB hostname                                          |
-| `api_server_auditing_timescaledb_port`                                    |           | TimescaleDB port                                              |
-| `api_server_auditing_timescaledb_db`                                      |           | TimescaleDB database name                                     |
-| `api_server_auditing_timescaledb_user`                                    |           | TimescaleDB user                                              |
-| `api_server_auditing_timescaledb_password`                                |           | TimescaleDB password                                          |
-| `api_server_auditing_timescaledb_retention`                               |           | Data retention period (default: `"14 days"`)                  |
-| `api_server_rate_limit_max_requests_per_minute`                           |           | Max requests per minute (default: `1000`)                     |
-| `api_server_rate_limit_max_unauthenticated_requests_per_minute`           |           | Max unauthenticated requests per minute (default: `50`)       |
-| `api_server_gardener_kubeconfig`                                          |           | Gardener kubeconfig for virtual garden access                 |
-| `api_server_pdb_enabled`                                                  |           | Enable PodDisruptionBudget (default: `true`)                  |
-| `api_server_pdb_min_available`                                            |           | Min available pods for PDB (default: `1`)                     |
-| `api_server_hpa_enabled`                                                  |           | Enable HorizontalPodAutoscaler (default: `false`)             |
-| `api_server_hpa_min`                                                      |           | HPA minimum replicas (default: `2`)                           |
-| `api_server_hpa_max`                                                      |           | HPA maximum replicas (default: `5`)                           |
-| `api_server_hpa_cpu_percentage`                                           |           | HPA CPU target percentage (default: `70`)                     |
-| `api_server_resources`                                                    |           | Resource requests/limits for api-server pods                  |
-| `api_server_redis_addr`                                                   |           | Redis/KeyDB address for token storage                         |
-| `api_server_redis_password`                                               |           | Redis/KeyDB password                                          |
-| `api_server_disable_setup_stripe_job`                                     |           | Disable Stripe setup job (default: `false`)                   |
-| `api_server_mail_provider`                                                |           | Mail provider (`none`, `mailjet`)                             |
-| `api_server_mail_smtp_from_name`                                          |           | SMTP sender name                                              |
-| `api_server_mail_smtp_from_address`                                       |           | SMTP sender address                                           |
-| `api_server_mail_mailjet_api_key_public`                                  |           | Mailjet public API key (via env `MJ_APIKEY_PUBLIC`)           |
-| `api_server_mail_mailjet_api_key_private`                                 |           | Mailjet private API key (via env `MJ_APIKEY_PRIVATE`)         |
-| `api_server_mail_mailjet_config`                                          |           | Mailjet template configuration                                |
-| `api_server_stripe_config`                                                |           | Stripe configuration YAML                                     |
-| `api_server_duros_config`                                                 |           | Duros configuration JSON                                      |
-| `api_server_hubspot_portal_id`                                            |           | Hubspot portal ID                                             |
-| `api_server_hubspot_form_guid`                                            |           | Hubspot form GUID                                             |
-| `api_server_admin_subjects`                                               |           | List of admin subjects (RBAC)                                 |
-| `api_server_default_machine_type`                                         |           | Default machine type for new users                            |
-| `api_server_after_login_url`                                              |           | URL to redirect to after login                                |
-| `api_server_terms_and_conditions_url`                                     |           | URL to terms and conditions page                              |
-| `api_server_generate_infrastructure_tokens`                               |           | List of tokens to generate for infrastructure components      |
-| `api_server_virtual_garden_kubeconfig_refresher_enabled`                  |           | Enable virtual garden kubeconfig refresher                    |
-| `api_server_virtual_garden_kubeconfig_refresher_image`                    |           | Image for the kubeconfig refresher                            |
-| `api_server_virtual_garden_kubeconfig_refresher_tag`                      |           | Tag for the kubeconfig refresher image                        |
-| `api_server_virtual_garden_kubeconfig_refresher_gcp_service_account_json` |           | GCP service account JSON for refresher job                    |
-| `api_server_virtual_garden_kubeconfig_refresher_gcp_project_id`           |           | GCP project ID for refresher job                              |
-| `api_server_virtual_garden_kubeconfig_refresher_gcp_location`             |           | GCP cluster location for refresher job                        |
-| `api_server_virtual_garden_kubeconfig_refresher_gcp_cluster_name`         |           | GCP cluster name for refresher job                            |
-| `metal_stack_cloud_api_server_image_name`                                 |           | Image name for api-server container                           |
-| `metal_stack_cloud_api_server_image_tag`                                  |           | Image tag for api-server container                            |
-| `metal_stack_cloud_user_admittance`                                       |           | Enable/disable user registration                              |
-| `metal_stack_cloud_disable_billing`                                       |           | Enable/disable billing functionality                          |
-| `metal_stack_cloud_stripe_public_token`                                   |           | Stripe public API key                                         |
+| Name                                                                          | Mandatory | Description                                                                                                                    |
+| ----------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `api_server_namespace`                                                        |           | Kubernetes namespace for api-server deployment                                                                                 |
+| `api_server_replicas`                                                         |           | Number of api-server replicas (default: `1`)                                                                                   |
+| `api_server_session_secret`                                                   |           | Secret for session encryption used by goth cookiestore                                                                         |
+| `api_server_log_level`                                                        |           | Log level (default: `info`)                                                                                                    |
+| `api_server_log_only`                                                         |           | If true, skips sending mail notifications (for testing)                                                                        |
+| `api_server_github_client_id`                                                 |           | GitHub OAuth client ID (via env `GH_CLIENT_ID`)                                                                                |
+| `api_server_github_client_secret`                                             |           | GitHub OAuth client secret (via env `GH_CLIENT_SECRET`)                                                                        |
+| `api_server_azure_application_id`                                             |           | Azure OAuth application ID (via env `AZ_APPLICATION_ID`)                                                                       |
+| `api_server_azure_client_secret`                                              |           | Azure OAuth client secret (via env `AZ_CLIENT_SECRET`)                                                                         |
+| `api_server_google_application_id`                                            |           | Google OAuth application ID (via env `GOOGLE_APPLICATION_ID`)                                                                  |
+| `api_server_google_client_secret`                                             |           | Google OAuth client secret (via env `GOOGLE_CLIENT_SECRET`)                                                                    |
+| `api_server_oidc_client_id`                                                   |           | OIDC client ID (via env `OIDC_CLIENT_ID`)                                                                                      |
+| `api_server_oidc_client_secret`                                               |           | OIDC client secret (via env `OIDC_CLIENT_SECRET`)                                                                              |
+| `api_server_oidc_discovery_url`                                               |           | OIDC discovery URL (via env `OIDC_DISCOVERY_URL`)                                                                              |
+| `api_server_oidc_end_session_url`                                             |           | OIDC end session URL (via env `OIDC_END_SESSION_URL`)                                                                          |
+| `api_server_oidc_unique_user_key`                                             |           | OIDC unique user key (via env `OIDC_UNIQUE_USER_KEY`)                                                                          |
+| `api_server_oidc_tls_skip_verify`                                             |           | Skip OIDC TLS verification (via env `OIDC_TLS_SKIP_VERIFY`)                                                                    |
+| `api_server_stripe_secret_key`                                                |           | Stripe private API key                                                                                                         |
+| `api_server_ingress_dns`                                                      |           | DNS name for the api-server ingress                                                                                            |
+| `api_server_ingress_tls_enabled`                                              |           | Enable TLS for the api-server ingress (default: `true`)                                                                        |
+| `api_server_ingress_annotations`                                              |           | Additional annotations for the ingress                                                                                         |
+| `api_server_masterdata_api_hostname`                                          |           | Hostname of the masterdata API                                                                                                 |
+| `api_server_masterdata_api_hmac`                                              |           | HMAC secret for masterdata API authentication                                                                                  |
+| `api_server_masterdata_api_port`                                              |           | Port of the masterdata API                                                                                                     |
+| `api_server_masterdata_api_ca`                                                |           | CA certificate for masterdata API TLS                                                                                          |
+| `api_server_masterdata_api_cert`                                              |           | Client certificate for masterdata API TLS                                                                                      |
+| `api_server_masterdata_api_cert_key`                                          |           | Client certificate key for masterdata API TLS                                                                                  |
+| `api_server_metal_api_url`                                                    |           | URL of the metal-api endpoint                                                                                                  |
+| `api_server_metal_api_hmac`                                                   |           | HMAC secret for metal-api authentication                                                                                       |
+| `api_server_frontend_url`                                                     |           | URL of the frontend console                                                                                                    |
+| `api_server_http_url`                                                         |           | HTTP URL of the api-server                                                                                                     |
+| `api_server_auditing_timescaledb_enabled`                                     |           | Enable TimescaleDB auditing integration (default: `true`)                                                                      |
+| `api_server_auditing_timescaledb_host`                                        |           | TimescaleDB hostname                                                                                                           |
+| `api_server_auditing_timescaledb_port`                                        |           | TimescaleDB port                                                                                                               |
+| `api_server_auditing_timescaledb_db`                                          |           | TimescaleDB database name                                                                                                      |
+| `api_server_auditing_timescaledb_user`                                        |           | TimescaleDB user                                                                                                               |
+| `api_server_auditing_timescaledb_password`                                    |           | TimescaleDB password                                                                                                           |
+| `api_server_auditing_timescaledb_retention`                                   |           | Data retention period (default: `"14 days"`)                                                                                   |
+| `api_server_rate_limit_max_requests_per_minute`                               |           | Max requests per minute (default: `1000`)                                                                                      |
+| `api_server_rate_limit_max_unauthenticated_requests_per_minute`               |           | Max unauthenticated requests per minute (default: `50`)                                                                        |
+| `api_server_gardener_kubeconfig`                                              |           | Gardener kubeconfig for virtual garden access                                                                                  |
+| `api_server_pdb_enabled`                                                      |           | Enable PodDisruptionBudget (default: `true`)                                                                                   |
+| `api_server_pdb_min_available`                                                |           | Min available pods for PDB (default: `1`)                                                                                      |
+| `api_server_hpa_enabled`                                                      |           | Enable HorizontalPodAutoscaler (default: `false`)                                                                              |
+| `api_server_hpa_min`                                                          |           | HPA minimum replicas (default: `2`)                                                                                            |
+| `api_server_hpa_max`                                                          |           | HPA maximum replicas (default: `5`)                                                                                            |
+| `api_server_hpa_cpu_percentage`                                               |           | HPA CPU target percentage (default: `70`)                                                                                      |
+| `api_server_resources`                                                        |           | Resource requests/limits for api-server pods                                                                                   |
+| `api_server_redis_addr`                                                       |           | Redis/KeyDB address for token storage                                                                                          |
+| `api_server_redis_password`                                                   |           | Redis/KeyDB password                                                                                                           |
+| `api_server_disable_setup_stripe_job`                                         |           | Disable Stripe setup job (default: `false`)                                                                                    |
+| `api_server_mail_provider`                                                    |           | Mail provider (`none`, `mailjet`)                                                                                              |
+| `api_server_mail_smtp_from_name`                                              |           | SMTP sender name                                                                                                               |
+| `api_server_mail_smtp_from_address`                                           |           | SMTP sender address                                                                                                            |
+| `api_server_mail_mailjet_api_key_public`                                      |           | Mailjet public API key (via env `MJ_APIKEY_PUBLIC`)                                                                            |
+| `api_server_mail_mailjet_api_key_private`                                     |           | Mailjet private API key (via env `MJ_APIKEY_PRIVATE`)                                                                          |
+| `api_server_mail_mailjet_config`                                              |           | Mailjet template configuration                                                                                                 |
+| `api_server_stripe_config`                                                    |           | Stripe configuration YAML                                                                                                      |
+| `api_server_duros_config`                                                     |           | Duros configuration JSON                                                                                                       |
+| `api_server_hubspot_portal_id`                                                |           | Hubspot portal ID                                                                                                              |
+| `api_server_hubspot_form_guid`                                                |           | Hubspot form GUID                                                                                                              |
+| `api_server_admin_subjects`                                                   |           | List of admin subjects (RBAC)                                                                                                  |
+| `api_server_default_machine_type`                                             |           | Default machine type for new users                                                                                             |
+| `api_server_after_login_url`                                                  |           | URL to redirect to after login                                                                                                 |
+| `api_server_terms_and_conditions_url`                                         |           | URL to terms and conditions page                                                                                               |
+| `api_server_generate_infrastructure_tokens`                                   |           | List of tokens to generate for infrastructure components                                                                       |
+| `api_server_virtual_garden_kubeconfig_refresher_enabled`                      |           | Enable virtual garden kubeconfig refresher                                                                                     |
+| `api_server_virtual_garden_kubeconfig_refresher_image`                        |           | Image for the kubeconfig refresher                                                                                             |
+| `api_server_virtual_garden_kubeconfig_refresher_tag`                          |           | Tag for the kubeconfig refresher image                                                                                         |
+| `api_server_virtual_garden_kubeconfig_refresher_gcp_service_account_json`     |           | GCP service account JSON for refresher job                                                                                     |
+| `api_server_virtual_garden_kubeconfig_refresher_gcp_project_id`               |           | GCP project ID for refresher job                                                                                               |
+| `api_server_virtual_garden_kubeconfig_refresher_gcp_location`                 |           | GCP cluster location for refresher job                                                                                         |
+| `api_server_virtual_garden_kubeconfig_refresher_gcp_cluster_name`             |           | GCP cluster name for refresher job                                                                                             |
+| `api_server_virtual_garden_kubeconfig_refresher_cluster_provider`             |           | One of `gcp`, `metalstackcloud` or `static`. Only one provider is supported at a time                                          |
+| `api_server_virtual_garden_kubeconfig_refresher_metal_stack_cloud_project_id` |           | The metalstack.cloud project id used for retrieving cluster credentials (only applies when `cluster_provider=metalstackcloud`) |
+| `api_server_virtual_garden_kubeconfig_refresher_metal_stack_cloud_api_token`  |           | The metalstack.cloud API token to retrieve cluster credentials with (only applies when `cluster_provider=metalstackcloud`)     |
+| `api_server_virtual_garden_kubeconfig_refresher_metal_stack_cloud_cluster_id` |           | The metalstack.cloud cluster id used for retrieving cluster credentials (only applies when `cluster_provider=metalstackcloud`) |
+| `api_server_virtual_garden_kubeconfig_refresher_static_kubeconfig`            |           | Kubeconfig for the cluster hosting Gardener (only applies when `cluster_provider=static`)                                      |
+| `api_server_virtual_garden_kubeconfig_refresher_garden_cluster_local_rbac`    |           | Creates necessary RBAC, if Gardener is installed in the same cluster as the virtual-garden-kubeconfig-refresher                |
+| `metal_stack_cloud_api_server_image_name`                                     |           | Image name for api-server container                                                                                            |
+| `metal_stack_cloud_api_server_image_tag`                                      |           | Image tag for api-server container                                                                                             |
+| `metal_stack_cloud_user_admittance`                                           |           | Enable/disable user registration                                                                                               |
+| `metal_stack_cloud_disable_billing`                                           |           | Enable/disable billing functionality                                                                                           |
+| `metal_stack_cloud_stripe_public_token`                                       |           | Stripe public API key                                                                                                          |

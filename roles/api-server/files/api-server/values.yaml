@@ -157,6 +157,7 @@ hubspot:
 
 virtualGardenKubeconfigRefresher:
   enabled: false
+  clusterProvider: # gcp, metalstackcloud, static
   image:
   tag:
   gcp:
@@ -165,3 +166,9 @@ virtualGardenKubeconfigRefresher:
     clusterName:
     serviceAccountJSON: |
       {}
+  metalstackcloud:
+    projectID:
+    apiToken:
+    clusterID:
+  static:
+    kubeconfig:
