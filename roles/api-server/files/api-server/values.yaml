@@ -160,6 +160,7 @@ virtualGardenKubeconfigRefresher:
   clusterProvider: # gcp, metalstackcloud, static
   image:
   tag:
+  localRBAC: false
   gcp:
     projectID:
     location:
