@@ -147,5 +147,6 @@ virtualGardenKubeconfigRefresher:
     clusterID: "{{ api_server_virtual_garden_kubeconfig_refresher_metal_stack_cloud_cluster_id }}"
 {% endif %}
 {% if api_server_virtual_garden_kubeconfig_refresher_cluster_provider == 'static' %}
-  kubeconfig: "{{ api_server_virtual_garden_kubeconfig_refresher_static_kubeconfig }}"
+  static:
+    kubeconfig: "{{ api_server_virtual_garden_kubeconfig_refresher_static_kubeconfig }}"
 {% endif %}
