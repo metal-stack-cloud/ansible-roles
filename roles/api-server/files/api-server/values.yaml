@@ -94,7 +94,7 @@ api:
     clientSecret: client-secret
     discoveryURL: discovery-url
     endSessionURL: end-session-url
-    uniqueUserKey: unique-user-key
+    uniqueUserKey:
     tlsSkipVerify: false
 
   stripe:
