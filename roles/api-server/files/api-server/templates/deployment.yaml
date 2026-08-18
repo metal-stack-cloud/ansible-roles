@@ -62,7 +62,9 @@ spec:
           - --oidc-client-secret={{ .Values.api.oidc.clientSecret }}
           - --oidc-discovery-url={{ .Values.api.oidc.discoveryURL }}
           - --oidc-end-session-url={{ .Values.api.oidc.endSessionURL }}
+{{- if .Values.api.oidc.uniqueUserKey }}
           - --oidc-unique-user-key={{ .Values.api.oidc.uniqueUserKey }}
+{{- end }}
           - --oidc-tls-skip-verify={{ .Values.api.oidc.tlsSkipVerify }}
           - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
           - --stripe-public-token={{ .Values.api.stripe.publicToken }}
