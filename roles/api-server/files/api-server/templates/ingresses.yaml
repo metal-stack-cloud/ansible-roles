@@ -6,6 +6,7 @@ metadata:
   name: api-server
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
 {{- if .Values.ingress.tls.enabled }}
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 {{- else }}
