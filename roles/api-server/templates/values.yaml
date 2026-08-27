@@ -106,12 +106,14 @@ gardener:
     {{ api_server_gardener_kubeconfig | indent(width=4, first=false) }}
 
 ingress:
-  host: "{{ api_server_ingress_dns }}"
-{% if api_server_ingress_annotations %}
-  annotations: {{ api_server_ingress_annotations | to_json }}
+  httpRoute:
+    enabled: true
+    hostnames:
+      - {{ api_server_ingress_dns }}
+{% if api_server_httproute_annotations %}
+    annotations: {{ api_server_httproute_annotations | to_json }}
 {% endif %}
-  tls:
-    enabled: {{ api_server_ingress_tls_enabled }}
+    parentRefs: {{ api_server_httproute_parent_refs | to_json }}
 
 mail:
   provider: "{{ api_server_mail_provider }}"
@@ -133,6 +135,7 @@ virtualGardenKubeconfigRefresher:
   image: "{{ api_server_virtual_garden_kubeconfig_refresher_image }}"
   tag: "{{ api_server_virtual_garden_kubeconfig_refresher_tag }}"
   localRBAC: {{ api_server_virtual_garden_kubeconfig_refresher_garden_cluster_local_rbac | lower }}
+{% if api_server_virtual_garden_kubeconfig_refresher_enabled %}
 {% if api_server_virtual_garden_kubeconfig_refresher_cluster_provider == 'gcp' %}
   gcp:
     projectID: "{{ api_server_virtual_garden_kubeconfig_refresher_gcp_project_id }}"
@@ -150,4 +153,5 @@ virtualGardenKubeconfigRefresher:
 {% if api_server_virtual_garden_kubeconfig_refresher_cluster_provider == 'static' %}
   static:
     kubeconfig: "{{ api_server_virtual_garden_kubeconfig_refresher_static_kubeconfig }}"
+{% endif %}
 {% endif %}

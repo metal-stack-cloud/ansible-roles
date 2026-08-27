@@ -25,3 +25,13 @@
     definition: "{{ lookup('template', 'status.yaml') }}"
     namespace: "{{ status_namespace }}"
     apply: yes
+
+- name: Remove old ingress resource
+  k8s:
+    definition:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: status-dashboard
+    namespace: "{{ status_namespace }}"
+    state: absent

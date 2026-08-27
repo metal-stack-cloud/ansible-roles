@@ -90,27 +90,19 @@ spec:
     port: 2112
     targetPort: 2112
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: status-dashboard
-  annotations: {{ status_ingress_annotations | to_json }}
 spec:
-  ingressClassName: nginx
-{% if status_ingress_tls_enabled %}
-  tls:
-  - hosts:
+  parentRefs: {{ status_httproute_parent_refs }}
+  hostnames:
     - {{ status_ingress_dns }}
-    secretName: status-tls
-{% endif %}
   rules:
-  - host: {{ status_ingress_dns }}
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: status-dashboard
-            port:
-              number: 8080
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: status-dashboard
+          port: 8080

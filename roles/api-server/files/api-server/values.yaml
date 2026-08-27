@@ -129,12 +129,11 @@ api:
       #       compression: true
 
 ingress:
-  enabled: true
-  className: nginx
-  host: ""
-  annotations: {}
-  tls:
-    enabled: false
+  httpRoute:
+    enabled: true
+    hostnames: []
+    annotations: {}
+    parentRefs: []
 
 mail:
   provider: none # none, mailjet
@@ -157,9 +156,9 @@ hubspot:
 
 virtualGardenKubeconfigRefresher:
   enabled: false
-  clusterProvider: # gcp, metalstackcloud, static
-  image:
-  tag:
+  clusterProvider: gcp
+  image: image
+  tag: tag
   localRBAC: false
   gcp:
     projectID:
