@@ -105,7 +105,6 @@ gardener:
   kubeconfig: |
     {{ api_server_gardener_kubeconfig | indent(width=4, first=false) }}
 
-
 ingress:
   httpRoute:
     enabled: true
@@ -115,14 +114,6 @@ ingress:
     annotations: {{ api_server_httproute_annotations | to_json }}
 {% endif %}
     parentRefs: {{ api_server_httproute_parent_refs | to_json }}
-
-ingress:
-  host: "{{ api_server_ingress_dns }}"
-{% if api_server_ingress_annotations %}
-  annotations:
-{% endif %}
-  tls:
-    enabled: {{ api_server_ingress_tls_enabled }}
 
 mail:
   provider: "{{ api_server_mail_provider }}"
