@@ -127,16 +127,27 @@ hubspot:
   portalID: "{{ api_server_hubspot_portal_id }}"
   formGUID: "{{ api_server_hubspot_form_guid }}"
 
-
 virtualGardenKubeconfigRefresher:
   enabled: {{ api_server_virtual_garden_kubeconfig_refresher_enabled | lower }}
+  clusterProvider: "{{ api_server_virtual_garden_kubeconfig_refresher_cluster_provider }}"
   image: "{{ api_server_virtual_garden_kubeconfig_refresher_image }}"
   tag: "{{ api_server_virtual_garden_kubeconfig_refresher_tag }}"
-{% if api_server_virtual_garden_kubeconfig_refresher_gcp_service_account_json %}
+  localRBAC: {{ api_server_virtual_garden_kubeconfig_refresher_garden_cluster_local_rbac | lower }}
+{% if api_server_virtual_garden_kubeconfig_refresher_cluster_provider == 'gcp' %}
   gcp:
     projectID: "{{ api_server_virtual_garden_kubeconfig_refresher_gcp_project_id }}"
     location: "{{ api_server_virtual_garden_kubeconfig_refresher_gcp_location }}"
     clusterName: "{{ api_server_virtual_garden_kubeconfig_refresher_gcp_cluster_name }}"
     serviceAccountJSON: |
       {{ api_server_virtual_garden_kubeconfig_refresher_gcp_service_account_json | indent(width=6, first=false) }}
+{% endif %}
+{% if api_server_virtual_garden_kubeconfig_refresher_cluster_provider == 'metalstackcloud' %}
+  metalstackcloud:
+    projectID: "{{ api_server_virtual_garden_kubeconfig_refresher_metal_stack_cloud_project_id }}"
+    apiToken: "{{ api_server_virtual_garden_kubeconfig_refresher_metal_stack_cloud_api_token }}"
+    clusterID: "{{ api_server_virtual_garden_kubeconfig_refresher_metal_stack_cloud_cluster_id }}"
+{% endif %}
+{% if api_server_virtual_garden_kubeconfig_refresher_cluster_provider == 'static' %}
+  static:
+    kubeconfig: "{{ api_server_virtual_garden_kubeconfig_refresher_static_kubeconfig }}"
 {% endif %}
