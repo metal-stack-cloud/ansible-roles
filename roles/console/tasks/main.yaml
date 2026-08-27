@@ -25,3 +25,13 @@
     definition: "{{ lookup('template', 'console.yaml') }}"
     namespace: "{{ console_namespace }}"
     apply: yes
+
+- name: Remove old ingress resource
+  k8s:
+    definition:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: console
+    namespace: "{{ console_namespace }}"
+    state: absent

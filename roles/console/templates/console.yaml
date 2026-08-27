@@ -52,27 +52,19 @@ spec:
     protocol: TCP
     targetPort: 80
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: console
-  annotations: {{ console_ingress_annotations | to_json }}
 spec:
-  ingressClassName: nginx
-{% if console_ingress_tls_enabled %}
-  tls:
-  - hosts:
+  parentRefs: {{ console_httproute_parent_refs }}
+  hostnames:
     - {{ console_ingress_dns }}
-    secretName: console-tls
-{% endif %}
   rules:
-  - host: {{ console_ingress_dns }}
-    http:
-      paths:
-      - backend:
-          service:
-            name: console
-            port:
-              number: 80
-        path: /
-        pathType: Prefix
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: console
+          port: 80
