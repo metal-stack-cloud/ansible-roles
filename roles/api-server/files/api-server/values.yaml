@@ -156,9 +156,9 @@ hubspot:
 
 virtualGardenKubeconfigRefresher:
   enabled: false
-  clusterProvider: # gcp, metalstackcloud, static
-  image:
-  tag:
+  clusterProvider: gcp
+  image: image
+  tag: tag
   localRBAC: false
   gcp:
     projectID:

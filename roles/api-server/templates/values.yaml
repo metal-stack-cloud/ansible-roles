@@ -135,6 +135,7 @@ virtualGardenKubeconfigRefresher:
   image: "{{ api_server_virtual_garden_kubeconfig_refresher_image }}"
   tag: "{{ api_server_virtual_garden_kubeconfig_refresher_tag }}"
   localRBAC: {{ api_server_virtual_garden_kubeconfig_refresher_garden_cluster_local_rbac | lower }}
+{% if api_server_virtual_garden_kubeconfig_refresher_enabled %}
 {% if api_server_virtual_garden_kubeconfig_refresher_cluster_provider == 'gcp' %}
   gcp:
     projectID: "{{ api_server_virtual_garden_kubeconfig_refresher_gcp_project_id }}"
@@ -152,4 +153,5 @@ virtualGardenKubeconfigRefresher:
 {% if api_server_virtual_garden_kubeconfig_refresher_cluster_provider == 'static' %}
   static:
     kubeconfig: "{{ api_server_virtual_garden_kubeconfig_refresher_static_kubeconfig }}"
+{% endif %}
 {% endif %}
