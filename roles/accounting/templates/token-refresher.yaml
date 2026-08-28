@@ -1,0 +1,57 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: accounting-reporter-metal-token-refresher
+spec:
+  schedule: "@hourly"
+  jobTemplate:
+    metadata:
+      name: accounting-reporter-metal-token-refresher
+    spec:
+      template:
+        spec:
+          serviceAccountName: accounting-reporter-metal-token-refresher
+          restartPolicy: "{{ accounting_metal_apiserver_token_refresher_image_pull_policy }}"
+          containers:
+          - name: token-refresher
+            image: "{{ accounting_metal_apiserver_token_refresher_image_name }}:{{ accounting_metal_apiserver_token_refresher_image_tag }}"
+            env:
+            - name: METAL_APISERVER_URL
+              value: "{{ accounting_metal_apiserver_url }}"
+            - name: TOKEN_SECRET_NAMESPACE
+              value: "{{ accounting_namespace }}"
+            - name: TOKEN_SECRET_NAME
+              value: "accounting-reporter-metal-token"
+            - name: TOKEN_SECRET_KEY
+              value: "token"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: accounting-reporter-metal-token-refresher
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: accounting-reporter-metal-token-refresher
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "update", "patch"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  resourceNames: ["token-secret"]
+  verbs: ["get", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: accounting-reporter-metal-token-refresher
+subjects:
+- kind: ServiceAccount
+  name: accounting-reporter-metal-token-refresher
+roleRef:
+  kind: Role
+  name: accounting-reporter-metal-token-refresher
+  apiGroup: rbac.authorization.k8s.io

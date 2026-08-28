@@ -1,0 +1,8 @@
+{
+  "markdown": {
+  },
+  "excludes": [],
+  "plugins": [
+    "npm:@dprint/markdown@0.23.1"
+  ]
+}

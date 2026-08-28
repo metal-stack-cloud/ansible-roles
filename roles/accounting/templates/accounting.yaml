@@ -33,10 +33,19 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/accounting/reporter/
+        - name: metal-token
+          mountPath: /metal
+          readOnly: true
       volumes:
         - name: config
           configMap:
             name: reporter-config
+        - name: metal-token
+          secret:
+            secretName: "accounting-reporter-metal-token"
+            items:
+            - key: "token"
+              path: token
 ---
 apiVersion: v1
 kind: ConfigMap

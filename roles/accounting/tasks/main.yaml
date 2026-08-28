@@ -29,8 +29,32 @@
     definition: "{{ lookup('template', 'nsq.yaml') }}"
     namespace: "{{ accounting_namespace }}"
 
+- name: Create metal-apiserver tokens
+  ansible.builtin.import_tasks: token.yaml
+
+- name: Create accounting-reporter-metal-token
+  kubernetes.core.k8s:
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: "accounting-reporter-metal-token"
+        namespace: "{{ metal_control_plane_namespace }}"
+        labels:
+          app: accounting-reporter
+      data:
+        token: "{{ _token.secret | b64encode }}"
+    apply: true
+  when: '"secret" in _token'
+
 - name: Deploy accounting
   k8s:
     definition: "{{ lookup('template', 'accounting.yaml') }}"
+    namespace: "{{ accounting_namespace }}"
+    apply: yes
+
+- name: Deploy token refresher
+  k8s:
+    definition: "{{ lookup('template', 'token-refresher.yaml') }}"
     namespace: "{{ accounting_namespace }}"
     apply: yes
