@@ -1,14 +1,6 @@
 ---
-masterdata:
-  ca: |
-    {{ api_server_masterdata_api_ca | indent(width=4, first=false) }}
-  cert: |
-    {{ api_server_masterdata_api_cert | indent(width=4, first=false) }}
-  certKey: |
-    {{ api_server_masterdata_api_cert_key | indent(width=4, first=false) }}
-  hostname: "{{ api_server_masterdata_api_hostname }}"
-  port: "{{ api_server_masterdata_api_port }}"
-  hmac: "{{ api_server_masterdata_api_hmac }}"
+tenant:
+  url: "{{ api_server_tenant_apiserver_url }}"
 
 auditing:
   enabled: "{{ api_server_auditing_timescaledb_enabled | lower }}"

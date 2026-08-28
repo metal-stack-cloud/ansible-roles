@@ -1,17 +1,6 @@
 ---
-masterdata:
-  ca: |
-    A certificate
-    with multiple lines
-  cert: |
-    A certificate
-    with multiple lines
-  certKey: |
-    A certificate
-    with multiple lines
-  hostname: mastedata
-  port: 3000
-  hmac: secret-hmac
+tenant:
+  url: http://tenant-apiserver.metal-control-plane.svc.cluster.local:8080
 
 tokenStore:
   addr:
