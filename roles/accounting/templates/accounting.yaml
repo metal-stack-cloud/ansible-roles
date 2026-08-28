@@ -7,19 +7,6 @@ data:
   config.yaml: |
     {{ lookup('template', 'accounting-config.yaml') | indent(width=4, first=false) }}
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: reporter-masterdata-api-certs
-type: Opaque
-stringData:
-  ca.pem: |
-    {{ accounting_masterdata_api_ca | indent(width=4, first=false) }}
-  cert.pem: |
-    {{ accounting_masterdata_api_cert | indent(width=4, first=false) }}
-  cert-key.pem: |
-    {{ accounting_masterdata_api_cert_key | indent(width=4, first=false) }}
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -46,15 +33,19 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/accounting/reporter/
-        - name: masterdata-api-certs
-          mountPath: /certs/masterdata-api/
+        - name: metal-token
+          mountPath: /metal
+          readOnly: true
       volumes:
         - name: config
           configMap:
             name: reporter-config
-        - name: masterdata-api-certs
+        - name: metal-token
           secret:
-            secretName: reporter-masterdata-api-certs
+            secretName: "accounting-reporter-metal-token"
+            items:
+            - key: "token"
+              path: token
 ---
 apiVersion: v1
 kind: ConfigMap

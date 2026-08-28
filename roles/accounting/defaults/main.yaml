@@ -6,15 +6,26 @@ accounting_log_level: info
 # do not enable this for production use-cases
 accounting_log_only: false
 
-accounting_metal_api_url: http://metal-api.metal-control-plane.svc.cluster.local:8080
-accounting_metal_api_hmac: metal-view
+accounting_deployment_admin_token: "{{ hostvars['localhost'].metal_deployment_admin_token }}"
+accounting_metal_apiserver_url: http://metal-apiserver.metal-control-plane.svc.cluster.local:8080
+accounting_metal_apiserver_token_expiration: 144h
+accounting_metal_apiserver_token_refresher_image_name: "{{ metal_token_refresher_image_name }}"
+accounting_metal_apiserver_token_refresher_image_tag: "{{ metal_token_refresher_image_tag }}"
+accounting_metal_apiserver_token_refresher_image_pull_policy: IfNotPresent
+accounting_metal_apiserver_token_refresher_resources:
+accounting_metal_apiserver_token_refresher_schedule: "@hourly"
+accounting_metal_apiserver_token_permissions:
+  - admin:
+      methods:
+        - /metalstack.admin.v2.MachineService/List
+  - infra:
+      methods:
+        - /metalstack.infra.v2.ComponentService/Ping
 
 accounting_api_url: http://api-server.{{ metal_stack_cloud_namespace }}.svc.cluster.local:8080
 accounting_api_token: "{{ lookup('k8s', api_version='v1', kind='Secret', namespace=api_server_namespace, resource_name='accounting-reporter-token').get('data', {}).get('token') | b64decode }}"
 
-accounting_masterdata_api_hostname: masterdata-api.metal-control-plane.svc.cluster.local
-accounting_masterdata_api_hmac: change-me
-accounting_masterdata_api_port: 8443
+accounting_tenant_apiserver_url: http://tenant-apiserver.metal-control-plane.svc.cluster.local
 
 accounting_nsqd_address: nsqd:4150
 

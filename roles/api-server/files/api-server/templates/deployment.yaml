@@ -68,9 +68,7 @@ spec:
           - --oidc-tls-skip-verify={{ .Values.api.oidc.tlsSkipVerify }}
           - --stripe-secret-key={{ .Values.api.stripe.secretKey }}
           - --stripe-public-token={{ .Values.api.stripe.publicToken }}
-          - --masterdata-api-hostname={{ .Values.masterdata.hostname }}
-          - --masterdata-api-port={{ .Values.masterdata.port }}
-          - --masterdata-api-hmac={{ .Values.masterdata.hmac }}
+          - --tenant-apiserver-url={{ .Values.tenant.url }}
           - --metal-api-url={{ .Values.metal.url }}
           - --metal-api-hmac={{ .Values.metal.hmac }}
           - --redis-addr={{ .Values.tokenStore.addr }}
@@ -115,8 +113,6 @@ spec:
 {{ toYaml .Values.api.resources | indent 10 }}
 {{- end }}
         volumeMounts:
-        - name: masterdata-api-certs
-          mountPath: /certs/
         - name: duros-config
           mountPath: /duros/
 {{- if .Values.virtualGardenKubeconfigRefresher.enabled }}
@@ -131,9 +127,6 @@ spec:
           mountPath: /app-config
 {{- end }}
       volumes:
-        - name: masterdata-api-certs
-          secret:
-            secretName: masterdata-api-certs
         - name: duros-config
           secret:
             secretName: duros-config
