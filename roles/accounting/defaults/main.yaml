@@ -12,9 +12,7 @@ accounting_metal_api_hmac: metal-view
 accounting_api_url: http://api-server.{{ metal_stack_cloud_namespace }}.svc.cluster.local:8080
 accounting_api_token: "{{ lookup('k8s', api_version='v1', kind='Secret', namespace=api_server_namespace, resource_name='accounting-reporter-token').get('data', {}).get('token') | b64decode }}"
 
-accounting_masterdata_api_hostname: masterdata-api.metal-control-plane.svc.cluster.local
-accounting_masterdata_api_hmac: change-me
-accounting_masterdata_api_port: 8443
+accounting_tenant_apiserver_url: http://tenant-apiserver.metal-control-plane.svc.cluster.local
 
 accounting_nsqd_address: nsqd:4150
 

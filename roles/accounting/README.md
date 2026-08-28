@@ -13,12 +13,7 @@ This role deploys the accounting stack for metal-stack-cloud. It includes NSQ (m
 | `accounting_metal_api_hmac`          |           | HMAC secret for metal-api authentication                           |
 | `accounting_api_url`                 |           | URL of the api-server instance                                     |
 | `accounting_api_token`               |           | Token for authenticating with the api-server                       |
-| `accounting_masterdata_api_hostname` |           | Hostname of the masterdata API                                     |
-| `accounting_masterdata_api_hmac`     |           | HMAC secret for masterdata API authentication                      |
-| `accounting_masterdata_api_port`     |           | Port of the masterdata API                                         |
-| `accounting_masterdata_api_ca`       |           | CA certificate for masterdata API TLS                              |
-| `accounting_masterdata_api_cert`     |           | Client certificate for masterdata API TLS                          |
-| `accounting_masterdata_api_cert_key` |           | Client certificate key for masterdata API TLS                      |
+| `accounting_tenant_apiserver_url`    |           | Url of the tenant-apiserver                                        |
 | `accounting_stripe_private_token`    |           | Stripe private token for accounting sender                         |
 | `accounting_nsqd_address`            |           | NSQ daemon address                                                 |
 | `accounting_nsq_set_resource_limits` |           | Whether to set resource limits for NSQ pods                        |
