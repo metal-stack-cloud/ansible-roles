@@ -1,5 +1,8 @@
 ---
 # find the chart values here: https://artifacthub.io/packages/helm/enapter/keydb
+imageRepository: {{ keydb_image_name }}
+imageTag: {{ keydb_image_tag }}
+
 nodes: {{ keydb_nodes }}
 
 password: {{ keydb_password }}
@@ -14,3 +17,138 @@ readinessProbeRandomUuid: fd5fed7a-af22-4531-870d-bd6da36a5d0f
 
 persistentVolume:
   size: {{ keydb_size }}
+
+extraInitContainers:
+- name: backup-restore-sidecar-provider
+  image: {{ keydb_backup_restore_sidecar_image_name }}:{{ keydb_backup_restore_sidecar_image_tag }}
+  imagePullPolicy: {{ keydb_backup_restore_sidecar_image_pull_policy }}
+  resources: {{ keydb_init_resources | to_json }}
+{% if keydb_enable_security_context %}
+  securityContext: {{ keydb_container_security_context | to_json }}
+{% endif %}
+  command:
+  - cp
+  - /backup-restore-sidecar
+  - /bin-provision
+  volumeMounts:
+  - name: bin-provision
+    mountPath: /bin-provision
+volumes:
+- name: token-store
+  persistentVolumeClaim:
+    claimName: token-store
+- name: backup
+  persistentVolumeClaim:
+    claimName: backup
+- name: backup-restore-sidecar-config
+  configMap:
+    name: backup-restore-sidecar-config-keydb-token-store
+{% if keydb_backup_restore_sidecar_provider == "gcp" %}
+- name: gcp-credentials
+  secret:
+    secretName: backup-restore-sidecar-backup-provider-config-token-store
+    items:
+    - key: serviceaccount.json
+      path: serviceaccount.json
+{% endif %}
+- name: bin-provision
+  emptyDir: {}
+
+extraContainers:
+- name: backup-restore-sidecar
+  image: {{ keydb_image_name }}:{{ keydb_image_tag }}
+  imagePullPolicy: {{ keydb_image_pull_policy }}
+  command:
+  - backup-restore-sidecar
+  - start
+  ports:
+  - containerPort: 8000
+    name: grpc
+  resources: {{ keydb_backup_restore_sidecar_resources | to_json }}
+{% if keydb_enable_security_context %}
+  securityContext: {{ keydb_container_security_context | to_json }}
+{% endif %}
+  env:
+{% if keydb_backup_restore_sidecar_encryption_key %}
+  - name: BACKUP_RESTORE_SIDECAR_ENCRYPTION_KEY
+    valueFrom:
+      secretKeyRef:
+        key: encryptionKey
+        name: backup-restore-sidecar-backup-provider-config-token-store
+{% endif %}
+{% if keydb_backup_restore_sidecar_provider == "gcp" %}
+  - name: BACKUP_RESTORE_SIDECAR_GCP_PROJECT
+    valueFrom:
+      secretKeyRef:
+        key: projectID
+        name: backup-restore-sidecar-backup-provider-config-token-store
+  - name: BACKUP_RESTORE_SIDECAR_GCP_BUCKET_NAME
+    valueFrom:
+      secretKeyRef:
+        key: bucketName
+        name: backup-restore-sidecar-backup-provider-config-token-store
+  - name: BACKUP_RESTORE_SIDECAR_GCP_BUCKET_LOCATION
+    valueFrom:
+      secretKeyRef:
+        key: bucketLocation
+        name: backup-restore-sidecar-backup-provider-config-token-store
+  - name: GOOGLE_APPLICATION_CREDENTIALS
+    value: /gcp/credentials/serviceaccount.json
+{% elif keydb_backup_restore_sidecar_provider == "s3" %}
+  - name: BACKUP_RESTORE_SIDECAR_S3_BUCKET_NAME
+    valueFrom:
+      secretKeyRef:
+        key: bucketName
+        name: backup-restore-sidecar-backup-provider-config-token-store
+  - name: BACKUP_RESTORE_SIDECAR_S3_REGION
+    valueFrom:
+      secretKeyRef:
+        key: region
+        name: backup-restore-sidecar-backup-provider-config-token-store
+  - name: BACKUP_RESTORE_SIDECAR_S3_ENDPOINT
+    valueFrom:
+      secretKeyRef:
+        key: endpoint
+        name: backup-restore-sidecar-backup-provider-config-token-store
+  - name: BACKUP_RESTORE_SIDECAR_S3_ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        key: accessKey
+        name: backup-restore-sidecar-backup-provider-config-token-store
+  - name: BACKUP_RESTORE_SIDECAR_S3_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        key: secretKey
+        name: backup-restore-sidecar-backup-provider-config-token-store
+{% if keydb_backup_restore_sidecar_s3_insecure_skip_verify %}
+  - name: BACKUP_RESTORE_SIDECAR_S3_INSECURE_SKIP_VERIFY
+    valueFrom:
+      secretKeyRef:
+        key: insecureSkipVerify
+        name: backup-restore-sidecar-backup-provider-config-token-store
+{% endif %}
+{% if keydb_backup_restore_sidecar_s3_trusted_ca_cert %}
+  - name: BACKUP_RESTORE_SIDECAR_S3_TRUSTED_CA_CERT
+    valueFrom:
+      secretKeyRef:
+        key: trustedCaCert
+        name: backup-restore-sidecar-backup-provider-config-token-store
+{% endif %}
+{% endif %}
+  volumeMounts:
+  - mountPath: /data
+    name: token-store
+  - mountPath: /backup
+    name: backup
+  - name: backup-restore-sidecar-config
+    mountPath: /etc/backup-restore-sidecar
+  - name: bin-provision
+    subPath: backup-restore-sidecar
+    mountPath: /usr/local/bin/backup-restore-sidecar
+{% if keydb_backup_restore_sidecar_provider == "gcp" %}
+  - name: gcp-credentials
+    mountPath: /gcp/credentials
+    readOnly: true
+{% endif %}
+
+extraVolumes:

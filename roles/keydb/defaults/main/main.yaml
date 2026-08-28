@@ -3,8 +3,29 @@ keydb_namespace: "{{ metal_stack_cloud_namespace }}"
 
 keydb_chart_repo: https://enapter.github.io/charts
 keydb_chart_version: "0.48.0"
+keydb_image_name: "{{ metal_stack_cloud_keydb_image_name }}"
+keydb_image_tag: "{{ metal_stack_cloud_keydb_image_tag  }}"
 
 keydb_nodes: 3
 keydb_password: change-me
 
 keydb_size: 10Gi
+
+keydb_backup_restore_sidecar_image_pull_policy: "{{ metal_control_plane_image_pull_policy }}"
+keydb_backup_restore_sidecar_provider: local
+keydb_backup_restore_sidecar_backup_cron_schedule: "*/3 * * * *"
+keydb_backup_restore_sidecar_log_level: debug
+
+keydb_backup_restore_sidecar_gcp_bucket_name:
+keydb_backup_restore_sidecar_gcp_backup_location:
+keydb_backup_restore_sidecar_gcp_project_id:
+keydb_backup_restore_sidecar_gcp_serviceaccount_json:
+keydb_backup_restore_sidecar_s3_bucket_name:
+keydb_backup_restore_sidecar_s3_region:
+keydb_backup_restore_sidecar_s3_endpoint:
+keydb_backup_restore_sidecar_s3_access_key:
+keydb_backup_restore_sidecar_s3_secret_key:
+keydb_backup_restore_sidecar_s3_insecure_skip_verify:
+keydb_backup_restore_sidecar_s3_trusted_ca_cert:
+keydb_backup_restore_sidecar_object_max_keep: 480
+keydb_backup_restore_sidecar_encryption_key:

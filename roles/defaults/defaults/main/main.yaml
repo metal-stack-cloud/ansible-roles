@@ -14,3 +14,5 @@ metal_stack_cloud_release:
     # third party
     metal_stack_cloud_nsq_image_tag: "docker-images.third-party.nsq.tag"
     metal_stack_cloud_nsq_image_name: "docker-images.third-party.nsq.name"
+    metal_stack_cloud_keydb_image_tag: "docker-images.third-party.keydb.tag"
+    metal_stack_cloud_keydb_image_name: "docker-images.third-party.keydb.name"
