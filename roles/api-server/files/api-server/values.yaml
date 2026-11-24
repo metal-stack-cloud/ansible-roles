@@ -95,6 +95,7 @@ api:
     discoveryURL: discovery-url
     endSessionURL: end-session-url
     uniqueUserKey:
+    additional_scopes:
     tlsSkipVerify: false
 
   stripe:
